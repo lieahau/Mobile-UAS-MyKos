@@ -1,1 +1,1 @@
-[]
+[{"navFile":"src\\main\\res\\navigation\\nav_graph.xml","javaFiles":["id.ac.umn.mykos.LoginFragmentDirections","id.ac.umn.mykos.DashboardFragmentDirections","id.ac.umn.mykos.overviewFragmentDirections","id.ac.umn.mykos.roomDetailFragmentDirections"]}]
