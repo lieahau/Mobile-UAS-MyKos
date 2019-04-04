@@ -1,3 +1,48 @@
 <resources>
     <string name="app_name">MyKos</string>
+    <string name="placeholderstrip">--------</string>
+    <string name="placeholderpoint">&#8230;</string>
+    <string name="cancel">Cancel</string>
+    <string name="ok">OK</string>
+
+    <!-- Main Menu -->
+    <string name="dashboard">Dashboard</string>
+    <string name="overview">Overview</string>
+    <string name="settings">Settings</string>
+
+    <!-- Room Details -->
+    <string name="room">Room</string>
+    <string name="roomid">Room ID</string>
+    <string name="name">Name : </string>
+    <string name="contact">Contact : </string>
+    <string name="firstlivedate">First Live Date : </string>
+    <string name="daysbeforepay">Days before pay : </string>
+    <string name="nextdeadline">Next Deadline : </string>
+    <string name="reset">Reset</string>
+
+    <!-- Dashboard -->
+    <string name="search">Search</string>
+    <string name="inputname">Input Name&#8230;</string>
+
+    <string name="sort">Sort</string>
+    <string name="sortbyname">Sort by name</string>
+    <string name="sortbyid">Sort by ID</string>
+    <string name="sortbydeadline">Sort by deadline</string>
+
+    <!-- Overview -->
+    <string name="occupied">Occupied</string>
+    <string name="empty">Empty</string>
+    <string name="reserved">Reserved</string>
+
+    <!-- Settings -->
+    <string name="numberofrooms">Number of rooms</string>
+    <string name="howmanyroom">How many room?</string>
+
+    <string name="roomidvalue">Room ID value</string>
+    <string name="alphabetic">Alphabetic</string>
+    <string name="numeric">Numeric</string>
+
+    <string name="maximalduedate">Maximal due date</string>
+    <string name="howmanyday">How many day?</string>
+
 </resources>
