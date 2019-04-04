@@ -42,7 +42,7 @@
     <!-- START OVERVIEW FRAGMENT -->
     <fragment
         android:id="@+id/overviewFragment"
-        android:name="id.ac.umn.mykos.overviewFragment"
+        android:name="id.ac.umn.mykos.OverviewFragment"
         android:label="fragment_overview"
         tools:layout="@layout/fragment_overview" >
         <action
@@ -64,7 +64,7 @@
     <!-- START ROOM DETAIL FRAGMENT -->
     <fragment
         android:id="@+id/roomDetailFragment"
-        android:name="id.ac.umn.mykos.roomDetailFragment"
+        android:name="id.ac.umn.mykos.RoomDetailFragment"
         android:label="fragment_room_detail"
         tools:layout="@layout/fragment_room_detail" />
     <!-- END ROOM DETAIL FRAGMENT -->
@@ -72,7 +72,7 @@
     <!-- START SETTINGS FRAGMENT -->
     <fragment
         android:id="@+id/settingsFragment"
-        android:name="id.ac.umn.mykos.settingsFragment"
+        android:name="id.ac.umn.mykos.SettingsFragment"
         android:label="fragment_settings"
         tools:layout="@layout/fragment_settings" >
         <action
