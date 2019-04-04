@@ -5,6 +5,7 @@
     android:id="@+id/nav_graph"
     app:startDestination="@id/loginFragment">
 
+    <!-- START LOGIN FRAGMENT -->
     <fragment
         android:id="@+id/loginFragment"
         android:name="id.ac.umn.mykos.LoginFragment"
@@ -14,6 +15,9 @@
             android:id="@+id/action_loginFragment_to_dashboardFragment"
             app:destination="@id/dashboardFragment" />
     </fragment>
+    <!-- END LOGIN FRAGMENT -->
+
+    <!-- START DASHBOARD FRAGMENT -->
     <fragment
         android:id="@+id/dashboardFragment"
         android:name="id.ac.umn.mykos.DashboardFragment"
@@ -21,14 +25,21 @@
         tools:layout="@layout/fragment_dashboard" >
         <action
             android:id="@+id/action_dashboardFragment_to_overviewFragment"
-            app:destination="@id/overviewFragment" />
+            app:destination="@id/overviewFragment"
+            app:popUpTo="@id/overviewFragment"
+            app:popUpToInclusive="true"/>
+        <action
+            android:id="@+id/action_dashboardFragment_to_settingsFragment"
+            app:destination="@id/settingsFragment"
+            app:popUpTo="@id/settingsFragment"
+            app:popUpToInclusive="true"/>
         <action
             android:id="@+id/action_dashboardFragment_to_roomDetailFragment"
             app:destination="@id/roomDetailFragment" />
-        <action
-            android:id="@+id/action_dashboardFragment_to_settingsFragment"
-            app:destination="@id/settingsFragment" />
     </fragment>
+    <!-- END DASHBOARD FRAGMENT -->
+
+    <!-- START OVERVIEW FRAGMENT -->
     <fragment
         android:id="@+id/overviewFragment"
         android:name="id.ac.umn.mykos.overviewFragment"
@@ -36,19 +47,29 @@
         tools:layout="@layout/fragment_overview" >
         <action
             android:id="@+id/action_overviewFragment_to_dashboardFragment"
-            app:destination="@id/dashboardFragment" />
+            app:destination="@id/dashboardFragment"
+            app:popUpTo="@id/dashboardFragment"
+            app:popUpToInclusive="true"/>
+        <action
+            android:id="@+id/action_overviewFragment_to_settingsFragment"
+            app:destination="@id/settingsFragment"
+            app:popUpTo="@id/dashboardFragment"
+            app:popUpToInclusive="true"/>
         <action
             android:id="@+id/action_overviewFragment_to_roomDetailFragment"
             app:destination="@id/roomDetailFragment" />
-        <action
-            android:id="@+id/action_overviewFragment_to_settingsFragment"
-            app:destination="@id/settingsFragment" />
     </fragment>
+    <!-- END OVERVIEW FRAGMENT -->
+
+    <!-- START ROOM DETAIL FRAGMENT -->
     <fragment
         android:id="@+id/roomDetailFragment"
         android:name="id.ac.umn.mykos.roomDetailFragment"
         android:label="fragment_room_detail"
         tools:layout="@layout/fragment_room_detail" />
+    <!-- END ROOM DETAIL FRAGMENT -->
+
+    <!-- START SETTINGS FRAGMENT -->
     <fragment
         android:id="@+id/settingsFragment"
         android:name="id.ac.umn.mykos.settingsFragment"
@@ -56,9 +77,14 @@
         tools:layout="@layout/fragment_settings" >
         <action
             android:id="@+id/action_settingsFragment_to_overviewFragment"
-            app:destination="@id/overviewFragment" />
+            app:destination="@id/overviewFragment"
+            app:popUpTo="@id/overviewFragment"
+            app:popUpToInclusive="true"/>
         <action
             android:id="@+id/action_settingsFragment_to_dashboardFragment"
-            app:destination="@id/dashboardFragment" />
+            app:destination="@id/dashboardFragment"
+            app:popUpTo="@id/dashboardFragment"
+            app:popUpToInclusive="true"/>
     </fragment>
+    <!-- END SETTINGS FRAGMENT -->
 </navigation>

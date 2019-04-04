@@ -34,11 +34,6 @@
                                 <LayoutPositions />
                               </value>
                             </entry>
-                            <entry key="action_dashboardFragment_to_settingsFragment2">
-                              <value>
-                                <LayoutPositions />
-                              </value>
-                            </entry>
                           </map>
                         </option>
                       </LayoutPositions>
@@ -101,8 +96,8 @@
                       <LayoutPositions>
                         <option name="myPosition">
                           <Point>
-                            <option name="x" value="768" />
-                            <option name="y" value="-257" />
+                            <option name="x" value="772" />
+                            <option name="y" value="-217" />
                           </Point>
                         </option>
                       </LayoutPositions>
@@ -113,8 +108,8 @@
                       <LayoutPositions>
                         <option name="myPosition">
                           <Point>
-                            <option name="x" value="453" />
-                            <option name="y" value="418" />
+                            <option name="x" value="455" />
+                            <option name="y" value="366" />
                           </Point>
                         </option>
                         <option name="myPositions">
