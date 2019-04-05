@@ -9,7 +9,6 @@
     <fragment
         android:id="@+id/loginFragment"
         android:name="id.ac.umn.mykos.LoginFragment"
-        android:label="fragment_login"
         tools:layout="@layout/fragment_login" >
         <action
             android:id="@+id/action_loginFragment_to_dashboardFragment"
@@ -21,7 +20,6 @@
     <fragment
         android:id="@+id/dashboardFragment"
         android:name="id.ac.umn.mykos.DashboardFragment"
-        android:label="fragment_dashboard"
         tools:layout="@layout/fragment_dashboard" >
         <action
             android:id="@+id/action_dashboardFragment_to_overviewFragment"
@@ -43,7 +41,6 @@
     <fragment
         android:id="@+id/overviewFragment"
         android:name="id.ac.umn.mykos.OverviewFragment"
-        android:label="fragment_overview"
         tools:layout="@layout/fragment_overview" >
         <action
             android:id="@+id/action_overviewFragment_to_dashboardFragment"
@@ -65,7 +62,6 @@
     <fragment
         android:id="@+id/roomDetailFragment"
         android:name="id.ac.umn.mykos.RoomDetailFragment"
-        android:label="fragment_room_detail"
         tools:layout="@layout/fragment_room_detail" />
     <!-- END ROOM DETAIL FRAGMENT -->
 
@@ -73,7 +69,6 @@
     <fragment
         android:id="@+id/settingsFragment"
         android:name="id.ac.umn.mykos.SettingsFragment"
-        android:label="fragment_settings"
         tools:layout="@layout/fragment_settings" >
         <action
             android:id="@+id/action_settingsFragment_to_overviewFragment"
