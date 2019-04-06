@@ -52,25 +52,20 @@ public class DashboardFragment extends Fragment {
         setHasOptionsMenu(true);
         toolbar = view.findViewById(R.id.toolbar);
         toggle = new ActionBarDrawerToggle(getActivity(), drawerLayout, toolbar, R.string.opennavdrawer, R.string.closenavdrawer);
+        ((MainActivity)getActivity()).setSupportActionBar(toolbar);
         ((MainActivity)getActivity()).setDrawerToolbar(toolbar, toggle, drawerLayout);
         /* END CREATE TOOLBAR */
-
-        /* TODO: THIS IS PLACEHOLDER */
-        Button room = view.findViewById(R.id.btn_to_room);
-        room.setOnClickListener(Navigation.createNavigateOnClickListener(R.id.roomDetailFragment));
     }
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch(item.getItemId()){
             case android.R.id.home:
-                if (getActivity().getSupportFragmentManager().getBackStackEntryCount() > 0) { // back button pressed
-                    if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
-                        drawerLayout.closeDrawer(GravityCompat.START);
-                    }
-                }
+                if (drawerLayout.isDrawerOpen(GravityCompat.START))
+                    drawerLayout.closeDrawer(GravityCompat.START);
                 else
                     drawerLayout.openDrawer(navigationView);
+
                 return true;
 
             default:

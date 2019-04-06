@@ -53,6 +53,7 @@ public class SettingsFragment extends Fragment {
         setHasOptionsMenu(true);
         toolbar = view.findViewById(R.id.toolbar);
         toggle = new ActionBarDrawerToggle(getActivity(), drawerLayout, toolbar, R.string.opennavdrawer, R.string.closenavdrawer);
+        ((MainActivity)getActivity()).setSupportActionBar(toolbar);
         ((MainActivity)getActivity()).setDrawerToolbar(toolbar, toggle, drawerLayout);
         /* END CREATE TOOLBAR */
 
@@ -63,11 +64,8 @@ public class SettingsFragment extends Fragment {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch(item.getItemId()){
             case android.R.id.home:
-                if (getActivity().getSupportFragmentManager().getBackStackEntryCount() > 0) { // back button pressed
-                    if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
-                        drawerLayout.closeDrawer(GravityCompat.START);
-                    }
-                }
+                if (drawerLayout.isDrawerOpen(GravityCompat.START))
+                    drawerLayout.closeDrawer(GravityCompat.START);
                 else
                     drawerLayout.openDrawer(navigationView);
                 return true;

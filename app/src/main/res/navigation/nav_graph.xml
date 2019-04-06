@@ -9,7 +9,8 @@
     <fragment
         android:id="@+id/loginFragment"
         android:name="id.ac.umn.mykos.LoginFragment"
-        tools:layout="@layout/fragment_login" >
+        android:label="@string/loginFragment"
+        tools:layout="@layout/fragment_login">
         <action
             android:id="@+id/action_loginFragment_to_dashboardFragment"
             app:destination="@id/dashboardFragment" />
@@ -20,17 +21,18 @@
     <fragment
         android:id="@+id/dashboardFragment"
         android:name="id.ac.umn.mykos.DashboardFragment"
-        tools:layout="@layout/fragment_dashboard" >
+        android:label="@string/dashboardFragment"
+        tools:layout="@layout/fragment_dashboard">
         <action
             android:id="@+id/action_dashboardFragment_to_overviewFragment"
             app:destination="@id/overviewFragment"
             app:popUpTo="@id/overviewFragment"
-            app:popUpToInclusive="true"/>
+            app:popUpToInclusive="true" />
         <action
             android:id="@+id/action_dashboardFragment_to_settingsFragment"
             app:destination="@id/settingsFragment"
             app:popUpTo="@id/settingsFragment"
-            app:popUpToInclusive="true"/>
+            app:popUpToInclusive="true" />
         <action
             android:id="@+id/action_dashboardFragment_to_roomDetailFragment"
             app:destination="@id/roomDetailFragment" />
@@ -41,17 +43,18 @@
     <fragment
         android:id="@+id/overviewFragment"
         android:name="id.ac.umn.mykos.OverviewFragment"
-        tools:layout="@layout/fragment_overview" >
+        android:label="@string/overviewFragment"
+        tools:layout="@layout/fragment_overview">
         <action
             android:id="@+id/action_overviewFragment_to_dashboardFragment"
             app:destination="@id/dashboardFragment"
             app:popUpTo="@id/dashboardFragment"
-            app:popUpToInclusive="true"/>
+            app:popUpToInclusive="true" />
         <action
             android:id="@+id/action_overviewFragment_to_settingsFragment"
             app:destination="@id/settingsFragment"
             app:popUpTo="@id/dashboardFragment"
-            app:popUpToInclusive="true"/>
+            app:popUpToInclusive="true" />
         <action
             android:id="@+id/action_overviewFragment_to_roomDetailFragment"
             app:destination="@id/roomDetailFragment" />
@@ -62,6 +65,7 @@
     <fragment
         android:id="@+id/roomDetailFragment"
         android:name="id.ac.umn.mykos.RoomDetailFragment"
+        android:label="@string/roomDetailFragment"
         tools:layout="@layout/fragment_room_detail" />
     <!-- END ROOM DETAIL FRAGMENT -->
 
@@ -69,17 +73,18 @@
     <fragment
         android:id="@+id/settingsFragment"
         android:name="id.ac.umn.mykos.SettingsFragment"
-        tools:layout="@layout/fragment_settings" >
+        android:label="@string/settingsFragment"
+        tools:layout="@layout/fragment_settings">
         <action
             android:id="@+id/action_settingsFragment_to_overviewFragment"
             app:destination="@id/overviewFragment"
             app:popUpTo="@id/overviewFragment"
-            app:popUpToInclusive="true"/>
+            app:popUpToInclusive="true" />
         <action
             android:id="@+id/action_settingsFragment_to_dashboardFragment"
             app:destination="@id/dashboardFragment"
             app:popUpTo="@id/dashboardFragment"
-            app:popUpToInclusive="true"/>
+            app:popUpToInclusive="true" />
     </fragment>
     <!-- END SETTINGS FRAGMENT -->
 </navigation>

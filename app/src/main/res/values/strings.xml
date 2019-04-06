@@ -51,4 +51,12 @@
     <string name="maximalduedate">Maximal due date</string>
     <string name="howmanyday">How many day?</string>
 
+    <!-- Fragment tag-->
+    <string name="loginFragment">loginFragment</string>
+    <string name="dashboardFragment">dashboardFragment</string>
+    <string name="overviewFragment">overviewFragment</string>
+    <string name="settingsFragment">settingsFragment</string>
+    <string name="roomDetailFragment">roomDetailFragment</string>
+
+
 </resources>
