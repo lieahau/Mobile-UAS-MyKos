@@ -11,6 +11,7 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -21,11 +22,16 @@ import android.widget.Button;
 
 import com.google.android.material.navigation.NavigationView;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+
 public class DashboardFragment extends Fragment {
     private DrawerLayout drawerLayout;
     private ActionBarDrawerToggle toggle;
     private Toolbar toolbar;
     private NavigationView navigationView;
+    private RecyclerView dashboardList;
+    private ListDashboardAdapter dashboardAdapter = new ListDashboardAdapter(new ArrayList<String>(Arrays.asList("1", "2", "3", "4", "5")));
 
     public DashboardFragment() {
         // Required empty public constructor
@@ -55,6 +61,11 @@ public class DashboardFragment extends Fragment {
         ((MainActivity)getActivity()).setSupportActionBar(toolbar);
         ((MainActivity)getActivity()).setDrawerToolbar(toolbar, toggle, drawerLayout);
         /* END CREATE TOOLBAR */
+
+        /* START HANDLING DASHBOARD LIST*/
+        dashboardList = view.findViewById(R.id.dashboardList);
+        dashboardList.setAdapter(dashboardAdapter);
+        /* END HANDLING DASHBOARD LIST*/
     }
 
     @Override

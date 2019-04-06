@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:app="http://schemas.android.com/apk/res-auto"
+	xmlns:tools="http://schemas.android.com/tools"
+	android:id="@+id/list_dashboard"
+	android:layout_width="match_parent"
+	android:layout_height="wrap_content"
+	android:maxHeight="125dp"
+	android:orientation="vertical">
+
+	<TextView
+		android:id="@+id/RoomIDLabel"
+		android:layout_width="0dp"
+		android:layout_height="35dp"
+		android:layout_marginStart="8dp"
+		android:layout_marginTop="2dp"
+		android:layout_marginEnd="8dp"
+		android:autoSizeMinTextSize="14sp"
+		android:autoSizeTextType="uniform"
+		android:text="@string/roomid"
+		android:textAlignment="center"
+		android:textColor="@color/colorLine"
+		app:layout_constraintBottom_toTopOf="@+id/RoomID"
+		app:layout_constraintEnd_toStartOf="@+id/guideline"
+		app:layout_constraintHorizontal_bias="0.5"
+		app:layout_constraintStart_toStartOf="parent"
+		app:layout_constraintTop_toTopOf="parent"
+		app:layout_constraintVertical_chainStyle="spread_inside" />
+
+	<TextView
+		android:id="@+id/RoomID"
+		android:layout_width="0dp"
+		android:layout_height="0dp"
+		android:layout_marginStart="16dp"
+		android:layout_marginTop="8dp"
+		android:layout_marginEnd="16dp"
+		android:layout_marginBottom="8dp"
+		android:autoSizeMaxTextSize="30sp"
+		android:autoSizeTextType="uniform"
+		android:background="@drawable/drawable_circle"
+		android:gravity="center"
+		android:textAlignment="center"
+		android:textColor="@color/colorLine"
+		app:layout_constraintBottom_toBottomOf="parent"
+		app:layout_constraintDimensionRatio="W, 1:1"
+		app:layout_constraintEnd_toStartOf="@+id/guideline"
+		app:layout_constraintHorizontal_bias="0.5"
+		app:layout_constraintStart_toStartOf="parent"
+		app:layout_constraintTop_toBottomOf="@+id/RoomIDLabel" />
+
+	<TextView
+		android:id="@+id/NameLabel"
+		android:layout_width="75dp"
+		android:layout_height="0dp"
+		android:layout_marginStart="8dp"
+		android:layout_marginTop="2dp"
+		android:layout_marginBottom="2dp"
+		android:autoSizeMinTextSize="20sp"
+		android:autoSizeTextType="uniform"
+		android:gravity="center"
+		android:maxLines="1"
+		android:text="@string/name"
+		android:textAlignment="center"
+		android:textColor="@color/colorLine"
+		app:layout_constraintBottom_toTopOf="@+id/guideline3"
+		app:layout_constraintStart_toStartOf="@+id/guideline"
+		app:layout_constraintTop_toTopOf="parent" />
+
+	<TextView
+		android:id="@+id/NameData"
+		android:layout_width="0dp"
+		android:layout_height="0dp"
+		android:layout_marginStart="8dp"
+		android:layout_marginEnd="8dp"
+		android:autoSizeTextType="uniform"
+		android:contentDescription="Person Name"
+		android:gravity="center"
+		android:maxLines="1"
+		android:textAlignment="center"
+		android:textColor="@color/colorLine"
+		app:layout_constraintBottom_toBottomOf="@+id/NameLabel"
+		app:layout_constraintEnd_toEndOf="parent"
+		app:layout_constraintStart_toEndOf="@+id/NameLabel"
+		app:layout_constraintTop_toTopOf="@+id/NameLabel" />
+
+	<TextView
+		android:id="@+id/DeadlineLabel"
+		android:layout_width="110dp"
+		android:layout_height="0dp"
+		android:layout_marginTop="8dp"
+		android:layout_marginBottom="8dp"
+		android:autoSizeMinTextSize="12sp"
+		android:autoSizeTextType="uniform"
+		android:maxLines="1"
+		android:text="@string/nextdeadline"
+		android:textColor="@color/colorLine"
+		app:layout_constraintBottom_toTopOf="@+id/guideline4"
+		app:layout_constraintStart_toStartOf="@+id/NameLabel"
+		app:layout_constraintTop_toTopOf="@+id/guideline3" />
+
+	<TextView
+		android:id="@+id/DeadlineData"
+		android:layout_width="0dp"
+		android:layout_height="0dp"
+		android:layout_marginStart="8dp"
+		android:layout_marginEnd="8dp"
+		android:autoSizeTextType="uniform"
+		android:contentDescription="Pay Deadline"
+		android:maxLines="1"
+		android:textColor="@color/colorLine"
+		app:layout_constraintBottom_toBottomOf="@+id/DeadlineLabel"
+		app:layout_constraintEnd_toEndOf="parent"
+		app:layout_constraintStart_toEndOf="@+id/DeadlineLabel"
+		app:layout_constraintTop_toTopOf="@+id/DeadlineLabel" />
+
+	<ImageView
+		android:id="@+id/listBoundary"
+		android:layout_width="0dp"
+		android:layout_height="1dp"
+		app:layout_constraintBottom_toBottomOf="parent"
+		app:layout_constraintEnd_toEndOf="parent"
+		app:layout_constraintHorizontal_bias="1.0"
+		app:layout_constraintStart_toStartOf="parent"
+		app:srcCompat="@drawable/drawable_line" />
+
+	<ImageView
+		android:id="@+id/imageBoundary"
+		android:layout_width="1dp"
+		android:layout_height="0dp"
+		app:layout_constraintBottom_toBottomOf="parent"
+		app:layout_constraintEnd_toStartOf="@+id/guideline"
+		app:layout_constraintStart_toStartOf="@+id/guideline"
+		app:layout_constraintTop_toTopOf="parent"
+		app:srcCompat="@drawable/drawable_line" />
+
+	<androidx.constraintlayout.widget.Guideline
+		android:id="@+id/guideline"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:orientation="vertical"
+		app:layout_constraintGuide_percent="0.3" />
+
+	<androidx.constraintlayout.widget.Guideline
+		android:id="@+id/guideline3"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:orientation="horizontal"
+		app:layout_constraintGuide_percent="0.35" />
+
+	<androidx.constraintlayout.widget.Guideline
+		android:id="@+id/guideline4"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:orientation="horizontal"
+		app:layout_constraintGuide_percent="0.75" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

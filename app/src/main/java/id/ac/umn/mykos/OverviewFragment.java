@@ -10,6 +10,7 @@ import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -20,11 +21,16 @@ import android.widget.Button;
 
 import com.google.android.material.navigation.NavigationView;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+
 public class OverviewFragment extends Fragment {
     private DrawerLayout drawerLayout;
     private ActionBarDrawerToggle toggle;
     private Toolbar toolbar;
     private NavigationView navigationView;
+    private RecyclerView overviewList;
+    private ListOverviewAdapter overviewAdapter = new ListOverviewAdapter(new ArrayList<String>(Arrays.asList("1", "2", "3", "4", "5")));
 
     public OverviewFragment() {
         // Required empty public constructor
@@ -54,6 +60,11 @@ public class OverviewFragment extends Fragment {
         ((MainActivity)getActivity()).setSupportActionBar(toolbar);
         ((MainActivity)getActivity()).setDrawerToolbar(toolbar, toggle, drawerLayout);
         /* END CREATE TOOLBAR */
+
+        /* START HANDLING OVERVIEW LIST*/
+        overviewList = view.findViewById(R.id.overviewList);
+        overviewList.setAdapter(overviewAdapter);
+        /* END HANDLING OVERVIEW LIST*/
     }
 
     @Override
