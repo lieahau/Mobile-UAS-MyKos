@@ -30,13 +30,21 @@ public class MainActivity extends AppCompatActivity {
         navHost = (NavHostFragment) getSupportFragmentManager().findFragmentById(R.id.nav_host_fragment);
     }
 
-    public void setDrawerToolbar(Toolbar toolbar, ActionBarDrawerToggle toggle, DrawerLayout drawerLayout){
+    public void setActionBar(Toolbar toolbar){
         setSupportActionBar(toolbar);
+    }
+
+    public void setHomeButton(int icon){
         ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayShowHomeEnabled(true);
         actionBar.setDisplayHomeAsUpEnabled(true);
         actionBar.setHomeButtonEnabled(true);
-        actionBar.setHomeAsUpIndicator(R.drawable.ic_menu);
+        actionBar.setHomeAsUpIndicator(icon);
+    }
+
+    public void setDrawerToolbar(Toolbar toolbar, ActionBarDrawerToggle toggle, DrawerLayout drawerLayout){
+        setActionBar(toolbar);
+        setHomeButton(R.drawable.ic_menu);
 
         drawerLayout.addDrawerListener(toggle);
         toggle.syncState();
