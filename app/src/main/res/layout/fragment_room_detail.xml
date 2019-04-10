@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:tag="@string/roomDetailFragment"
@@ -13,6 +13,378 @@
         android:layout_height="?attr/actionBarSize"
         android:background="@color/colorThemeOrange"
         android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
         app:title="@string/room" />
 
-</FrameLayout>
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <TableLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+	        <TableRow
+		        android:id="@+id/RoomIDLabelRow"
+		        android:layout_width="match_parent"
+		        android:layout_height="wrap_content"
+		        android:layout_weight="1"
+		        android:orientation="vertical">
+
+		        <TextView
+			        android:id="@+id/roomIDLabel"
+			        android:layout_width="match_parent"
+			        android:layout_height="55dp"
+			        android:layout_marginStart="8dp"
+			        android:layout_marginTop="2dp"
+			        android:layout_marginEnd="8dp"
+			        android:layout_weight="1"
+			        android:autoSizeMinTextSize="14sp"
+			        android:autoSizeTextType="uniform"
+			        android:text="@string/roomid"
+			        android:textAlignment="center"
+			        android:textColor="@color/colorLine" />
+	        </TableRow>
+
+	        <TableRow
+		        android:id="@+id/RoomIDRow"
+		        android:layout_width="match_parent"
+		        android:layout_height="wrap_content"
+		        android:layout_weight="1"
+		        android:orientation="vertical">
+
+		        <androidx.constraintlayout.widget.ConstraintLayout
+			        android:layout_width="match_parent"
+			        android:layout_height="match_parent"
+			        android:layout_weight="1">
+
+			        <TextView
+				        android:id="@+id/roomID"
+				        android:layout_width="0dp"
+				        android:layout_height="0dp"
+				        android:layout_marginTop="16dp"
+				        android:layout_marginEnd="8dp"
+				        android:layout_marginBottom="16dp"
+				        android:layout_weight="1"
+				        android:autoSizeMaxTextSize="100sp"
+				        android:autoSizeTextType="uniform"
+				        android:background="@drawable/drawable_circle"
+				        android:gravity="center"
+				        android:textAlignment="center"
+				        android:textColor="@color/colorLine"
+				        app:layout_constraintBottom_toBottomOf="parent"
+				        app:layout_constraintDimensionRatio="W,1:1"
+				        app:layout_constraintEnd_toStartOf="@+id/guideline1"
+				        app:layout_constraintStart_toStartOf="@+id/guideline"
+				        app:layout_constraintTop_toTopOf="parent" />
+
+			        <androidx.constraintlayout.widget.Guideline
+				        android:id="@+id/guideline"
+				        android:layout_width="wrap_content"
+				        android:layout_height="wrap_content"
+				        android:orientation="vertical"
+				        app:layout_constraintGuide_percent="0.25" />
+
+			        <androidx.constraintlayout.widget.Guideline
+				        android:id="@+id/guideline1"
+				        android:layout_width="wrap_content"
+				        android:layout_height="wrap_content"
+				        android:orientation="vertical"
+				        app:layout_constraintGuide_percent="0.75" />
+		        </androidx.constraintlayout.widget.ConstraintLayout>
+
+	        </TableRow>
+
+	        <TableRow
+		        android:id="@+id/line"
+		        android:layout_width="match_parent"
+		        android:layout_height="wrap_content"
+		        android:layout_weight="1"
+		        android:orientation="horizontal">
+
+		        <ImageView
+			        android:id="@+id/imageView"
+			        android:layout_width="match_parent"
+			        android:layout_height="1dp"
+			        android:layout_weight="1"
+			        android:src="@drawable/drawable_line" />
+	        </TableRow>
+
+	        <TableRow
+		        android:id="@+id/NameRow"
+		        android:layout_width="match_parent"
+		        android:layout_height="wrap_content"
+		        android:layout_weight="1"
+		        android:orientation="horizontal"
+		        android:weightSum="1">
+
+		        <TextView
+			        android:id="@+id/Name"
+			        android:layout_width="0dp"
+			        android:layout_height="95dp"
+			        android:layout_column="0"
+			        android:layout_marginStart="8dp"
+			        android:layout_marginEnd="4dp"
+			        android:layout_weight="0.25"
+			        android:autoSizeMaxTextSize="35sp"
+			        android:autoSizeTextType="uniform"
+			        android:gravity="center"
+			        android:maxLines="1"
+			        android:text="Name : "
+			        android:textColor="@color/colorLine" />
+
+		        <TextView
+			        android:id="@+id/NameInput"
+			        android:layout_width="0dp"
+			        android:layout_height="match_parent"
+			        android:layout_column="1"
+			        android:layout_weight="0.65"
+			        android:autoSizeMaxTextSize="30sp"
+			        android:autoSizeTextType="uniform"
+			        android:gravity="center"
+			        android:maxLines="2"
+			        android:textColor="@color/colorLine" />
+
+		        <ImageButton
+			        android:id="@+id/NameEditBtn"
+			        android:layout_width="0dp"
+			        android:layout_height="match_parent"
+			        android:layout_column="2"
+			        android:layout_weight="0.1"
+			        android:adjustViewBounds="true"
+			        android:background="null"
+			        android:insetLeft="0dp"
+			        android:insetTop="0dp"
+			        android:insetRight="0dp"
+			        android:insetBottom="0dp"
+			        android:padding="0dp"
+			        android:scaleType="fitCenter"
+			        android:src="@android:drawable/ic_media_play" />
+	        </TableRow>
+
+	        <TableRow
+		        android:id="@+id/line1"
+		        android:layout_width="match_parent"
+		        android:layout_height="match_parent"
+		        android:layout_weight="1"
+		        android:orientation="horizontal">
+
+		        <ImageView
+			        android:id="@+id/imageView"
+			        android:layout_width="match_parent"
+			        android:layout_height="1dp"
+			        android:layout_weight="1"
+			        android:src="@drawable/drawable_line" />
+	        </TableRow>
+
+	        <TableRow
+		        android:id="@+id/ContactRow"
+		        android:layout_width="match_parent"
+		        android:layout_height="match_parent"
+		        android:layout_weight="1"
+		        android:orientation="horizontal"
+		        android:weightSum="1">
+
+		        <TextView
+			        android:id="@+id/Contact"
+			        android:layout_width="0dp"
+			        android:layout_height="95dp"
+			        android:layout_column="0"
+			        android:layout_marginStart="8dp"
+			        android:layout_marginEnd="4dp"
+			        android:layout_weight="0.25"
+			        android:autoSizeMaxTextSize="35sp"
+			        android:autoSizeTextType="uniform"
+			        android:gravity="center"
+			        android:maxLines="1"
+			        android:text="Contact : "
+			        android:textColor="@color/colorLine" />
+
+		        <TextView
+			        android:id="@+id/ContactInput"
+			        android:layout_width="0dp"
+			        android:layout_height="match_parent"
+			        android:layout_column="1"
+			        android:layout_weight="0.65"
+			        android:autoSizeMaxTextSize="30sp"
+			        android:autoSizeTextType="uniform"
+			        android:gravity="center"
+			        android:maxLines="2"
+			        android:textColor="@color/colorLine" />
+
+		        <ImageButton
+			        android:id="@+id/ContactEditBtn"
+			        android:layout_width="0dp"
+			        android:layout_height="match_parent"
+			        android:layout_column="2"
+			        android:layout_weight="0.1"
+			        android:adjustViewBounds="true"
+			        android:background="null"
+			        android:insetLeft="0dp"
+			        android:insetTop="0dp"
+			        android:insetRight="0dp"
+			        android:insetBottom="0dp"
+			        android:padding="0dp"
+			        android:scaleType="fitCenter"
+			        android:src="@android:drawable/ic_media_play" />
+	        </TableRow>
+
+	        <TableRow
+		        android:id="@+id/line2"
+		        android:layout_width="match_parent"
+		        android:layout_height="match_parent"
+		        android:layout_weight="1"
+		        android:orientation="horizontal">
+
+		        <ImageView
+			        android:id="@+id/imageView"
+			        android:layout_width="match_parent"
+			        android:layout_height="1dp"
+			        android:layout_weight="1"
+			        android:src="@drawable/drawable_line" />
+	        </TableRow>
+
+	        <TableRow
+		        android:id="@+id/ArriveRow"
+		        android:layout_width="match_parent"
+		        android:layout_height="match_parent"
+		        android:layout_weight="1"
+		        android:orientation="horizontal"
+		        android:weightSum="1">
+
+		        <TextView
+			        android:id="@+id/Arrive"
+			        android:layout_width="0dp"
+			        android:layout_height="95dp"
+			        android:layout_column="0"
+			        android:layout_marginStart="8dp"
+			        android:layout_marginEnd="4dp"
+			        android:layout_weight="0.25"
+			        android:autoSizeMaxTextSize="35sp"
+			        android:autoSizeTextType="uniform"
+			        android:gravity="center"
+			        android:maxLines="1"
+			        android:text="Arrive Date : "
+			        android:textColor="@color/colorLine" />
+
+		        <TextView
+			        android:id="@+id/ArriveInput"
+			        android:layout_width="0dp"
+			        android:layout_height="match_parent"
+			        android:layout_column="1"
+			        android:layout_weight="0.65"
+			        android:autoSizeMaxTextSize="30sp"
+			        android:autoSizeTextType="uniform"
+			        android:gravity="center"
+			        android:maxLines="2"
+			        android:textColor="@color/colorLine" />
+
+		        <ImageButton
+			        android:id="@+id/ArriveEditBtn"
+			        android:layout_width="0dp"
+			        android:layout_height="match_parent"
+			        android:layout_column="2"
+			        android:layout_weight="0.1"
+			        android:adjustViewBounds="true"
+			        android:background="null"
+			        android:insetLeft="0dp"
+			        android:insetTop="0dp"
+			        android:insetRight="0dp"
+			        android:insetBottom="0dp"
+			        android:padding="0dp"
+			        android:scaleType="fitCenter"
+			        android:src="@android:drawable/ic_media_play" />
+	        </TableRow>
+
+	        <TableRow
+		        android:id="@+id/line3"
+		        android:layout_width="match_parent"
+		        android:layout_height="match_parent"
+		        android:layout_weight="1"
+		        android:orientation="horizontal">
+
+		        <ImageView
+			        android:id="@+id/imageView"
+			        android:layout_width="match_parent"
+			        android:layout_height="1dp"
+			        android:layout_weight="1"
+			        android:src="@drawable/drawable_line" />
+	        </TableRow>
+
+	        <TableRow
+		        android:id="@+id/deadlineRow"
+		        android:layout_width="match_parent"
+		        android:layout_height="match_parent"
+		        android:layout_weight="1"
+		        android:orientation="horizontal"
+		        android:weightSum="1">
+
+		        <TextView
+			        android:id="@+id/Deadline"
+			        android:layout_width="0dp"
+			        android:layout_height="95dp"
+			        android:layout_column="0"
+			        android:layout_marginStart="8dp"
+			        android:layout_marginEnd="4dp"
+			        android:layout_weight="0.25"
+			        android:autoSizeMaxTextSize="35sp"
+			        android:autoSizeTextType="uniform"
+			        android:gravity="center"
+			        android:maxLines="1"
+			        android:text="Pay Deadline :"
+			        android:textColor="@color/colorLine" />
+
+		        <TextView
+			        android:id="@+id/DeadlineInput"
+			        android:layout_width="0dp"
+			        android:layout_height="match_parent"
+			        android:layout_column="1"
+			        android:layout_weight="0.65"
+			        android:autoSizeMaxTextSize="30sp"
+			        android:autoSizeTextType="uniform"
+			        android:gravity="center"
+			        android:maxLines="2"
+			        android:textColor="@color/colorLine" />
+
+		        <ImageButton
+			        android:id="@+id/DeadlineEditBtn"
+			        android:layout_width="0dp"
+			        android:layout_height="match_parent"
+			        android:layout_column="2"
+			        android:layout_weight="0.1"
+			        android:adjustViewBounds="true"
+			        android:background="null"
+			        android:insetLeft="0dp"
+			        android:insetTop="0dp"
+			        android:insetRight="0dp"
+			        android:insetBottom="0dp"
+			        android:padding="0dp"
+			        android:scaleType="fitCenter"
+			        android:src="@android:drawable/ic_media_play" />
+	        </TableRow>
+
+	        <TableRow
+		        android:id="@+id/line4"
+		        android:layout_width="match_parent"
+		        android:layout_height="match_parent"
+		        android:layout_weight="1"
+		        android:orientation="horizontal">
+
+		        <ImageView
+			        android:id="@+id/imageView"
+			        android:layout_width="match_parent"
+			        android:layout_height="1dp"
+			        android:layout_weight="1"
+			        android:src="@drawable/drawable_line" />
+	        </TableRow>
+
+        </TableLayout>
+    </ScrollView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
