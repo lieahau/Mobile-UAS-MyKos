@@ -1,4 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <attr name="colorThemeOrange" format="reference"/>
+    <attr name="colorRed" format="reference"/>
+    <attr name="colorWhite" format="reference"/>
+    <attr name="colorBlack" format="reference"/>
 </resources>
