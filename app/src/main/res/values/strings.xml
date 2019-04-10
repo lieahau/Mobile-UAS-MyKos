@@ -21,9 +21,8 @@
     <string name="roomid">Room ID</string>
     <string name="name">Name : </string>
     <string name="contact">Contact : </string>
-    <string name="firstlivedate">First Live Date : </string>
-    <string name="daysbeforepay">Days before pay : </string>
-    <string name="nextdeadline">Next Deadline : </string>
+    <string name="arrivedate">Arrive Date : </string>
+    <string name="paydeadline">Pay Deadline : </string>
     <string name="reset">Reset</string>
 
     <!-- Dashboard -->

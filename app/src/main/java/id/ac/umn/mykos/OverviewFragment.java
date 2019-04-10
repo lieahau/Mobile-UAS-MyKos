@@ -9,6 +9,7 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -30,7 +31,8 @@ public class OverviewFragment extends Fragment {
     private Toolbar toolbar;
     private NavigationView navigationView;
     private RecyclerView overviewList;
-    private ListOverviewAdapter overviewAdapter = new ListOverviewAdapter(new ArrayList<String>(Arrays.asList("1", "2", "3", "4", "5")));
+    private ListOverviewAdapter overviewAdapter;
+    private NavController navController;
 
     public OverviewFragment() {
         // Required empty public constructor
@@ -47,6 +49,9 @@ public class OverviewFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 //        Log.e("TESTING FUNCTION", "OVERVIEW ON VIEW CREATED");
+        /* START INIT NAVCONTROLLER */
+        navController = Navigation.findNavController(view);
+        /* END INIT NAVCONTROLLER */
 
         /* START CREATE NAVIGATION DRAWER */
         drawerLayout = view.findViewById(R.id.drawer_layout);
@@ -62,6 +67,7 @@ public class OverviewFragment extends Fragment {
         /* END CREATE TOOLBAR */
 
         /* START HANDLING OVERVIEW LIST*/
+        overviewAdapter = new ListOverviewAdapter(new ArrayList<String>(Arrays.asList("1", "2", "3", "4", "5")), navController);
         overviewList = view.findViewById(R.id.overviewList);
         overviewList.setAdapter(overviewAdapter);
         /* END HANDLING OVERVIEW LIST*/
@@ -94,14 +100,15 @@ public class OverviewFragment extends Fragment {
 
                         switch(item.getItemId()){
                             case R.id.nav_dashboard:
-                                Navigation.findNavController(view).navigate(R.id.dashboardFragment);
+                                navController.navigate(OverviewFragmentDirections.actionOverviewFragmentToDashboardFragment());
+                                //Navigation.findNavController(view).
                                 return true;
 
                             case R.id.nav_overview:
                                 return true;
 
                             case R.id.nav_settings:
-                                Navigation.findNavController(view).navigate(R.id.settingsFragment);
+                                navController.navigate(OverviewFragmentDirections.actionOverviewFragmentToSettingsFragment());
                                 return true;
 
                             default:

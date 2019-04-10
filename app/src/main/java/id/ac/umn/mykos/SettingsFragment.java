@@ -11,6 +11,7 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 
 import android.util.Log;
@@ -27,6 +28,8 @@ public class SettingsFragment extends Fragment {
     private ActionBarDrawerToggle toggle;
     private Toolbar toolbar;
     private NavigationView navigationView;
+    private NavController navController;
+
 
     public SettingsFragment() {
         // Required empty public constructor
@@ -43,6 +46,9 @@ public class SettingsFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 //        Log.e("TESTING FUNCTION", "SETTINGS ON VIEW CREATED");
+        /* START INIT NAVCONTROLLER */
+        navController = Navigation.findNavController(view);
+        /* END INIT NAVCONTROLLER */
 
         /* START CREATE NAVIGATION DRAWER */
         drawerLayout = view.findViewById(R.id.drawer_layout);
@@ -86,11 +92,11 @@ public class SettingsFragment extends Fragment {
 
                         switch(item.getItemId()){
                             case R.id.nav_dashboard:
-                                Navigation.findNavController(view).navigate(R.id.dashboardFragment);
+                                navController.navigate(SettingsFragmentDirections.actionSettingsFragmentToDashboardFragment());
                                 return true;
 
                             case R.id.nav_overview:
-                                Navigation.findNavController(view).navigate(R.id.overviewFragment);
+                                navController.navigate(SettingsFragmentDirections.actionSettingsFragmentToOverviewFragment());
                                 return true;
 
                             case R.id.nav_settings:

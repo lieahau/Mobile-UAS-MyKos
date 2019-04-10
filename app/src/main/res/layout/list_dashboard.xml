@@ -92,7 +92,7 @@
 		android:autoSizeMinTextSize="12sp"
 		android:autoSizeTextType="uniform"
 		android:maxLines="1"
-		android:text="@string/nextdeadline"
+		android:text="@string/paydeadline"
 		android:textColor="@color/colorLine"
 		app:layout_constraintBottom_toTopOf="@+id/guideline4"
 		app:layout_constraintStart_toStartOf="@+id/NameLabel"

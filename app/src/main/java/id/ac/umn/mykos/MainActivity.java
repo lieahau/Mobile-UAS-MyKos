@@ -58,13 +58,33 @@ public class MainActivity extends AppCompatActivity {
             View view = navHost.getView();
             if(view != null){
                 DrawerLayout drawerLayout = view.findViewById(R.id.drawer_layout);
-                if (drawerLayout.isDrawerOpen(GravityCompat.START))
-                    drawerLayout.closeDrawer(GravityCompat.START);
-                else
+                if(drawerLayout == null){
+                    // Call navigate up for default navigation back button action
+                    // this is for Room detail
+                    Log.d("Debug", "Room pressback");
                     navHost.getNavController().navigateUp();
+                    return;
+                }
+
+                // this for UI other than Room Detail
+                if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
+                    drawerLayout.closeDrawer(GravityCompat.START);
+                    Log.d("Debug", "Close Drawer");
+                }
+                // Call default onBackPressed for Dashboard and Overview
+                else{
+                    if(curFragmentTag.compareTo(getString(R.string.dashboardFragment)) == 0
+                            || curFragmentTag.compareTo(getString(R.string.overviewFragment)) == 0){
+                        // save last UI state on SharedPref
+
+                    }
+
+                    // exit
+                    Log.d("Debug", "Press back");
+                    navHost.getNavController().navigateUp();
+                }
+
             }
-        }else{
-            super.onBackPressed();
         }
     }
 }

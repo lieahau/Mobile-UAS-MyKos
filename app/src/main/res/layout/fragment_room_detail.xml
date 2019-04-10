@@ -136,7 +136,7 @@
 			        android:autoSizeTextType="uniform"
 			        android:gravity="center"
 			        android:maxLines="1"
-			        android:text="Name : "
+			        android:text="@string/name"
 			        android:textColor="@color/colorLine" />
 
 		        <TextView
@@ -158,14 +158,11 @@
 			        android:layout_column="2"
 			        android:layout_weight="0.1"
 			        android:adjustViewBounds="true"
-			        android:background="null"
-			        android:insetLeft="0dp"
-			        android:insetTop="0dp"
-			        android:insetRight="0dp"
-			        android:insetBottom="0dp"
-			        android:padding="0dp"
+			        android:background="@android:color/transparent"
+			        android:contentDescription="Edit name"
+			        android:padding="7dp"
 			        android:scaleType="fitCenter"
-			        android:src="@android:drawable/ic_media_play" />
+			        android:src="@drawable/edit_img" />
 	        </TableRow>
 
 	        <TableRow
@@ -203,7 +200,7 @@
 			        android:autoSizeTextType="uniform"
 			        android:gravity="center"
 			        android:maxLines="1"
-			        android:text="Contact : "
+			        android:text="@string/contact"
 			        android:textColor="@color/colorLine" />
 
 		        <TextView
@@ -225,14 +222,11 @@
 			        android:layout_column="2"
 			        android:layout_weight="0.1"
 			        android:adjustViewBounds="true"
-			        android:background="null"
-			        android:insetLeft="0dp"
-			        android:insetTop="0dp"
-			        android:insetRight="0dp"
-			        android:insetBottom="0dp"
-			        android:padding="0dp"
+			        android:background="@android:color/transparent"
+			        android:contentDescription="Edit contact"
+			        android:padding="7dp"
 			        android:scaleType="fitCenter"
-			        android:src="@android:drawable/ic_media_play" />
+			        android:src="@drawable/edit_img" />
 	        </TableRow>
 
 	        <TableRow
@@ -270,7 +264,7 @@
 			        android:autoSizeTextType="uniform"
 			        android:gravity="center"
 			        android:maxLines="1"
-			        android:text="Arrive Date : "
+			        android:text="@string/arrivedate"
 			        android:textColor="@color/colorLine" />
 
 		        <TextView
@@ -292,14 +286,11 @@
 			        android:layout_column="2"
 			        android:layout_weight="0.1"
 			        android:adjustViewBounds="true"
-			        android:background="null"
-			        android:insetLeft="0dp"
-			        android:insetTop="0dp"
-			        android:insetRight="0dp"
-			        android:insetBottom="0dp"
-			        android:padding="0dp"
+			        android:background="@android:color/transparent"
+			        android:contentDescription="Edit arrive date"
+			        android:padding="7dp"
 			        android:scaleType="fitCenter"
-			        android:src="@android:drawable/ic_media_play" />
+			        android:src="@drawable/edit_img" />
 	        </TableRow>
 
 	        <TableRow
@@ -337,7 +328,7 @@
 			        android:autoSizeTextType="uniform"
 			        android:gravity="center"
 			        android:maxLines="1"
-			        android:text="Pay Deadline :"
+			        android:text="@string/paydeadline"
 			        android:textColor="@color/colorLine" />
 
 		        <TextView
@@ -359,14 +350,11 @@
 			        android:layout_column="2"
 			        android:layout_weight="0.1"
 			        android:adjustViewBounds="true"
-			        android:background="null"
-			        android:insetLeft="0dp"
-			        android:insetTop="0dp"
-			        android:insetRight="0dp"
-			        android:insetBottom="0dp"
-			        android:padding="0dp"
+			        android:background="@android:color/transparent"
+			        android:contentDescription="Edit payment deadline"
+			        android:padding="7dp"
 			        android:scaleType="fitCenter"
-			        android:src="@android:drawable/ic_media_play" />
+			        android:src="@drawable/edit_img" />
 	        </TableRow>
 
 	        <TableRow

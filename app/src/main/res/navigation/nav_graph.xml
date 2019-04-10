@@ -13,7 +13,12 @@
         tools:layout="@layout/fragment_login">
         <action
             android:id="@+id/action_loginFragment_to_dashboardFragment"
-            app:destination="@id/dashboardFragment" />
+            app:destination="@id/dashboardFragment"
+            app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_loginFragment_to_overviewFragment"
+            app:destination="@id/overviewFragment"
+            app:popUpToInclusive="true"/>
     </fragment>
     <!-- END LOGIN FRAGMENT -->
 
@@ -26,13 +31,11 @@
         <action
             android:id="@+id/action_dashboardFragment_to_overviewFragment"
             app:destination="@id/overviewFragment"
-            app:popUpTo="@id/overviewFragment"
+	        app:popUpTo="@+id/nav_graph"
             app:popUpToInclusive="true" />
         <action
             android:id="@+id/action_dashboardFragment_to_settingsFragment"
-            app:destination="@id/settingsFragment"
-            app:popUpTo="@id/settingsFragment"
-            app:popUpToInclusive="true" />
+            app:destination="@id/settingsFragment" />
         <action
             android:id="@+id/action_dashboardFragment_to_roomDetailFragment"
             app:destination="@id/roomDetailFragment" />
@@ -48,13 +51,11 @@
         <action
             android:id="@+id/action_overviewFragment_to_dashboardFragment"
             app:destination="@id/dashboardFragment"
-            app:popUpTo="@id/dashboardFragment"
-            app:popUpToInclusive="true" />
+	        app:popUpTo="@+id/nav_graph"
+            app:popUpToInclusive="true"/>
         <action
             android:id="@+id/action_overviewFragment_to_settingsFragment"
-            app:destination="@id/settingsFragment"
-            app:popUpTo="@id/dashboardFragment"
-            app:popUpToInclusive="true" />
+            app:destination="@id/settingsFragment"/>
         <action
             android:id="@+id/action_overviewFragment_to_roomDetailFragment"
             app:destination="@id/roomDetailFragment" />
@@ -78,12 +79,12 @@
         <action
             android:id="@+id/action_settingsFragment_to_overviewFragment"
             app:destination="@id/overviewFragment"
-            app:popUpTo="@id/overviewFragment"
+	        app:popUpTo="@+id/nav_graph"
             app:popUpToInclusive="true" />
         <action
             android:id="@+id/action_settingsFragment_to_dashboardFragment"
             app:destination="@id/dashboardFragment"
-            app:popUpTo="@id/dashboardFragment"
+	        app:popUpTo="@+id/nav_graph"
             app:popUpToInclusive="true" />
     </fragment>
     <!-- END SETTINGS FRAGMENT -->

@@ -10,6 +10,8 @@ import java.util.List;
 import java.util.zip.Inflater;
 
 import androidx.annotation.NonNull;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -19,10 +21,14 @@ public class ListDashboardAdapter extends RecyclerView.Adapter<ListDashboardAdap
     // Placeholder
     ArrayList<String> placeholders = new ArrayList<String>();
 
+    // Reference to NavController
+    NavController navController;
+
     public ListDashboardAdapter(){}
 
-    public ListDashboardAdapter(ArrayList<String> newList){
+    public ListDashboardAdapter(ArrayList<String> newList, NavController navController){
         SetData(newList);
+        this.navController = navController;
     }
 
     // let ListDashboardDiffUtil make change to data
@@ -57,18 +63,27 @@ public class ListDashboardAdapter extends RecyclerView.Adapter<ListDashboardAdap
     }
 
     class ListDashboardView extends RecyclerView.ViewHolder{
+        View container;
         TextView RoomIDText;
         TextView NameText;
         TextView DeadlineText;
 
         public ListDashboardView(@NonNull View itemView) {
             super(itemView);
+            container = itemView;
             RoomIDText = itemView.findViewById(R.id.RoomID);
             NameText = itemView.findViewById(R.id.NameData);
             DeadlineText = itemView.findViewById(R.id.DeadlineData);
         }
 
         public void bind(){
+            container.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    navController.navigate(DashboardFragmentDirections.actionDashboardFragmentToRoomDetailFragment());
+                }
+            });
+
             RoomIDText.setText("");
             NameText.setText("");
             DeadlineText.setText("");

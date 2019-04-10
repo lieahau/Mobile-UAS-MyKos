@@ -31,6 +31,12 @@ public class LoginFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         Button dashboard = view.findViewById(R.id.btn_to_dashboard);
-        dashboard.setOnClickListener(Navigation.createNavigateOnClickListener(R.id.dashboardFragment));
+        final View viewRef = view;
+        dashboard.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Navigation.findNavController(viewRef).navigate(LoginFragmentDirections.actionLoginFragmentToDashboardFragment());
+            }
+        });
     }
 }

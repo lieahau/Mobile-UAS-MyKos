@@ -31,7 +31,8 @@ public class DashboardFragment extends Fragment {
     private Toolbar toolbar;
     private NavigationView navigationView;
     private RecyclerView dashboardList;
-    private ListDashboardAdapter dashboardAdapter = new ListDashboardAdapter(new ArrayList<String>(Arrays.asList("1", "2", "3", "4", "5")));
+    private ListDashboardAdapter dashboardAdapter;
+    private NavController navController;
 
     public DashboardFragment() {
         // Required empty public constructor
@@ -48,6 +49,9 @@ public class DashboardFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 //        Log.e("TESTING FUNCTION", "DASHBOARD ON VIEW CREATED");
+        /* START INIT NAVCONTROLLER */
+        navController = Navigation.findNavController(view);
+        /* END INIT NAVCONTROLLER */
 
         /* START CREATE NAVIGATION DRAWER */
         drawerLayout = view.findViewById(R.id.drawer_layout);
@@ -63,6 +67,7 @@ public class DashboardFragment extends Fragment {
         /* END CREATE TOOLBAR */
 
         /* START HANDLING DASHBOARD LIST*/
+        dashboardAdapter = new ListDashboardAdapter(new ArrayList<String>(Arrays.asList("1", "2", "3", "4", "5")), navController);
         dashboardList = view.findViewById(R.id.dashboardList);
         dashboardList.setAdapter(dashboardAdapter);
         /* END HANDLING DASHBOARD LIST*/
@@ -98,11 +103,11 @@ public class DashboardFragment extends Fragment {
                                 return true;
 
                             case R.id.nav_overview:
-                                Navigation.findNavController(view).navigate(R.id.overviewFragment);
+                                navController.navigate(DashboardFragmentDirections.actionDashboardFragmentToOverviewFragment());
                                 return true;
 
                             case R.id.nav_settings:
-                                Navigation.findNavController(view).navigate(R.id.settingsFragment);
+                                navController.navigate(DashboardFragmentDirections.actionDashboardFragmentToSettingsFragment());
                                 return true;
 
                             default:
