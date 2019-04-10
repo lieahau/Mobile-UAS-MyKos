@@ -72,14 +72,14 @@ public class MainActivity extends AppCompatActivity {
                     Log.d("Debug", "Close Drawer");
                 }
                 // Call default onBackPressed for Dashboard and Overview
-                else{
-                    if(curFragmentTag.compareTo(getString(R.string.dashboardFragment)) == 0
-                            || curFragmentTag.compareTo(getString(R.string.overviewFragment)) == 0){
-                        // save last UI state on SharedPref
-
-                    }
+                else if(curFragmentTag.compareTo(getString(R.string.dashboardFragment)) == 0
+                        || curFragmentTag.compareTo(getString(R.string.overviewFragment)) == 0){
+                    // save last UI state on SharedPre
 
                     // exit
+                    Log.d("Debug", "Exit");
+                    super.onBackPressed();
+                }else{
                     Log.d("Debug", "Press back");
                     navHost.getNavController().navigateUp();
                 }
