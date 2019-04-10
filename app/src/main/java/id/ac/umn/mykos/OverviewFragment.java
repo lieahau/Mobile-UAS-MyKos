@@ -62,7 +62,6 @@ public class OverviewFragment extends Fragment {
         setHasOptionsMenu(true);
         toolbar = view.findViewById(R.id.toolbar);
         toggle = new ActionBarDrawerToggle(getActivity(), drawerLayout, toolbar, R.string.opennavdrawer, R.string.closenavdrawer);
-        ((MainActivity)getActivity()).setSupportActionBar(toolbar);
         ((MainActivity)getActivity()).setDrawerToolbar(toolbar, toggle, drawerLayout);
         /* END CREATE TOOLBAR */
 
