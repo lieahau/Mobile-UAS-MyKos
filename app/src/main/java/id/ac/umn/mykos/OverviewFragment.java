@@ -1,5 +1,6 @@
 package id.ac.umn.mykos;
 
+import android.content.Context;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -9,6 +10,8 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
@@ -35,9 +38,18 @@ public class OverviewFragment extends Fragment {
     private RecyclerView overviewList;
     private ListOverviewAdapter overviewAdapter;
     private NavController navController;
+    private RoomViewModel roomViewModel;
 
     public OverviewFragment() {
         // Required empty public constructor
+    }
+
+    @Override
+    public void onAttach(@NonNull Context context) {
+        super.onAttach(context);
+        /* START INIT ROOM VIEW MODEL */
+        roomViewModel = new ViewModelProvider.NewInstanceFactory().create(RoomViewModel.class);
+        /* END INIT ROOM VIEW MODEL */
     }
 
     @Override
@@ -56,7 +68,7 @@ public class OverviewFragment extends Fragment {
         /* END INIT NAVCONTROLLER */
 
         /* START INIT SHARED ELEMENT TRANSITION */
-        setSharedElementEnterTransition(TransitionInflater.from(view.getContext()).inflateTransition(R.transition.shared_content_transition));
+        setSharedElementEnterTransition(TransitionInflater.from(getActivity()).inflateTransition(R.transition.shared_content_transition));
         /* END INIT SHARED ELEMENT TRANSITION */
 
         /* START CREATE NAVIGATION DRAWER */
@@ -72,7 +84,15 @@ public class OverviewFragment extends Fragment {
         /* END CREATE TOOLBAR */
 
         /* START HANDLING OVERVIEW LIST*/
-        overviewAdapter = new ListOverviewAdapter(new ArrayList<String>(Arrays.asList("1", "2", "3", "4", "5")), navController);
+        overviewAdapter = new ListOverviewAdapter(new ArrayList<String>(), navController);
+        roomViewModel.GetData().observe(this, new Observer<ArrayList<String>>() {
+            @Override
+            public void onChanged(ArrayList<String> newData) {
+                overviewAdapter.SetData(newData);
+            }
+        });
+        roomViewModel.SetData(new ArrayList<String>(Arrays.asList("1", "2", "3", "4", "5")));
+
         overviewList = view.findViewById(R.id.overviewList);
         overviewList.setAdapter(overviewAdapter);
         /* END HANDLING OVERVIEW LIST*/

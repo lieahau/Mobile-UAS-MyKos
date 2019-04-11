@@ -19,12 +19,17 @@ android {
     }
     productFlavors {
     }
+    compileOptions{
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
 }
 
 dependencies {
     def nav_version = "2.1.0-alpha02"
     def firebase_version = "16.1.0"
     def playservice_version = "16.0.0"
+    def lifecycle_version = "2.0.0"
 
     implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation 'androidx.appcompat:appcompat:1.1.0-alpha04'
@@ -36,7 +41,8 @@ dependencies {
     implementation "com.google.firebase:firebase-auth:$firebase_version"
     implementation "com.google.android.gms:play-services-auth:$playservice_version"
     implementation 'com.google.firebase:firebase-core:16.0.8'
-
+    implementation "androidx.lifecycle:lifecycle-extensions:$lifecycle_version"
+    implementation "androidx.lifecycle:lifecycle-common-java8:$lifecycle_version"
 
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     testImplementation 'junit:junit:4.12'

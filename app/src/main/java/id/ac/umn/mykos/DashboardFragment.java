@@ -1,5 +1,6 @@
 package id.ac.umn.mykos;
 
+import android.content.Context;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -9,6 +10,10 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModel;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.lifecycle.ViewModelStore;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
@@ -26,6 +31,7 @@ import com.google.android.material.navigation.NavigationView;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 public class DashboardFragment extends Fragment {
     private DrawerLayout drawerLayout;
@@ -35,9 +41,18 @@ public class DashboardFragment extends Fragment {
     private RecyclerView dashboardList;
     private ListDashboardAdapter dashboardAdapter;
     private NavController navController;
+    private RoomViewModel roomViewModel;
 
     public DashboardFragment() {
         // Required empty public constructor
+    }
+
+    @Override
+    public void onAttach(@NonNull Context context) {
+        super.onAttach(context);
+        /* START INIT ROOM VIEW MODEL */
+        roomViewModel = new ViewModelProvider.NewInstanceFactory().create(RoomViewModel.class);
+        /* END INIT ROOM VIEW MODEL */
     }
 
     @Override
@@ -56,7 +71,7 @@ public class DashboardFragment extends Fragment {
         /* END INIT NAVCONTROLLER */
 
         /* START INIT SHARED ELEMENT TRANSITION */
-        setSharedElementEnterTransition(TransitionInflater.from(view.getContext()).inflateTransition(R.transition.shared_content_transition));
+        setSharedElementEnterTransition(TransitionInflater.from(getActivity()).inflateTransition(R.transition.shared_content_transition));
         /* END INIT SHARED ELEMENT TRANSITION */
 
         /* START CREATE NAVIGATION DRAWER */
@@ -72,7 +87,15 @@ public class DashboardFragment extends Fragment {
         /* END CREATE TOOLBAR */
 
         /* START HANDLING DASHBOARD LIST*/
-        dashboardAdapter = new ListDashboardAdapter(new ArrayList<String>(Arrays.asList("1", "2", "3", "4", "5")), navController);
+        dashboardAdapter = new ListDashboardAdapter(new ArrayList<String>(), navController);
+        roomViewModel.GetData().observe(this, new Observer<ArrayList<String>>() {
+            @Override
+            public void onChanged(ArrayList<String> newData) {
+                dashboardAdapter.SetData(newData);
+            }
+        });
+        roomViewModel.SetData(new ArrayList<String>(Arrays.asList("1", "2", "3", "4", "5")));
+
         dashboardList = view.findViewById(R.id.dashboardList);
         dashboardList.setAdapter(dashboardAdapter);
         /* END HANDLING DASHBOARD LIST*/
