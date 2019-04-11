@@ -12,6 +12,7 @@ import java.util.zip.Inflater;
 import androidx.annotation.NonNull;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
+import androidx.navigation.fragment.FragmentNavigator;
 import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -64,23 +65,42 @@ public class ListDashboardAdapter extends RecyclerView.Adapter<ListDashboardAdap
 
     class ListDashboardView extends RecyclerView.ViewHolder{
         View container;
+        TextView RoomIDLabel;
+        TextView NameLabel;
+        TextView DeadlineLabel;
+
         TextView RoomIDText;
         TextView NameText;
         TextView DeadlineText;
 
+        FragmentNavigator.Extras extras;
+
         public ListDashboardView(@NonNull View itemView) {
             super(itemView);
             container = itemView;
+            RoomIDLabel = itemView.findViewById(R.id.RoomIDLabel);
+            NameLabel = itemView.findViewById(R.id.NameLabel);
+            DeadlineLabel = itemView.findViewById(R.id.DeadlineLabel);
+
             RoomIDText = itemView.findViewById(R.id.RoomID);
             NameText = itemView.findViewById(R.id.NameData);
             DeadlineText = itemView.findViewById(R.id.DeadlineData);
+
+            extras = new FragmentNavigator.Extras.Builder()
+                    .addSharedElement(RoomIDText, "RoomID")
+                    .addSharedElement(RoomIDLabel, "RoomIDLabel")
+                    .addSharedElement(NameText, "NameData")
+                    .addSharedElement(NameLabel, "NameLabel")
+                    .addSharedElement(DeadlineText, "DeadlineData")
+                    .addSharedElement(DeadlineText, "DeadlineLabel")
+                    .build();
         }
 
         public void bind(){
             container.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    navController.navigate(DashboardFragmentDirections.actionDashboardFragmentToRoomDetailFragment());
+                    navController.navigate(DashboardFragmentDirections.actionDashboardFragmentToRoomDetailFragment(), extras);
                 }
             });
 

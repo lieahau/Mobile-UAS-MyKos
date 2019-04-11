@@ -35,6 +35,7 @@ dependencies {
     implementation "com.google.firebase:firebase-database:$firebase_version"
     implementation "com.google.firebase:firebase-auth:$firebase_version"
     implementation "com.google.android.gms:play-services-auth:$playservice_version"
+    implementation 'com.google.firebase:firebase-core:16.0.8'
 
 
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
@@ -42,4 +43,5 @@ dependencies {
     androidTestImplementation 'androidx.test:runner:1.2.0-alpha03'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0-alpha03'
     implementation 'androidx.recyclerview:recyclerview:1.0.0'
+    apply plugin: 'com.google.gms.google-services'
 }

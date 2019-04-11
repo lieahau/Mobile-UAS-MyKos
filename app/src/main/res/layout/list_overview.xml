@@ -16,6 +16,7 @@
 
 		<TextView
 			android:id="@+id/RoomIDLabel"
+			android:transitionName="RoomIDLabel"
 			android:layout_width="0dp"
 			android:layout_height="35dp"
 			android:layout_marginStart="8dp"
@@ -34,6 +35,7 @@
 
 		<TextView
 			android:id="@+id/RoomID"
+			android:transitionName="RoomID"
 			android:layout_width="0dp"
 			android:layout_height="0dp"
 			android:layout_marginStart="8dp"

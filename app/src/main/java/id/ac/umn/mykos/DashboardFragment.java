@@ -12,6 +12,8 @@ import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.transition.Transition;
+import androidx.transition.TransitionInflater;
 
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -52,6 +54,10 @@ public class DashboardFragment extends Fragment {
         /* START INIT NAVCONTROLLER */
         navController = Navigation.findNavController(view);
         /* END INIT NAVCONTROLLER */
+
+        /* START INIT SHARED ELEMENT TRANSITION */
+        setSharedElementEnterTransition(TransitionInflater.from(view.getContext()).inflateTransition(R.transition.shared_content_transition));
+        /* END INIT SHARED ELEMENT TRANSITION */
 
         /* START CREATE NAVIGATION DRAWER */
         drawerLayout = view.findViewById(R.id.drawer_layout);

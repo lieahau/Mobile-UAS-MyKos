@@ -11,6 +11,7 @@ import java.util.List;
 import androidx.annotation.NonNull;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
+import androidx.navigation.fragment.FragmentNavigator;
 import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -63,21 +64,32 @@ public class ListOverviewAdapter extends RecyclerView.Adapter<ListOverviewAdapte
 
     class ListOverviewView extends RecyclerView.ViewHolder{
         View container;
+        TextView RoomIDLabel;
+
         TextView RoomIDText;
         TextView RoomStatusText;
+
+        FragmentNavigator.Extras extras;
 
         public ListOverviewView(@NonNull View itemView) {
             super(itemView);
             container = itemView;
+            RoomIDLabel = itemView.findViewById(R.id.RoomIDLabel);
+
             RoomIDText = itemView.findViewById(R.id.RoomID);
             RoomStatusText = itemView.findViewById(R.id.RoomStatusData);
+
+            extras = new FragmentNavigator.Extras.Builder()
+                    .addSharedElement(RoomIDText, "RoomID")
+                    .addSharedElement(RoomIDLabel, "RoomIDLabel")
+                    .build();
         }
 
         public void bind(){
             container.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    navController.navigate(OverviewFragmentDirections.actionOverviewFragmentToRoomDetailFragment());
+                    navController.navigate(OverviewFragmentDirections.actionOverviewFragmentToRoomDetailFragment(), extras);
                 }
             });
 
