@@ -44,8 +44,11 @@
     <string name="howmanyroom">How many room?</string>
 
     <string name="roomidvalue">Room ID value</string>
-    <string name="alphabetic">Alphabetic</string>
-    <string name="numeric">Numeric</string>
+    <string name="choose">Choose</string>
+    <string-array name="roomidvalue_array">
+        <item>Alphabetic</item>
+        <item>Numeric</item>
+    </string-array>
 
     <string name="maximalduedate">Maximal due date</string>
     <string name="howmanyday">How many day?</string>

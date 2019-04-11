@@ -1,7 +1,5 @@
 package id.ac.umn.mykos;
 
-import android.content.Context;
-import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -19,20 +17,39 @@ import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 
+import com.google.android.material.button.MaterialButton;
 import com.google.android.material.navigation.NavigationView;
 
-public class SettingsFragment extends Fragment {
+public class SettingsFragment extends Fragment implements SettingsDialog.OnClickPositiveButton {
     private DrawerLayout drawerLayout;
     private ActionBarDrawerToggle toggle;
-    private Toolbar toolbar;
     private NavigationView navigationView;
     private NavController navController;
 
-
     public SettingsFragment() {
         // Required empty public constructor
+    }
+
+    @Override
+    public void sendNumberOfRoom(int input) {
+        Log.e("SETTINGS FRAGMENT", "sendNumberOfRoom: found incoming input: " + input);
+        /* TODO: WRITE ACTION AFTER INPUT NUMBER OF ROOM SETTING HERE */
+
+    }
+
+    @Override
+    public void sendRoomIDValue(String input) {
+        Log.e("SETTINGS FRAGMENT", "sendRoomIDValue: found incoming input: " + input);
+        /* TODO: WRITE ACTION AFTER INPUT ROOM ID VALUE SETTING HERE */
+
+    }
+
+    @Override
+    public void sendMaximalDueDate(int input) {
+        Log.e("SETTINGS FRAGMENT", "sendMaximalDueDate: found incoming input: " + input);
+        /* TODO: WRITE ACTION AFTER INPUT MAXIMAL DUE DATE SETTING HERE */
+
     }
 
     @Override
@@ -57,12 +74,54 @@ public class SettingsFragment extends Fragment {
 
         /* START CREATE TOOLBAR */
         setHasOptionsMenu(true);
-        toolbar = view.findViewById(R.id.toolbar);
+        Toolbar toolbar = view.findViewById(R.id.toolbar);
         toggle = new ActionBarDrawerToggle(getActivity(), drawerLayout, toolbar, R.string.opennavdrawer, R.string.closenavdrawer);
         ((MainActivity)getActivity()).setDrawerToolbar(toolbar, toggle, drawerLayout);
         /* END CREATE TOOLBAR */
 
+        /* START ONCLICK EACH BUTTON */
+        MaterialButton btn_numberOfRoom = view.findViewById(R.id.NumberOfRoomBtn);
+        btn_numberOfRoom.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Bundle bundle = new Bundle();
+                bundle.putInt("layoutID", R.layout.dialog_settings_edittext);
+                bundle.putString("target", "NumberOfRoom");
+                SettingsDialog settingsDialog = new SettingsDialog();
+                settingsDialog.setArguments(bundle);
+                settingsDialog.setTargetFragment(SettingsFragment.this, 200);
+                settingsDialog.show(getFragmentManager(), "SettingsDialog");
+            }
+        });
 
+        MaterialButton btn_roomIDValue = view.findViewById(R.id.RoomIDValueBtn);
+        btn_roomIDValue.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Bundle bundle = new Bundle();
+                bundle.putInt("layoutID", R.layout.dialog_settings_dropdown);
+                bundle.putString("target", "RoomIDValue");
+                SettingsDialog settingsDialog = new SettingsDialog();
+                settingsDialog.setArguments(bundle);
+                settingsDialog.setTargetFragment(SettingsFragment.this, 200);
+                settingsDialog.show(getFragmentManager(), "SettingsDialog");
+            }
+        });
+
+        MaterialButton btn_maximalDueDate = view.findViewById(R.id.MaximalDueDateBtn);
+        btn_maximalDueDate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Bundle bundle = new Bundle();
+                bundle.putInt("layoutID", R.layout.dialog_settings_edittext);
+                bundle.putString("target", "MaximalDueDate");
+                SettingsDialog settingsDialog = new SettingsDialog();
+                settingsDialog.setArguments(bundle);
+                settingsDialog.setTargetFragment(SettingsFragment.this, 200);
+                settingsDialog.show(getFragmentManager(), "SettingsDialog");
+            }
+        });
+        /* END ONCLICK EACH BUTTON */
     }
 
     @Override
