@@ -57,7 +57,7 @@
                         android:text="@string/numberofrooms"
                         android:textAlignment="textStart"
                         android:textColor="@color/colorLine"
-                        app:backgroundTint="@color/colorWhite"
+                        app:backgroundTint="@android:color/transparent"
                         app:cornerRadius="0dp" />
                 </TableRow>
 
@@ -99,7 +99,7 @@
                         android:text="@string/roomidvalue"
                         android:textAlignment="textStart"
                         android:textColor="@color/colorLine"
-                        app:backgroundTint="@color/colorWhite"
+                        app:backgroundTint="@android:color/transparent"
                         app:cornerRadius="0dp" />
                 </TableRow>
 
@@ -141,7 +141,7 @@
                         android:text="@string/maximalduedate"
                         android:textAlignment="textStart"
                         android:textColor="@color/colorLine"
-                        app:backgroundTint="@color/colorWhite"
+                        app:backgroundTint="@android:color/transparent"
                         app:cornerRadius="0dp" />
                 </TableRow>
 
