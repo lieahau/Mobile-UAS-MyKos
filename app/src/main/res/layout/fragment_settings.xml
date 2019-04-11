@@ -29,12 +29,138 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/overviewList"
+            <TableLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:layout_constraintTop_toBottomOf="@+id/toolbar" />
+                android:orientation="vertical">
 
+                <TableRow
+                    android:id="@+id/NOMRow"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:orientation="horizontal">
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/NumberOfRoomBtn"
+                        android:layout_width="match_parent"
+                        android:layout_height="125dp"
+                        android:layout_weight="1"
+                        android:autoSizeMaxTextSize="28sp"
+                        android:autoSizeTextType="uniform"
+                        android:contentDescription="How many room available?"
+                        android:insetLeft="0dp"
+                        android:insetTop="0dp"
+                        android:insetRight="0dp"
+                        android:insetBottom="0dp"
+                        android:maxLines="1"
+                        android:text="@string/numberofrooms"
+                        android:textAlignment="textStart"
+                        android:textColor="@color/colorLine"
+                        app:backgroundTint="@color/colorWhite"
+                        app:cornerRadius="0dp" />
+                </TableRow>
+
+                <TableRow
+                    android:id="@+id/line1"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:id="@+id/imageView"
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_weight="1"
+                        android:src="@drawable/drawable_line" />
+                </TableRow>
+
+                <TableRow
+                    android:id="@+id/RIVRow"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="horizontal">
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/RoomIDValueBtn"
+                        android:layout_width="match_parent"
+                        android:layout_height="125dp"
+                        android:layout_weight="1"
+                        android:autoSizeMaxTextSize="28sp"
+                        android:autoSizeTextType="uniform"
+                        android:contentDescription="What character represent room ID?"
+                        android:insetLeft="0dp"
+                        android:insetTop="0dp"
+                        android:insetRight="0dp"
+                        android:insetBottom="0dp"
+                        android:maxLines="1"
+                        android:text="@string/roomidvalue"
+                        android:textAlignment="textStart"
+                        android:textColor="@color/colorLine"
+                        app:backgroundTint="@color/colorWhite"
+                        app:cornerRadius="0dp" />
+                </TableRow>
+
+                <TableRow
+                    android:id="@+id/line2"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:id="@+id/imageView"
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_weight="1"
+                        android:src="@drawable/drawable_line" />
+                </TableRow>
+
+                <TableRow
+                    android:id="@+id/MDDRow"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="horizontal">
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/MaximalDueDateBtn"
+                        android:layout_width="match_parent"
+                        android:layout_height="125dp"
+                        android:layout_weight="1"
+                        android:autoSizeMaxTextSize="28sp"
+                        android:autoSizeTextType="uniform"
+                        android:contentDescription="How many leeway day available for costumer who have not pay?"
+                        android:insetLeft="0dp"
+                        android:insetTop="0dp"
+                        android:insetRight="0dp"
+                        android:insetBottom="0dp"
+                        android:maxLines="1"
+                        android:text="@string/maximalduedate"
+                        android:textAlignment="textStart"
+                        android:textColor="@color/colorLine"
+                        app:backgroundTint="@color/colorWhite"
+                        app:cornerRadius="0dp" />
+                </TableRow>
+
+                <TableRow
+                    android:id="@+id/line3"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:id="@+id/imageView"
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_weight="1"
+                        android:src="@drawable/drawable_line" />
+                </TableRow>
+
+            </TableLayout>
         </FrameLayout>
 
         <com.google.android.material.navigation.NavigationView
@@ -42,7 +168,7 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_gravity="start"
-            android:visibility="visible"
+            android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/toolbar"

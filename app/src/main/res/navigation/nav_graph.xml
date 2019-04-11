@@ -49,8 +49,6 @@
             app:popExitAnim="@anim/nav_default_pop_exit_anim" />
         <action
             android:id="@+id/action_dashboardFragment_to_settingsFragment"
-            app:popUpTo="@id/nav_graph"
-            app:popUpToInclusive="true"
             app:destination="@id/settingsFragment"
             app:enterAnim="@anim/nav_default_enter_anim"
             app:exitAnim="@anim/nav_default_exit_anim"
@@ -83,8 +81,6 @@
             app:popExitAnim="@anim/nav_default_pop_exit_anim" />
         <action
             android:id="@+id/action_overviewFragment_to_settingsFragment"
-            app:popUpTo="@id/nav_graph"
-            app:popUpToInclusive="true"
             app:destination="@id/settingsFragment"
             app:enterAnim="@anim/nav_default_enter_anim"
             app:exitAnim="@anim/nav_default_exit_anim"
