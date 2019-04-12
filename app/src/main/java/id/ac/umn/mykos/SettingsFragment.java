@@ -41,8 +41,16 @@ public class SettingsFragment extends Fragment implements SettingsDialog.OnClick
     @Override
     public void sendRoomIDValue(String input) {
         Log.e("SETTINGS FRAGMENT", "sendRoomIDValue: found incoming input: " + input);
-        /* TODO: WRITE ACTION AFTER INPUT ROOM ID VALUE SETTING HERE */
+        String[] roomIDType = getResources().getStringArray(R.array.roomidvalue_array);
+        if(input.equalsIgnoreCase(roomIDType[0])){
+            Log.e("SETTINGS FRAGMENT", "sendRoomIDValue: room id alphabetic");
+            /* TODO: WRITE ACTION FOR ALPHABETIC HERE*/
 
+        }
+        else if(input.equalsIgnoreCase(roomIDType[1])){
+            Log.e("SETTINGS FRAGMENT", "sendRoomIDValue: room id numeric");
+            /* TODO: WRITE ACTION FOR NUMERIC HERE */
+        }
     }
 
     @Override
@@ -53,7 +61,7 @@ public class SettingsFragment extends Fragment implements SettingsDialog.OnClick
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 //        Log.e("TESTING FUNCTION", "SETTINGS ON CREATE VIEW");
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_settings, container, false);
@@ -81,45 +89,36 @@ public class SettingsFragment extends Fragment implements SettingsDialog.OnClick
 
         /* START ONCLICK EACH BUTTON */
         MaterialButton btn_numberOfRoom = view.findViewById(R.id.NumberOfRoomBtn);
-        btn_numberOfRoom.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Bundle bundle = new Bundle();
-                bundle.putInt("layoutID", R.layout.dialog_settings_edittext);
-                bundle.putString("target", "NumberOfRoom");
-                SettingsDialog settingsDialog = new SettingsDialog();
-                settingsDialog.setArguments(bundle);
-                settingsDialog.setTargetFragment(SettingsFragment.this, 200);
-                settingsDialog.show(getFragmentManager(), "SettingsDialog");
-            }
+        btn_numberOfRoom.setOnClickListener(v -> {
+            Bundle bundle = new Bundle();
+            bundle.putInt("layoutID", R.layout.dialog_settings_edittext);
+            bundle.putString("target", "NumberOfRoom");
+            SettingsDialog settingsDialog = new SettingsDialog();
+            settingsDialog.setArguments(bundle);
+            settingsDialog.setTargetFragment(SettingsFragment.this, 200);
+            settingsDialog.show(getFragmentManager(), "SettingsDialog");
         });
 
         MaterialButton btn_roomIDValue = view.findViewById(R.id.RoomIDValueBtn);
-        btn_roomIDValue.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Bundle bundle = new Bundle();
-                bundle.putInt("layoutID", R.layout.dialog_settings_dropdown);
-                bundle.putString("target", "RoomIDValue");
-                SettingsDialog settingsDialog = new SettingsDialog();
-                settingsDialog.setArguments(bundle);
-                settingsDialog.setTargetFragment(SettingsFragment.this, 200);
-                settingsDialog.show(getFragmentManager(), "SettingsDialog");
-            }
+        btn_roomIDValue.setOnClickListener(v -> {
+            Bundle bundle = new Bundle();
+            bundle.putInt("layoutID", R.layout.dialog_settings_dropdown);
+            bundle.putString("target", "RoomIDValue");
+            SettingsDialog settingsDialog = new SettingsDialog();
+            settingsDialog.setArguments(bundle);
+            settingsDialog.setTargetFragment(SettingsFragment.this, 200);
+            settingsDialog.show(getFragmentManager(), "SettingsDialog");
         });
 
         MaterialButton btn_maximalDueDate = view.findViewById(R.id.MaximalDueDateBtn);
-        btn_maximalDueDate.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Bundle bundle = new Bundle();
-                bundle.putInt("layoutID", R.layout.dialog_settings_edittext);
-                bundle.putString("target", "MaximalDueDate");
-                SettingsDialog settingsDialog = new SettingsDialog();
-                settingsDialog.setArguments(bundle);
-                settingsDialog.setTargetFragment(SettingsFragment.this, 200);
-                settingsDialog.show(getFragmentManager(), "SettingsDialog");
-            }
+        btn_maximalDueDate.setOnClickListener(v -> {
+            Bundle bundle = new Bundle();
+            bundle.putInt("layoutID", R.layout.dialog_settings_edittext);
+            bundle.putString("target", "MaximalDueDate");
+            SettingsDialog settingsDialog = new SettingsDialog();
+            settingsDialog.setArguments(bundle);
+            settingsDialog.setTargetFragment(SettingsFragment.this, 200);
+            settingsDialog.show(getFragmentManager(), "SettingsDialog");
         });
         /* END ONCLICK EACH BUTTON */
     }
