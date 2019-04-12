@@ -1,6 +1,8 @@
 package id.ac.umn.mykos;
 
 import android.content.Context;
+import android.graphics.PorterDuff;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -23,6 +25,8 @@ import androidx.transition.TransitionInflater;
 
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
@@ -34,7 +38,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class DashboardFragment extends Fragment {
+public class DashboardFragment extends Fragment implements DashboardDialog.OnClickPositiveButton {
     private DrawerLayout drawerLayout;
     private ActionBarDrawerToggle toggle;
     private Toolbar toolbar;
@@ -43,9 +47,43 @@ public class DashboardFragment extends Fragment {
     private ListDashboardAdapter dashboardAdapter;
     private NavController navController;
     private RoomViewModel roomViewModel;
+    private Menu menu;
 
     public DashboardFragment() {
         // Required empty public constructor
+    }
+
+    @Override
+    public void sendSearch(String input) {
+        Log.e("DASHBOARD FRAGMENT", "sendSearch: found incoming input: " + input);
+        /* TODO: WRITE ACTION AFTER INPUT SEARCH HERE */
+
+    }
+
+    @Override
+    public void sendSort(String input) {
+        Log.e("DASHBOARD FRAGMENT", "sendSort: found incoming input: " + input);
+        if(!input.equalsIgnoreCase("")){
+            if(input.equalsIgnoreCase(getResources().getString(R.string.sortbyname))){
+                Log.e("DASHBOARD FRAGMENT", "sendSort: sort by name");
+                /* TODO: WRITE SORT BY NAME HERE*/
+//                MenuItem sortItem = menu.findItem(R.id.btn_sort);
+//                Drawable newIcon = sortItem.getIcon();
+//                newIcon.mutate().setColorFilter(getResources().getColor(R.color.colorLightGreen), PorterDuff.Mode.DST_ATOP);
+            }
+            else if(input.equalsIgnoreCase(getResources().getString(R.string.sortbyid))){
+                Log.e("DASHBOARD FRAGMENT", "sendSort: sort by id");
+                /* TODO: WRITE SORT BY ID HERE*/
+            }
+            else if(input.equalsIgnoreCase(getResources().getString(R.string.sortbydeadline))){
+                Log.e("DASHBOARD FRAGMENT", "sendSort: sort by deadline");
+                /* TODO: WRITE SORT BY DEADLINE HERE*/
+            }
+        }
+        else{
+            Log.e("DASHBOARD FRAGMENT", "sendSort: no sort selected");
+            /* TODO: WRITE UNSORT DATA HERE (OPTIONAL) */
+        }
     }
 
     @Override
@@ -104,6 +142,8 @@ public class DashboardFragment extends Fragment {
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        Bundle bundle;
+        DashboardDialog dashboardDialog;
         switch(item.getItemId()){
             case android.R.id.home:
                 if (drawerLayout.isDrawerOpen(GravityCompat.START))
@@ -113,9 +153,38 @@ public class DashboardFragment extends Fragment {
 
                 return true;
 
+            case R.id.btn_search:
+                bundle = new Bundle();
+                bundle.putInt("layoutID", R.layout.dialog_dashboard_search);
+                bundle.putString("target", "Search");
+                dashboardDialog = new DashboardDialog();
+                dashboardDialog.setArguments(bundle);
+                dashboardDialog.setTargetFragment(DashboardFragment.this, 200);
+                dashboardDialog.show(getFragmentManager(), "DashboardDialog");
+
+                return true;
+
+            case R.id.btn_sort:
+                bundle = new Bundle();
+                bundle.putInt("layoutID", R.layout.dialog_dashboard_sort);
+                bundle.putString("target", "Sort");
+                dashboardDialog = new DashboardDialog();
+                dashboardDialog.setArguments(bundle);
+                dashboardDialog.setTargetFragment(DashboardFragment.this, 200);
+                dashboardDialog.show(getFragmentManager(), "DashboardDialog");
+
+                return true;
+
             default:
                 return super.onOptionsItemSelected(item);
         }
+    }
+
+    @Override
+    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu, inflater);
+        inflater.inflate(R.menu.dashboard_menu, menu);
+        this.menu = menu;
     }
 
     private void navigationDrawer(final View view, final DrawerLayout drawerLayout){

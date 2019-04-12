@@ -1,20 +1,24 @@
 package id.ac.umn.mykos;
 
+import android.graphics.PorterDuff;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.ActionMenuView;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.content.res.ResourcesCompat;
+import androidx.core.view.MenuItemCompat;
 import androidx.fragment.app.Fragment;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
 public class RoomDetailFragment extends Fragment {
     public RoomDetailFragment() {
@@ -54,10 +58,11 @@ public class RoomDetailFragment extends Fragment {
     public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
         inflater.inflate(R.menu.roomdetail_menu, menu);
+
         changeActionMenuItemsBackground(getResources().getColor(R.color.colorRed));
     }
 
-    public void changeActionMenuItemsBackground(int color){
+    private void changeActionMenuItemsBackground(int color){
         Toolbar toolbar = getActivity().findViewById(R.id.toolbar);
         for (int i = 0; i < toolbar.getChildCount(); i++) {
             final View v = toolbar.getChildAt(i);

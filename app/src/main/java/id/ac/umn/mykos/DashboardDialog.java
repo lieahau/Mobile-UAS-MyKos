@@ -6,21 +6,20 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.EditText;
-import android.widget.Spinner;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
 
-public class SettingsDialog extends DialogFragment {
+public class DashboardDialog extends DialogFragment {
 
     public interface OnClickPositiveButton{
-        void sendNumberOfRoom(int input);
-        void sendRoomIDValue(String input);
-        void sendMaximalDueDate(int input);
+        void sendSort(String input);
+        void sendSearch(String input);
     }
     private OnClickPositiveButton onClickPositiveButton;
 
@@ -30,7 +29,7 @@ public class SettingsDialog extends DialogFragment {
         try{
             onClickPositiveButton = (OnClickPositiveButton) getTargetFragment();
         }catch (ClassCastException e){
-            Log.e("SETTING DIALOG", "onAttach: " + e.getMessage());
+            Log.e("DASHBOARD DIALOG", "onAttach: " + e.getMessage());
         }
     }
 
@@ -41,46 +40,45 @@ public class SettingsDialog extends DialogFragment {
         final View view = inflater.inflate(id_layout, container, false);
 
         getDialog().getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+
+        String target = getArguments().getString("target");
         TextView btnPositive = view.findViewById(R.id.btn_positive);
         TextView btnNegative = view.findViewById(R.id.btn_negative);
-
-        btnNegative.setOnClickListener(v -> getDialog().dismiss());
+        btnNegative.setOnClickListener(v -> {
+            if(target.equalsIgnoreCase("Sort")){
+                String value = "";
+                onClickPositiveButton.sendSort(value);
+            }
+            getDialog().dismiss();
+        });
 
         TextView title = view.findViewById(R.id.dialog_title);
-        String target = getArguments().getString("target");
-        if(target.equalsIgnoreCase("NumberOfRoom")){
-            title.setText(R.string.numberofrooms);
+        if(target.equalsIgnoreCase("Search")){
+            title.setText(R.string.search);
 
             final EditText editText = view.findViewById(R.id.editTextInput);
-            editText.setHint(R.string.howmanyroom);
+            editText.setHint(R.string.inputname);
             btnPositive.setOnClickListener(v -> {
                 String value = editText.getText().toString();
-                if(!value.equalsIgnoreCase("")) {
-                    int input = Integer.parseInt(value);
-                    onClickPositiveButton.sendNumberOfRoom(input);
-                }
+                onClickPositiveButton.sendSearch(value);
                 getDialog().dismiss();
             });
         }
-        else if(target.equalsIgnoreCase("RoomIDValue")){
-            title.setText(R.string.roomidvalue);
-            final Spinner spinner = view.findViewById(R.id.spinnerInput);
-            btnPositive.setOnClickListener(v -> {
-                onClickPositiveButton.sendRoomIDValue(String.valueOf(spinner.getSelectedItem()));
-                getDialog().dismiss();
-            });
-        }
-        else if(target.equalsIgnoreCase("MaximalDueDate")){
-            title.setText(R.string.maximalduedate);
+        else if(target.equalsIgnoreCase("Sort")){
+            title.setText(R.string.sort);
 
-            final EditText editText = view.findViewById(R.id.editTextInput);
-            editText.setHint(R.string.howmanyday);
             btnPositive.setOnClickListener(v -> {
-                String value = editText.getText().toString();
-                if(!value.equalsIgnoreCase("")) {
-                    int input = Integer.parseInt(value);
-                    onClickPositiveButton.sendMaximalDueDate(input);
+                String value;
+                RadioGroup radioGroup = view.findViewById(R.id.radio_sort_group);
+                int selectedID = radioGroup.getCheckedRadioButtonId();
+                if(selectedID == -1) {
+                    value = "";
                 }
+                else{
+                    RadioButton radioButton = view.findViewById(selectedID);
+                    value = radioButton.getText().toString();
+                }
+                onClickPositiveButton.sendSort(value);
                 getDialog().dismiss();
             });
         }
