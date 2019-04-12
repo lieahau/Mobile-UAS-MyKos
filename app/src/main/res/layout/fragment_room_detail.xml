@@ -40,18 +40,17 @@
 
 		        <TextView
 			        android:id="@+id/RoomIDLabel"
-			        android:transitionName="RoomIDLabel"
 			        android:layout_width="match_parent"
 			        android:layout_height="55dp"
 			        android:layout_marginStart="8dp"
 			        android:layout_marginTop="2dp"
 			        android:layout_marginEnd="8dp"
 			        android:layout_weight="1"
-			        android:autoSizeMinTextSize="14sp"
-			        android:autoSizeTextType="uniform"
 			        android:text="@string/roomid"
 			        android:textAlignment="center"
-			        android:textColor="@color/colorLine" />
+			        android:textColor="@color/colorLine"
+			        android:textSize="40sp"
+			        android:transitionName="RoomIDLabel" />
 	        </TableRow>
 
 	        <TableRow
@@ -68,7 +67,6 @@
 
 			        <TextView
 				        android:id="@+id/RoomID"
-				        android:transitionName="RoomID"
 				        android:layout_width="0dp"
 				        android:layout_height="0dp"
 				        android:layout_marginTop="16dp"
@@ -79,8 +77,11 @@
 				        android:autoSizeTextType="uniform"
 				        android:background="@drawable/drawable_circle"
 				        android:gravity="center"
+				        android:maxLines="1"
+				        android:padding="8dp"
 				        android:textAlignment="center"
 				        android:textColor="@color/colorLine"
+				        android:transitionName="RoomID"
 				        app:layout_constraintBottom_toBottomOf="parent"
 				        app:layout_constraintDimensionRatio="W,1:1"
 				        app:layout_constraintEnd_toStartOf="@+id/guideline1"
@@ -129,32 +130,30 @@
 
 		        <TextView
 			        android:id="@+id/NameLabel"
-			        android:transitionName="NameLabel"
 			        android:layout_width="0dp"
 			        android:layout_height="95dp"
 			        android:layout_column="0"
 			        android:layout_marginStart="8dp"
 			        android:layout_marginEnd="4dp"
 			        android:layout_weight="0.25"
-			        android:autoSizeMaxTextSize="35sp"
-			        android:autoSizeTextType="uniform"
-			        android:gravity="center"
-			        android:maxLines="1"
+			        android:gravity="center|start"
 			        android:text="@string/name"
-			        android:textColor="@color/colorLine" />
+			        android:textColor="@color/colorLine"
+			        android:textSize="28sp"
+			        android:transitionName="NameLabel" />
 
 		        <TextView
 			        android:id="@+id/NameData"
-			        android:transitionName="NameData"
 			        android:layout_width="0dp"
 			        android:layout_height="match_parent"
 			        android:layout_column="1"
 			        android:layout_weight="0.65"
 			        android:autoSizeMaxTextSize="30sp"
 			        android:autoSizeTextType="uniform"
-			        android:gravity="center"
+			        android:gravity="center|start"
 			        android:maxLines="2"
-			        android:textColor="@color/colorLine" />
+			        android:textColor="@color/colorLine"
+			        android:transitionName="NameData" />
 
 		        <ImageButton
 			        android:id="@+id/NameEditBtn"
@@ -201,12 +200,10 @@
 			        android:layout_marginStart="8dp"
 			        android:layout_marginEnd="4dp"
 			        android:layout_weight="0.25"
-			        android:autoSizeMaxTextSize="35sp"
-			        android:autoSizeTextType="uniform"
-			        android:gravity="center"
-			        android:maxLines="1"
+			        android:gravity="center|start"
 			        android:text="@string/contact"
-			        android:textColor="@color/colorLine" />
+			        android:textColor="@color/colorLine"
+			        android:textSize="20sp" />
 
 		        <TextView
 			        android:id="@+id/ContactData"
@@ -216,7 +213,7 @@
 			        android:layout_weight="0.65"
 			        android:autoSizeMaxTextSize="30sp"
 			        android:autoSizeTextType="uniform"
-			        android:gravity="center"
+			        android:gravity="center|start"
 			        android:maxLines="2"
 			        android:textColor="@color/colorLine" />
 
@@ -265,12 +262,10 @@
 			        android:layout_marginStart="8dp"
 			        android:layout_marginEnd="4dp"
 			        android:layout_weight="0.25"
-			        android:autoSizeMaxTextSize="35sp"
-			        android:autoSizeTextType="uniform"
-			        android:gravity="center"
-			        android:maxLines="1"
+			        android:gravity="center|start"
 			        android:text="@string/arrivedate"
-			        android:textColor="@color/colorLine" />
+			        android:textColor="@color/colorLine"
+			        android:textSize="16sp" />
 
 		        <TextView
 			        android:id="@+id/ArriveData"
@@ -280,7 +275,7 @@
 			        android:layout_weight="0.65"
 			        android:autoSizeMaxTextSize="30sp"
 			        android:autoSizeTextType="uniform"
-			        android:gravity="center"
+			        android:gravity="center|start"
 			        android:maxLines="2"
 			        android:textColor="@color/colorLine" />
 
@@ -323,32 +318,30 @@
 
 		        <TextView
 			        android:id="@+id/DeadlineLabel"
-			        android:transitionName="DeadlineLabel"
 			        android:layout_width="0dp"
 			        android:layout_height="95dp"
 			        android:layout_column="0"
 			        android:layout_marginStart="8dp"
 			        android:layout_marginEnd="4dp"
 			        android:layout_weight="0.25"
-			        android:autoSizeMaxTextSize="35sp"
-			        android:autoSizeTextType="uniform"
-			        android:gravity="center"
-			        android:maxLines="1"
+			        android:gravity="center|start"
 			        android:text="@string/paydeadline"
-			        android:textColor="@color/colorLine" />
+			        android:textColor="@color/colorLine"
+			        android:textSize="12sp"
+			        android:transitionName="DeadlineLabel" />
 
 		        <TextView
 			        android:id="@+id/DeadlineData"
-			        android:transitionName="DeadlineData"
 			        android:layout_width="0dp"
 			        android:layout_height="match_parent"
 			        android:layout_column="1"
 			        android:layout_weight="0.65"
 			        android:autoSizeMaxTextSize="30sp"
 			        android:autoSizeTextType="uniform"
-			        android:gravity="center"
+			        android:gravity="center|start"
 			        android:maxLines="2"
-			        android:textColor="@color/colorLine" />
+			        android:textColor="@color/colorLine"
+			        android:transitionName="DeadlineData" />
 
 		        <ImageButton
 			        android:id="@+id/DeadlineEditBtn"

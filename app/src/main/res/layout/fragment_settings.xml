@@ -46,8 +46,6 @@
                         android:layout_width="match_parent"
                         android:layout_height="125dp"
                         android:layout_weight="1"
-                        android:autoSizeMaxTextSize="28sp"
-                        android:autoSizeTextType="uniform"
                         android:contentDescription="How many room available?"
                         android:insetLeft="0dp"
                         android:insetTop="0dp"
@@ -57,6 +55,7 @@
                         android:text="@string/numberofrooms"
                         android:textAlignment="textStart"
                         android:textColor="@color/colorLine"
+                        android:textSize="24sp"
                         app:backgroundTint="@android:color/transparent"
                         app:cornerRadius="0dp" />
                 </TableRow>
@@ -88,8 +87,6 @@
                         android:layout_width="match_parent"
                         android:layout_height="125dp"
                         android:layout_weight="1"
-                        android:autoSizeMaxTextSize="28sp"
-                        android:autoSizeTextType="uniform"
                         android:contentDescription="What character represent room ID?"
                         android:insetLeft="0dp"
                         android:insetTop="0dp"
@@ -99,6 +96,7 @@
                         android:text="@string/roomidvalue"
                         android:textAlignment="textStart"
                         android:textColor="@color/colorLine"
+                        android:textSize="24sp"
                         app:backgroundTint="@android:color/transparent"
                         app:cornerRadius="0dp" />
                 </TableRow>
@@ -130,8 +128,6 @@
                         android:layout_width="match_parent"
                         android:layout_height="125dp"
                         android:layout_weight="1"
-                        android:autoSizeMaxTextSize="28sp"
-                        android:autoSizeTextType="uniform"
                         android:contentDescription="How many leeway day available for costumer who have not pay?"
                         android:insetLeft="0dp"
                         android:insetTop="0dp"
@@ -141,6 +137,7 @@
                         android:text="@string/maximalduedate"
                         android:textAlignment="textStart"
                         android:textColor="@color/colorLine"
+                        android:textSize="24sp"
                         app:backgroundTint="@android:color/transparent"
                         app:cornerRadius="0dp" />
                 </TableRow>
