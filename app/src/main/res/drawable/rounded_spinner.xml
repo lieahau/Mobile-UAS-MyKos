@@ -5,16 +5,29 @@
             <item>
                 <shape android:shape="rectangle">
                     <solid android:color="@color/colorWhite"/>
-                    <corners android:radius="5dp"/>
+                    <corners
+	                    android:topLeftRadius="5dp"
+	                    android:topRightRadius="5dp"/>
                     <stroke
                         android:width="1dp"
                         android:color="@color/colorBlack"/>
                     <padding android:top="5dp" android:bottom="5dp" android:left="10dp" android:right="0dp"/>
                 </shape>
             </item>
-            <item>
-                <bitmap android:gravity="bottom|right" android:src="@android:drawable/ic_menu_more" />
-            </item>
+	        <item android:gravity="bottom|right|clip_horizontal|clip_vertical"
+		        android:height="40dp"
+		        android:width="25dp"
+		        android:bottom="-30dp"
+		        android:right="-7dp">
+		        <rotate android:toDegrees="45"
+			        android:pivotX="50%"
+			        android:pivotY="50%"
+			        android:fromDegrees="45">
+			        <shape android:shape="rectangle">
+				        <solid android:color="@color/colorBlack"/>
+			        </shape>
+		        </rotate>
+	        </item>
         </layer-list>
     </item>
 
