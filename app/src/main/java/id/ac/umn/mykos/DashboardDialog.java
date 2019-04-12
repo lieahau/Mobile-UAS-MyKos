@@ -44,13 +44,7 @@ public class DashboardDialog extends DialogFragment {
         String target = getArguments().getString("target");
         TextView btnPositive = view.findViewById(R.id.btn_positive);
         TextView btnNegative = view.findViewById(R.id.btn_negative);
-        btnNegative.setOnClickListener(v -> {
-            if(target.equalsIgnoreCase("Sort")){
-                String value = "";
-                onClickPositiveButton.sendSort(value);
-            }
-            getDialog().dismiss();
-        });
+        btnNegative.setOnClickListener(v -> getDialog().dismiss());
 
         TextView title = view.findViewById(R.id.dialog_title);
         if(target.equalsIgnoreCase("Search")){

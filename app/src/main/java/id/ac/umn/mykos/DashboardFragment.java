@@ -1,7 +1,6 @@
 package id.ac.umn.mykos;
 
 import android.content.Context;
-import android.graphics.LightingColorFilter;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
@@ -14,14 +13,10 @@ import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModel;
-import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelProviders;
-import androidx.lifecycle.ViewModelStore;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
-import androidx.transition.Transition;
 import androidx.transition.TransitionInflater;
 
 import android.util.Log;
@@ -31,13 +26,10 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 
 import com.google.android.material.navigation.NavigationView;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 
 public class DashboardFragment extends Fragment implements DashboardDialog.OnClickPositiveButton {
     private DrawerLayout drawerLayout;
@@ -49,6 +41,7 @@ public class DashboardFragment extends Fragment implements DashboardDialog.OnCli
     private NavController navController;
     private RoomViewModel roomViewModel;
     private Menu menu;
+    private MenuItem sortItem, searchItem;
 
     public DashboardFragment() {
         // Required empty public constructor
@@ -59,6 +52,18 @@ public class DashboardFragment extends Fragment implements DashboardDialog.OnCli
         Log.e("DASHBOARD FRAGMENT", "sendSearch: found incoming input: " + input);
         /* TODO: WRITE ACTION AFTER INPUT SEARCH HERE */
 
+        if(!input.equalsIgnoreCase("")) {
+            /* START CHANGE ICON COLOR TO GREEN */
+            Drawable newIcon = searchItem.getIcon();
+            newIcon.mutate().setColorFilter(getResources().getColor(R.color.colorLightGreen), PorterDuff.Mode.MULTIPLY);
+            /* END CHANGE ICON COLOR TO GREEN */
+        }
+        else{ // empty string search
+            /* START CHANGE ICON COLOR TO BLACK */
+            Drawable newIcon = searchItem.getIcon();
+            newIcon.mutate().setColorFilter(getResources().getColor(R.color.colorBlack), PorterDuff.Mode.MULTIPLY);
+            /* END CHANGE ICON COLOR TO BLACK */
+        }
     }
 
     @Override
@@ -67,23 +72,40 @@ public class DashboardFragment extends Fragment implements DashboardDialog.OnCli
         if(!input.equalsIgnoreCase("")){
             if(input.equalsIgnoreCase(getResources().getString(R.string.sortbyname))){
                 Log.e("DASHBOARD FRAGMENT", "sendSort: sort by name");
-                /* TODO: WRITE SORT BY NAME HERE*/
-                MenuItem sortItem = menu.findItem(R.id.btn_sort);
+                /* TODO: WRITE SORT BY NAME HERE */
+
+                /* START CHANGE ICON COLOR TO GREEN */
                 Drawable newIcon = sortItem.getIcon();
                 newIcon.mutate().setColorFilter(getResources().getColor(R.color.colorLightGreen), PorterDuff.Mode.MULTIPLY);
+                /* END CHANGE ICON COLOR TO GREEN */
             }
             else if(input.equalsIgnoreCase(getResources().getString(R.string.sortbyid))){
                 Log.e("DASHBOARD FRAGMENT", "sendSort: sort by id");
-                /* TODO: WRITE SORT BY ID HERE*/
+                /* TODO: WRITE SORT BY ID HERE */
+
+                /* START CHANGE ICON COLOR TO GREEN */
+                Drawable newIcon = sortItem.getIcon();
+                newIcon.mutate().setColorFilter(getResources().getColor(R.color.colorLightGreen), PorterDuff.Mode.MULTIPLY);
+                /* END CHANGE ICON COLOR TO GREEN */
             }
             else if(input.equalsIgnoreCase(getResources().getString(R.string.sortbydeadline))){
                 Log.e("DASHBOARD FRAGMENT", "sendSort: sort by deadline");
-                /* TODO: WRITE SORT BY DEADLINE HERE*/
+                /* TODO: WRITE SORT BY DEADLINE HERE */
+
+                /* START CHANGE ICON COLOR TO GREEN */
+                Drawable newIcon = sortItem.getIcon();
+                newIcon.mutate().setColorFilter(getResources().getColor(R.color.colorLightGreen), PorterDuff.Mode.MULTIPLY);
+                /* END CHANGE ICON COLOR TO GREEN */
             }
         }
         else{
             Log.e("DASHBOARD FRAGMENT", "sendSort: no sort selected");
-            /* TODO: WRITE UNSORT DATA HERE (OPTIONAL) */
+            /* TODO: WRITE UNSORT DATA HERE */
+
+            /* START CHANGE ICON COLOR TO BLACK */
+            Drawable newIcon = sortItem.getIcon();
+            newIcon.mutate().setColorFilter(getResources().getColor(R.color.colorBlack), PorterDuff.Mode.MULTIPLY);
+            /* END CHANGE ICON COLOR TO BLACK */
         }
     }
 
@@ -185,33 +207,39 @@ public class DashboardFragment extends Fragment implements DashboardDialog.OnCli
     public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
         inflater.inflate(R.menu.dashboard_menu, menu);
+
         this.menu = menu;
+        sortItem = menu.findItem(R.id.btn_sort);
+        searchItem = menu.findItem(R.id.btn_search);
+
+        Drawable newIcon = sortItem.getIcon();
+        newIcon.mutate().setColorFilter(getResources().getColor(R.color.colorBlack), PorterDuff.Mode.MULTIPLY);
+
+        Drawable newIcon2 = searchItem.getIcon();
+        newIcon2.mutate().setColorFilter(getResources().getColor(R.color.colorBlack), PorterDuff.Mode.MULTIPLY);
     }
 
     private void navigationDrawer(final View view, final DrawerLayout drawerLayout){
         navigationView = view.findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(
-                new NavigationView.OnNavigationItemSelectedListener() {
-                    @Override
-                    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                        // close drawer when item is tapped
-                        drawerLayout.closeDrawer(GravityCompat.START);
+                item -> {
+                    // close drawer when item is tapped
+                    drawerLayout.closeDrawer(GravityCompat.START);
 
-                        switch(item.getItemId()){
-                            case R.id.nav_dashboard:
-                                return true;
+                    switch(item.getItemId()){
+                        case R.id.nav_dashboard:
+                            return true;
 
-                            case R.id.nav_overview:
-                                navController.navigate(DashboardFragmentDirections.actionDashboardFragmentToOverviewFragment());
-                                return true;
+                        case R.id.nav_overview:
+                            navController.navigate(DashboardFragmentDirections.actionDashboardFragmentToOverviewFragment());
+                            return true;
 
-                            case R.id.nav_settings:
-                                navController.navigate(DashboardFragmentDirections.actionDashboardFragmentToSettingsFragment());
-                                return true;
+                        case R.id.nav_settings:
+                            navController.navigate(DashboardFragmentDirections.actionDashboardFragmentToSettingsFragment());
+                            return true;
 
-                            default:
-                                return true;
-                        }
+                        default:
+                            return true;
                     }
                 }
         );
