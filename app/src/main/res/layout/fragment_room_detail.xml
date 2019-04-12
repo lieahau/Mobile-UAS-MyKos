@@ -166,7 +166,8 @@
 			        android:padding="7dp"
 			        android:scaleType="fitCenter"
 			        android:src="@drawable/edit_img"
-					app:backgroundTint="@android:color/transparent"/>
+			        android:tint="@color/colorLine"
+			        app:backgroundTint="@android:color/transparent" />
 	        </TableRow>
 
 	        <TableRow
@@ -224,11 +225,12 @@
 			        android:layout_column="2"
 			        android:layout_weight="0.1"
 			        android:adjustViewBounds="true"
-					app:backgroundTint="@android:color/transparent"
 			        android:contentDescription="Edit contact"
 			        android:padding="7dp"
 			        android:scaleType="fitCenter"
-			        android:src="@drawable/edit_img" />
+			        android:src="@drawable/edit_img"
+			        android:tint="@color/colorLine"
+			        app:backgroundTint="@android:color/transparent" />
 	        </TableRow>
 
 	        <TableRow
@@ -286,11 +288,12 @@
 			        android:layout_column="2"
 			        android:layout_weight="0.1"
 			        android:adjustViewBounds="true"
-					app:backgroundTint="@android:color/transparent"
 			        android:contentDescription="Edit arrive date"
 			        android:padding="7dp"
 			        android:scaleType="fitCenter"
-			        android:src="@drawable/edit_img" />
+			        android:src="@drawable/edit_img"
+			        android:tint="@color/colorLine"
+			        app:backgroundTint="@android:color/transparent" />
 	        </TableRow>
 
 	        <TableRow
@@ -350,11 +353,12 @@
 			        android:layout_column="2"
 			        android:layout_weight="0.1"
 			        android:adjustViewBounds="true"
-					app:backgroundTint="@android:color/transparent"
 			        android:contentDescription="Edit payment deadline"
 			        android:padding="7dp"
 			        android:scaleType="fitCenter"
-			        android:src="@drawable/edit_img" />
+			        android:src="@drawable/edit_img"
+			        android:tint="@color/colorLine"
+			        app:backgroundTint="@android:color/transparent" />
 	        </TableRow>
 
 	        <TableRow
