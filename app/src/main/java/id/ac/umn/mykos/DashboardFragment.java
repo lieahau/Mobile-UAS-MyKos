@@ -1,6 +1,7 @@
 package id.ac.umn.mykos;
 
 import android.content.Context;
+import android.graphics.LightingColorFilter;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
@@ -67,9 +68,9 @@ public class DashboardFragment extends Fragment implements DashboardDialog.OnCli
             if(input.equalsIgnoreCase(getResources().getString(R.string.sortbyname))){
                 Log.e("DASHBOARD FRAGMENT", "sendSort: sort by name");
                 /* TODO: WRITE SORT BY NAME HERE*/
-//                MenuItem sortItem = menu.findItem(R.id.btn_sort);
-//                Drawable newIcon = sortItem.getIcon();
-//                newIcon.mutate().setColorFilter(getResources().getColor(R.color.colorLightGreen), PorterDuff.Mode.DST_ATOP);
+                MenuItem sortItem = menu.findItem(R.id.btn_sort);
+                Drawable newIcon = sortItem.getIcon();
+                newIcon.mutate().setColorFilter(getResources().getColor(R.color.colorLightGreen), PorterDuff.Mode.MULTIPLY);
             }
             else if(input.equalsIgnoreCase(getResources().getString(R.string.sortbyid))){
                 Log.e("DASHBOARD FRAGMENT", "sendSort: sort by id");

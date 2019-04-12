@@ -3,7 +3,9 @@
     <item>
         <layer-list>
             <item>
-                <shape android:shape="rectangle" android:padding="5dp"/>
+                <shape android:shape="rectangle" android:padding="5dp">
+                    <solid android:color="@android:color/transparent"/>
+                </shape>
             </item>
             <item android:drawable="@drawable/search_img"
                 android:top="5dp"
