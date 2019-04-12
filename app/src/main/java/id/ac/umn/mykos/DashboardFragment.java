@@ -13,6 +13,7 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.lifecycle.ViewModelProviders;
 import androidx.lifecycle.ViewModelStore;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
@@ -51,7 +52,8 @@ public class DashboardFragment extends Fragment {
     public void onAttach(@NonNull Context context) {
         super.onAttach(context);
         /* START INIT ROOM VIEW MODEL */
-        roomViewModel = new ViewModelProvider.NewInstanceFactory().create(RoomViewModel.class);
+        // Use activity context to make it shareable between fragment
+        roomViewModel = ViewModelProviders.of(getActivity()).get(RoomViewModel.class);
         /* END INIT ROOM VIEW MODEL */
     }
 
@@ -94,7 +96,6 @@ public class DashboardFragment extends Fragment {
                 dashboardAdapter.SetData(newData);
             }
         });
-        roomViewModel.SetData(new ArrayList<String>(Arrays.asList("1", "2", "3", "4", "5")));
 
         dashboardList = view.findViewById(R.id.dashboardList);
         dashboardList.setAdapter(dashboardAdapter);
