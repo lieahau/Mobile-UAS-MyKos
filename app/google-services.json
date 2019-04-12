@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "365108517044",
+    "firebase_url": "https://my-kos.firebaseio.com",
+    "project_id": "my-kos",
+    "storage_bucket": "my-kos.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:365108517044:android:78f75aaf9669b7d3",
+        "android_client_info": {
+          "package_name": "id.ac.umn.mykos"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "365108517044-3eapi8tg4eo6dqjv3h158995mfmkub47.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBjXtkZIfHwlBLMOXFYCe1B2RpP0yT5oas"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "365108517044-3eapi8tg4eo6dqjv3h158995mfmkub47.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
