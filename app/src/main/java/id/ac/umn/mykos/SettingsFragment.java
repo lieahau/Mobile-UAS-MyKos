@@ -31,6 +31,7 @@ public class SettingsFragment extends Fragment implements SettingsDialog.OnClick
         // Required empty public constructor
     }
 
+    /* START CALL IMPLEMENTS FUNCTION */
     @Override
     public void sendNumberOfRoom(int input) {
         Log.e("SETTINGS FRAGMENT", "sendNumberOfRoom: found incoming input: " + input);
@@ -44,12 +45,12 @@ public class SettingsFragment extends Fragment implements SettingsDialog.OnClick
         String[] roomIDType = getResources().getStringArray(R.array.roomidvalue_array);
         if(input.equalsIgnoreCase(roomIDType[0])){
             Log.e("SETTINGS FRAGMENT", "sendRoomIDValue: room id alphabetic");
-            /* TODO: WRITE ACTION FOR ALPHABETIC HERE*/
+            /* TODO: WRITE ACTION FOR ROOM ID VALUE = ALPHABETIC HERE*/
 
         }
         else if(input.equalsIgnoreCase(roomIDType[1])){
             Log.e("SETTINGS FRAGMENT", "sendRoomIDValue: room id numeric");
-            /* TODO: WRITE ACTION FOR NUMERIC HERE */
+            /* TODO: WRITE ACTION FOR ROOM ID VALUE = NUMERIC HERE */
         }
     }
 
@@ -59,10 +60,10 @@ public class SettingsFragment extends Fragment implements SettingsDialog.OnClick
         /* TODO: WRITE ACTION AFTER INPUT MAXIMAL DUE DATE SETTING HERE */
 
     }
+    /* END CALL IMPLEMENTS FUNCTION */
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-//        Log.e("TESTING FUNCTION", "SETTINGS ON CREATE VIEW");
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_settings, container, false);
     }
@@ -70,7 +71,6 @@ public class SettingsFragment extends Fragment implements SettingsDialog.OnClick
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-//        Log.e("TESTING FUNCTION", "SETTINGS ON VIEW CREATED");
         /* START INIT NAVCONTROLLER */
         navController = Navigation.findNavController(view);
         /* END INIT NAVCONTROLLER */
@@ -141,27 +141,24 @@ public class SettingsFragment extends Fragment implements SettingsDialog.OnClick
     private void navigationDrawer(final View view, final DrawerLayout drawerLayout){
         navigationView = view.findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(
-                new NavigationView.OnNavigationItemSelectedListener() {
-                    @Override
-                    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                        // close drawer when item is tapped
-                        drawerLayout.closeDrawer(GravityCompat.START);
+                item -> {
+                    // close drawer when item is tapped
+                    drawerLayout.closeDrawer(GravityCompat.START);
 
-                        switch(item.getItemId()){
-                            case R.id.nav_dashboard:
-                                navController.navigate(SettingsFragmentDirections.actionSettingsFragmentToDashboardFragment());
-                                return true;
+                    switch(item.getItemId()){
+                        case R.id.nav_dashboard:
+                            navController.navigate(SettingsFragmentDirections.actionSettingsFragmentToDashboardFragment());
+                            return true;
 
-                            case R.id.nav_overview:
-                                navController.navigate(SettingsFragmentDirections.actionSettingsFragmentToOverviewFragment());
-                                return true;
+                        case R.id.nav_overview:
+                            navController.navigate(SettingsFragmentDirections.actionSettingsFragmentToOverviewFragment());
+                            return true;
 
-                            case R.id.nav_settings:
-                                return true;
+                        case R.id.nav_settings:
+                            return true;
 
-                            default:
-                                return true;
-                        }
+                        default:
+                            return true;
                     }
                 }
         );

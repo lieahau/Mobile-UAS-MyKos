@@ -7,11 +7,9 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.zip.Inflater;
 
 import androidx.annotation.NonNull;
 import androidx.navigation.NavController;
-import androidx.navigation.Navigation;
 import androidx.navigation.fragment.FragmentNavigator;
 import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.RecyclerView;
@@ -97,12 +95,7 @@ public class ListDashboardAdapter extends RecyclerView.Adapter<ListDashboardAdap
         }
 
         public void bind(){
-            container.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    navController.navigate(DashboardFragmentDirections.actionDashboardFragmentToRoomDetailFragment(), extras);
-                }
-            });
+            container.setOnClickListener(v -> navController.navigate(DashboardFragmentDirections.actionDashboardFragmentToRoomDetailFragment(), extras));
 
             RoomIDText.setText("");
             NameText.setText("");

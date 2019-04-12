@@ -10,7 +10,6 @@ import java.util.List;
 
 import androidx.annotation.NonNull;
 import androidx.navigation.NavController;
-import androidx.navigation.Navigation;
 import androidx.navigation.fragment.FragmentNavigator;
 import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.RecyclerView;
@@ -86,12 +85,7 @@ public class ListOverviewAdapter extends RecyclerView.Adapter<ListOverviewAdapte
         }
 
         public void bind(){
-            container.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    navController.navigate(OverviewFragmentDirections.actionOverviewFragmentToRoomDetailFragment(), extras);
-                }
-            });
+            container.setOnClickListener(v -> navController.navigate(OverviewFragmentDirections.actionOverviewFragmentToRoomDetailFragment(), extras));
 
             RoomIDText.setText("");
             RoomStatusText.setText("");

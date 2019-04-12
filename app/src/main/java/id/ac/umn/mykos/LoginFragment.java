@@ -1,7 +1,5 @@
 package id.ac.umn.mykos;
 
-import android.content.Context;
-import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -32,11 +30,6 @@ public class LoginFragment extends Fragment {
 
         Button dashboard = view.findViewById(R.id.btn_to_dashboard);
         final View viewRef = view;
-        dashboard.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Navigation.findNavController(viewRef).navigate(LoginFragmentDirections.actionLoginFragmentToDashboardFragment());
-            }
-        });
+        dashboard.setOnClickListener(v -> Navigation.findNavController(viewRef).navigate(LoginFragmentDirections.actionLoginFragmentToDashboardFragment()));
     }
 }

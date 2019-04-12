@@ -40,65 +40,66 @@ public class DashboardFragment extends Fragment implements DashboardDialog.OnCli
     private ListDashboardAdapter dashboardAdapter;
     private NavController navController;
     private RoomViewModel roomViewModel;
-    private Menu menu;
     private MenuItem sortItem, searchItem;
 
     public DashboardFragment() {
         // Required empty public constructor
     }
 
+    /* START CALL IMPLEMENTS FUNCTION */
     @Override
     public void sendSearch(String input) {
         Log.e("DASHBOARD FRAGMENT", "sendSearch: found incoming input: " + input);
-        /* TODO: WRITE ACTION AFTER INPUT SEARCH HERE */
 
-        if(!input.equalsIgnoreCase("")) {
+        if(!input.equalsIgnoreCase("")) { // if input NOT EMPTY
             /* START CHANGE ICON COLOR TO GREEN */
             Drawable newIcon = searchItem.getIcon();
             newIcon.mutate().setColorFilter(getResources().getColor(R.color.colorLightGreen), PorterDuff.Mode.MULTIPLY);
             /* END CHANGE ICON COLOR TO GREEN */
+            /* TODO: WRITE ACTION AFTER INPUT SEARCH HERE */
+
         }
         else{ // empty string search
             /* START CHANGE ICON COLOR TO BLACK */
             Drawable newIcon = searchItem.getIcon();
             newIcon.mutate().setColorFilter(getResources().getColor(R.color.colorBlack), PorterDuff.Mode.MULTIPLY);
             /* END CHANGE ICON COLOR TO BLACK */
+            /* TODO: WRITE ACTION AFTER INPUT EMPTY SEARCH HERE */
+
         }
     }
 
     @Override
     public void sendSort(String input) {
-        Log.e("DASHBOARD FRAGMENT", "sendSort: found incoming input: " + input);
         if(!input.equalsIgnoreCase("")){
-            if(input.equalsIgnoreCase(getResources().getString(R.string.sortbyname))){
-                Log.e("DASHBOARD FRAGMENT", "sendSort: sort by name");
-                /* TODO: WRITE SORT BY NAME HERE */
-
+            Log.e("DASHBOARD FRAGMENT", "sendSort: found incoming input: " + input);
+            if(input.equalsIgnoreCase(getResources().getString(R.string.sortbyname))){ // SORT BY NAME
                 /* START CHANGE ICON COLOR TO GREEN */
                 Drawable newIcon = sortItem.getIcon();
                 newIcon.mutate().setColorFilter(getResources().getColor(R.color.colorLightGreen), PorterDuff.Mode.MULTIPLY);
                 /* END CHANGE ICON COLOR TO GREEN */
+
+                /* TODO: WRITE SORT BY NAME HERE */
             }
-            else if(input.equalsIgnoreCase(getResources().getString(R.string.sortbyid))){
-                Log.e("DASHBOARD FRAGMENT", "sendSort: sort by id");
+            else if(input.equalsIgnoreCase(getResources().getString(R.string.sortbyid))){ // SORT BY ID
+                /* START CHANGE ICON COLOR TO GREEN */
+                Drawable newIcon = sortItem.getIcon();
+                newIcon.mutate().setColorFilter(getResources().getColor(R.color.colorLightGreen), PorterDuff.Mode.MULTIPLY);
+                /* END CHANGE ICON COLOR TO GREEN */
+
                 /* TODO: WRITE SORT BY ID HERE */
 
-                /* START CHANGE ICON COLOR TO GREEN */
-                Drawable newIcon = sortItem.getIcon();
-                newIcon.mutate().setColorFilter(getResources().getColor(R.color.colorLightGreen), PorterDuff.Mode.MULTIPLY);
-                /* END CHANGE ICON COLOR TO GREEN */
             }
-            else if(input.equalsIgnoreCase(getResources().getString(R.string.sortbydeadline))){
-                Log.e("DASHBOARD FRAGMENT", "sendSort: sort by deadline");
-                /* TODO: WRITE SORT BY DEADLINE HERE */
-
+            else if(input.equalsIgnoreCase(getResources().getString(R.string.sortbydeadline))){ // SORT BY DEADLINE
                 /* START CHANGE ICON COLOR TO GREEN */
                 Drawable newIcon = sortItem.getIcon();
                 newIcon.mutate().setColorFilter(getResources().getColor(R.color.colorLightGreen), PorterDuff.Mode.MULTIPLY);
                 /* END CHANGE ICON COLOR TO GREEN */
+
+                /* TODO: WRITE SORT BY DEADLINE HERE */
             }
         }
-        else{
+        else{ // UNSORT (NOT SELECT ANY SORT)
             Log.e("DASHBOARD FRAGMENT", "sendSort: no sort selected");
             /* TODO: WRITE UNSORT DATA HERE */
 
@@ -108,6 +109,7 @@ public class DashboardFragment extends Fragment implements DashboardDialog.OnCli
             /* END CHANGE ICON COLOR TO BLACK */
         }
     }
+    /* END CALL IMPLEMENTS FUNCTION */
 
     @Override
     public void onAttach(@NonNull Context context) {
@@ -208,7 +210,6 @@ public class DashboardFragment extends Fragment implements DashboardDialog.OnCli
         super.onCreateOptionsMenu(menu, inflater);
         inflater.inflate(R.menu.dashboard_menu, menu);
 
-        this.menu = menu;
         sortItem = menu.findItem(R.id.btn_sort);
         searchItem = menu.findItem(R.id.btn_search);
 
