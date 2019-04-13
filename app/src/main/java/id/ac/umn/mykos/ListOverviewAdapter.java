@@ -90,11 +90,7 @@ public class ListOverviewAdapter extends RecyclerView.Adapter<ListOverviewAdapte
             container.setOnClickListener(v -> navController.navigate(OverviewFragmentDirections.actionOverviewFragmentToRoomDetailFragment(), extras));
 
             RoomIDText.setText(Integer.toString(room.getID()));
-
-            String str;
-            if(room.isOcupied()) str = "Occupied";
-            else str = "Empty";
-            RoomStatusText.setText(str);
+            RoomStatusText.setText(room.getStatus());
         }
     }
 }

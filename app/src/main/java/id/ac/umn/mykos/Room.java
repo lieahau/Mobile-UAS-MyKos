@@ -12,25 +12,29 @@ public class Room {
     private Integer id;
     private String name;
     private Date arrivalDate;
-    private Date paymnetDeadline;
+    private Date paymentDeadline;
     private String contact;
-    private Boolean occupied = new Boolean(false);
 
     public Room(){}
 
-    public Room(Integer id, String name, Date arrivalDate, Date paymnetDeadline, String contact) {
+    public Room(Integer id, String name, String arrivalDate, String paymentDeadline, String contact) {
         this.id = id;
+
         if(name == null) name = "";
         this.name = name;
-        this.arrivalDate = arrivalDate;
-        this.paymnetDeadline = paymnetDeadline;
+
+        if(arrivalDate == null) this.arrivalDate = null;
+        else this.arrivalDate = stringToDate(arrivalDate);
+
+        if(paymentDeadline == null) this.paymentDeadline = null;
+        else this.paymentDeadline = stringToDate(paymentDeadline);
+
         if(contact == null) contact = "";
         this.contact = contact;
-        this.occupied = false;
     }
 
     public static String dateToString(Date date) {
-        DateFormat dateFormat = new SimpleDateFormat("dd/MM/yy");
+        DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
         String str = dateFormat.format(date);
         return str;
     }
@@ -38,7 +42,7 @@ public class Room {
     public static Date stringToDate(String str){
         Date date = null;
         try {
-            SimpleDateFormat df =  new SimpleDateFormat("dd/MM/yy");
+            SimpleDateFormat df =  new SimpleDateFormat("dd/MM/yyyy");
             date = df.parse(str);
         } catch (ParseException e) {
             //handle exception
@@ -49,14 +53,27 @@ public class Room {
     public Integer getID(){return this.id;}
     public String getName(){return name;}
     public Date getArrivalDate(){return this.arrivalDate;}
-    public String getArrivalDateString(){return dateToString(this.arrivalDate);}
-    public Date getPaymentDeadline(){return this.paymnetDeadline;}
-    public String getPaymentDeadlineString(){return dateToString(this.paymnetDeadline);}
+    public String getArrivalDateString(){
+        if(this.arrivalDate == null) return "Empty";
+        return dateToString(this.arrivalDate);
+    }
+    public Date getPaymentDeadline(){return this.paymentDeadline;}
+    public String getPaymentDeadlineString(){
+            if(this.paymentDeadline == null) return  "Empty";
+            return dateToString(this.paymentDeadline);
+    }
     public String getContact(){return this.contact;}
-    public Boolean isOcupied(){return this.occupied;}
+    public String getStatus(){
+        String str;
+        Date now = new Date();
+        if (this.arrivalDate == null) str = "Empty";
+        else if (this.arrivalDate.compareTo(new Date()) >= 0) str = "Occupied";
+        else str = "Reserved";
+        return str;
+    }
 
-    public void setOccupied(Boolean bool){this.occupied = bool;}
+
     public void setArrivalDate(Date date){this.arrivalDate = date;}
-    public void setPaymentDeadline(Date date){this.paymnetDeadline = date;}
+    public void setPaymentDeadline(Date date){this.paymentDeadline = date;}
 
 }
