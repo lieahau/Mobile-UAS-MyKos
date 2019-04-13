@@ -152,10 +152,10 @@ public class DashboardFragment extends Fragment implements DashboardDialog.OnCli
         /* END CREATE TOOLBAR */
 
         /* START HANDLING DASHBOARD LIST*/
-        dashboardAdapter = new ListDashboardAdapter(new ArrayList<String>(), navController);
-        roomViewModel.GetData().observe(this, new Observer<ArrayList<String>>() {
+        dashboardAdapter = new ListDashboardAdapter(new ArrayList<Room>(), navController);
+        roomViewModel.GetData().observe(this, new Observer<ArrayList<Room>>() {
             @Override
-            public void onChanged(ArrayList<String> newData) {
+            public void onChanged(ArrayList<Room> newData) {
                 dashboardAdapter.SetData(newData);
             }
         });

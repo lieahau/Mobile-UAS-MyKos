@@ -15,23 +15,23 @@ import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
 public class ListDashboardAdapter extends RecyclerView.Adapter<ListDashboardAdapter.ListDashboardView> {
-    // Perlu data struktur terlebih dahulu
+    // Perlu data struktur terlebih dahulu //udah
 
     // Placeholder
-    ArrayList<String> placeholders = new ArrayList<String>();
+    ArrayList<Room> placeholders = new ArrayList<Room>();
 
     // Reference to NavController
     NavController navController;
 
     public ListDashboardAdapter(){}
 
-    public ListDashboardAdapter(ArrayList<String> newList, NavController navController){
+    public ListDashboardAdapter(ArrayList<Room> newList, NavController navController){
         SetData(newList);
         this.navController = navController;
     }
 
     // let ListDashboardDiffUtil make change to data
-    public void SetData(ArrayList<String> newList){
+    public void SetData(ArrayList<Room> newList){
         DiffUtil.DiffResult result = DiffUtil.calculateDiff(new ListOverviewDiffUtil(placeholders, newList));
         placeholders = newList;
         result.dispatchUpdatesTo(this);
@@ -48,12 +48,14 @@ public class ListDashboardAdapter extends RecyclerView.Adapter<ListDashboardAdap
     @Override
     public void onBindViewHolder(@NonNull ListDashboardView holder, int position) {
         // Setup data data into ListDashboardView
-        holder.bind();
+        Room room = placeholders.get(position);
+        holder.bind(room);
     }
 
     @Override
     public void onBindViewHolder(@NonNull ListDashboardView holder, int position, @NonNull List<Object> payloads) {
-        holder.bind();
+        Room room = placeholders.get(position);
+        holder.bind(room);
     }
 
     @Override
@@ -94,12 +96,12 @@ public class ListDashboardAdapter extends RecyclerView.Adapter<ListDashboardAdap
                     .build();
         }
 
-        public void bind(){
+        public void bind(Room room){
             container.setOnClickListener(v -> navController.navigate(DashboardFragmentDirections.actionDashboardFragmentToRoomDetailFragment(), extras));
 
-            RoomIDText.setText("");
-            NameText.setText("");
-            DeadlineText.setText("");
+            RoomIDText.setText(Integer.toString(room.getID()));
+            NameText.setText(room.getName());
+            DeadlineText.setText(room.getPaymentDeadlineString());
         }
     }
 

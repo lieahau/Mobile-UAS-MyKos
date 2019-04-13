@@ -15,23 +15,23 @@ import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
 public class ListOverviewAdapter extends RecyclerView.Adapter<ListOverviewAdapter.ListOverviewView> {
-    // Perlu data struktur terlebih dahulu
+    // Perlu data struktur terlebih dahulu //udah
 
     // Placeholder
-    ArrayList<String> placeholders = new ArrayList<String>();
+    ArrayList<Room> placeholders = new ArrayList<Room>();
 
     // Reference to NavController
     NavController navController;
 
     public ListOverviewAdapter(){}
 
-    public ListOverviewAdapter(ArrayList<String> newList, NavController navController){
+    public ListOverviewAdapter(ArrayList<Room> newList, NavController navController){
         SetData(newList);
         this.navController = navController;
     }
 
     // let ListDashboardDiffUtil make change to data
-    public void SetData(ArrayList<String> newList){
+    public void SetData(ArrayList<Room> newList){
         DiffUtil.DiffResult result = DiffUtil.calculateDiff(new ListDashboardDiffUtil(placeholders, newList));
         placeholders = newList;
         result.dispatchUpdatesTo(this);
@@ -48,12 +48,14 @@ public class ListOverviewAdapter extends RecyclerView.Adapter<ListOverviewAdapte
     @Override
     public void onBindViewHolder(@NonNull ListOverviewView holder, int position) {
         // Setup data data into ListDashboardView
-        holder.bind();
+        Room room = placeholders.get(position);
+        holder.bind(room);
     }
 
     @Override
     public void onBindViewHolder(@NonNull ListOverviewView holder, int position, @NonNull List<Object> payloads) {
-        holder.bind();
+        Room room = placeholders.get(position);
+        holder.bind(room);
     }
 
     @Override
@@ -84,11 +86,15 @@ public class ListOverviewAdapter extends RecyclerView.Adapter<ListOverviewAdapte
                     .build();
         }
 
-        public void bind(){
+        public void bind(Room room){
             container.setOnClickListener(v -> navController.navigate(OverviewFragmentDirections.actionOverviewFragmentToRoomDetailFragment(), extras));
 
-            RoomIDText.setText("");
-            RoomStatusText.setText("");
+            RoomIDText.setText(Integer.toString(room.getID()));
+
+            String str;
+            if(room.isOcupied()) str = "Occupied";
+            else str = "Empty";
+            RoomStatusText.setText(str);
         }
     }
 }

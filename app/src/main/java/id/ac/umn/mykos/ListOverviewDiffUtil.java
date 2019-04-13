@@ -9,12 +9,12 @@ public class ListOverviewDiffUtil extends DiffUtil.Callback {
     // Perlu list yang lama dan yang baru
 
     //placeholders
-    ArrayList<String> oldPlaceholders = new ArrayList<String>();
-    ArrayList<String> newPlaceholders = new ArrayList<String>();
+    ArrayList<Room> oldPlaceholders = new ArrayList<Room>();
+    ArrayList<Room> newPlaceholders = new ArrayList<Room>();
 
     public ListOverviewDiffUtil(){}
 
-    public ListOverviewDiffUtil(ArrayList<String> oldPlaceholders, ArrayList<String> newPlaceholders){
+    public ListOverviewDiffUtil(ArrayList<Room> oldPlaceholders, ArrayList<Room> newPlaceholders){
         this.oldPlaceholders = oldPlaceholders;
         this.newPlaceholders = newPlaceholders;
     }
@@ -40,7 +40,8 @@ public class ListOverviewDiffUtil extends DiffUtil.Callback {
     @Override
     public boolean areContentsTheSame(int oldItemPosition, int newItemPosition) {
         // untuk sementara
-        if(oldPlaceholders.get(oldItemPosition).compareTo(newPlaceholders.get(newItemPosition)) != 0){
+//        if(oldPlaceholders.get(oldItemPosition).compareTo(newPlaceholders.get(newItemPosition)) != 0){
+        if(oldPlaceholders.get(oldItemPosition).equals(newPlaceholders.get(newItemPosition)) != false){
             return false;
         }
 

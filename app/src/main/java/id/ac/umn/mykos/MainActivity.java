@@ -13,8 +13,6 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 
 public class MainActivity extends AppCompatActivity {
     private NavHostFragment navHost;
@@ -25,9 +23,9 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        // Populate dummy data
+        // Retrieve data from FIrebase
         roomViewModel = ViewModelProviders.of(this).get(RoomViewModel.class);
-        roomViewModel.SetData(new ArrayList<String>(Arrays.asList("1", "2", "3", "4", "5")));
+        roomViewModel.getFirebase("");
 
         navHost = (NavHostFragment) getSupportFragmentManager().findFragmentById(R.id.nav_host_fragment);
     }
@@ -96,5 +94,15 @@ public class MainActivity extends AppCompatActivity {
 
             }
         }
+    }
+
+    // Populate dummy data to Firebase
+    public void initDatabase(String idUser, Integer idx){
+        roomViewModel.setFirebase(idUser, idx);
+    }
+
+    // Retrieve data from FIrebase
+    public void getDatabase(String idUser){
+        roomViewModel.getFirebase(idUser);
     }
 }
