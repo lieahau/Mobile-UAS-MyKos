@@ -14,11 +14,8 @@
 		android:layout_width="match_parent"
 		android:layout_height="?attr/actionBarSize"
 		android:background="@color/colorThemeOrange"
-		app:theme="@style/ToolbarTheme"
+		android:theme="@style/ToolbarTheme"
 		android:actionMenuTextColor="@color/colorWhite"
-		app:layout_constraintEnd_toEndOf="parent"
-		app:layout_constraintStart_toStartOf="parent"
-		app:layout_constraintTop_toTopOf="parent"
 		app:title="@string/room" />
 
 	<TableLayout
