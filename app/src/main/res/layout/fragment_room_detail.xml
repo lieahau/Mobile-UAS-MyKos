@@ -139,7 +139,7 @@
 			        android:gravity="center|start"
 			        android:text="@string/name"
 			        android:textColor="@color/colorLine"
-			        android:textSize="28sp"
+			        android:textSize="24sp"
 			        android:transitionName="NameLabel" />
 
 		        <TextView

@@ -9,6 +9,10 @@ import java.util.Date;
 
 @IgnoreExtraProperties
 public class Room {
+    public static final String STATUS_EMPTY = "Empty";
+    public static final String STATUS_OCCUPIED = "Occupied";
+    public static final String STATUS_RESERVED = "Reserved";
+
     private Integer id;
     private String name;
     private Date arrivalDate;
@@ -54,25 +58,25 @@ public class Room {
     public String getName(){return name;}
     public Date getArrivalDate(){return this.arrivalDate;}
     public String getArrivalDateString(){
-        if(this.arrivalDate == null) return "Empty";
+        if(this.arrivalDate == null) return STATUS_EMPTY;
         return dateToString(this.arrivalDate);
     }
     public Date getPaymentDeadline(){return this.paymentDeadline;}
     public String getPaymentDeadlineString(){
-            if(this.paymentDeadline == null) return  "Empty";
+            if(this.paymentDeadline == null) return STATUS_EMPTY;
             return dateToString(this.paymentDeadline);
     }
     public String getContact(){return this.contact;}
     public String getStatus(){
         String str;
         Date now = new Date();
-        if (this.arrivalDate == null) str = "Empty";
-        else if (this.arrivalDate.compareTo(new Date()) >= 0) str = "Occupied";
-        else str = "Reserved";
+        if (this.arrivalDate == null) str = STATUS_EMPTY;
+        else if (this.arrivalDate.compareTo(new Date()) >= 0) str = STATUS_OCCUPIED;
+        else str = STATUS_RESERVED;
         return str;
     }
 
-
+    public void setName(String name){this.name = name;}
     public void setArrivalDate(Date date){this.arrivalDate = date;}
     public void setPaymentDeadline(Date date){this.paymentDeadline = date;}
 

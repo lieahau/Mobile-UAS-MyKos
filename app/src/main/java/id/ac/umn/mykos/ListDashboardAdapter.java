@@ -1,5 +1,6 @@
 package id.ac.umn.mykos;
 
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,10 +16,8 @@ import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
 public class ListDashboardAdapter extends RecyclerView.Adapter<ListDashboardAdapter.ListDashboardView> {
-    // Perlu data struktur terlebih dahulu //udah
-
-    // Placeholder
-    ArrayList<Room> placeholders = new ArrayList<Room>();
+    // Perlu data struktur terlebih dahulu //udah // Good jobbu
+    ArrayList<Room> datas = new ArrayList<Room>();
 
     // Reference to NavController
     NavController navController;
@@ -32,8 +31,8 @@ public class ListDashboardAdapter extends RecyclerView.Adapter<ListDashboardAdap
 
     // let ListDashboardDiffUtil make change to data
     public void SetData(ArrayList<Room> newList){
-        DiffUtil.DiffResult result = DiffUtil.calculateDiff(new ListOverviewDiffUtil(placeholders, newList));
-        placeholders = newList;
+        DiffUtil.DiffResult result = DiffUtil.calculateDiff(new ListOverviewDiffUtil(datas, newList));
+        datas = newList;
         result.dispatchUpdatesTo(this);
     }
 
@@ -48,19 +47,31 @@ public class ListDashboardAdapter extends RecyclerView.Adapter<ListDashboardAdap
     @Override
     public void onBindViewHolder(@NonNull ListDashboardView holder, int position) {
         // Setup data data into ListDashboardView
-        Room room = placeholders.get(position);
+        Room room = datas.get(position);
         holder.bind(room);
     }
 
     @Override
     public void onBindViewHolder(@NonNull ListDashboardView holder, int position, @NonNull List<Object> payloads) {
-        Room room = placeholders.get(position);
+        Room room = datas.get(position);
+
+        if(!payloads.isEmpty()){
+            Bundle payload = (Bundle) payloads.get(0);
+            if(payload.containsKey(ListDashboardDiffUtil.NAME)){
+                room.setName(payload.getString(ListDashboardDiffUtil.NAME));
+            }
+
+            if(payload.containsKey(ListDashboardDiffUtil.DEADLINE)){
+                room.setName(payload.getString(ListDashboardDiffUtil.DEADLINE));
+            }
+        }
+
         holder.bind(room);
     }
 
     @Override
     public int getItemCount() {
-        return placeholders.size();
+        return datas.size();
     }
 
     class ListDashboardView extends RecyclerView.ViewHolder{
@@ -97,7 +108,14 @@ public class ListDashboardAdapter extends RecyclerView.Adapter<ListDashboardAdap
         }
 
         public void bind(Room room){
-            container.setOnClickListener(v -> navController.navigate(DashboardFragmentDirections.actionDashboardFragmentToRoomDetailFragment(), extras));
+            container.setOnClickListener((v) -> {
+                // Set args(using navigation framework)
+                DashboardFragmentDirections.ActionDashboardFragmentToRoomDetailFragment action =
+                        DashboardFragmentDirections.actionDashboardFragmentToRoomDetailFragment();
+                action.setRoomID(room.getID());
+
+                navController.navigate(action, extras);
+            });
 
             RoomIDText.setText(Integer.toString(room.getID()));
             NameText.setText(room.getName());

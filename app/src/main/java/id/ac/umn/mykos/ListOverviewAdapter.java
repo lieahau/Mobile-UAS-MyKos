@@ -1,5 +1,6 @@
 package id.ac.umn.mykos;
 
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,10 +16,8 @@ import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
 public class ListOverviewAdapter extends RecyclerView.Adapter<ListOverviewAdapter.ListOverviewView> {
-    // Perlu data struktur terlebih dahulu //udah
-
-    // Placeholder
-    ArrayList<Room> placeholders = new ArrayList<Room>();
+    // Perlu data struktur terlebih dahulu //udah // good jobbu
+    ArrayList<Room> datas = new ArrayList<Room>();
 
     // Reference to NavController
     NavController navController;
@@ -32,8 +31,8 @@ public class ListOverviewAdapter extends RecyclerView.Adapter<ListOverviewAdapte
 
     // let ListDashboardDiffUtil make change to data
     public void SetData(ArrayList<Room> newList){
-        DiffUtil.DiffResult result = DiffUtil.calculateDiff(new ListDashboardDiffUtil(placeholders, newList));
-        placeholders = newList;
+        DiffUtil.DiffResult result = DiffUtil.calculateDiff(new ListDashboardDiffUtil(datas, newList));
+        datas = newList;
         result.dispatchUpdatesTo(this);
     }
 
@@ -48,19 +47,27 @@ public class ListOverviewAdapter extends RecyclerView.Adapter<ListOverviewAdapte
     @Override
     public void onBindViewHolder(@NonNull ListOverviewView holder, int position) {
         // Setup data data into ListDashboardView
-        Room room = placeholders.get(position);
+        Room room = datas.get(position);
         holder.bind(room);
     }
 
     @Override
     public void onBindViewHolder(@NonNull ListOverviewView holder, int position, @NonNull List<Object> payloads) {
-        Room room = placeholders.get(position);
+        Room room = datas.get(position);
+
+        if(!payloads.isEmpty()){
+            Bundle payload = (Bundle) payloads.get(0);
+            if(payload.containsKey(ListOverviewDiffUtil.STATUS)){
+                room.setName(payload.getString(ListOverviewDiffUtil.STATUS));
+            }
+        }
+
         holder.bind(room);
     }
 
     @Override
     public int getItemCount() {
-        return placeholders.size();
+        return datas.size();
     }
 
     class ListOverviewView extends RecyclerView.ViewHolder{
@@ -87,7 +94,14 @@ public class ListOverviewAdapter extends RecyclerView.Adapter<ListOverviewAdapte
         }
 
         public void bind(Room room){
-            container.setOnClickListener(v -> navController.navigate(OverviewFragmentDirections.actionOverviewFragmentToRoomDetailFragment(), extras));
+            container.setOnClickListener((v) -> {
+                // Set args(using navigation framework)
+                OverviewFragmentDirections.ActionOverviewFragmentToRoomDetailFragment action =
+                        OverviewFragmentDirections.actionOverviewFragmentToRoomDetailFragment();
+
+                action.setRoomID(room.getID());
+                navController.navigate(action, extras);
+            });
 
             RoomIDText.setText(Integer.toString(room.getID()));
             RoomStatusText.setText(room.getStatus());

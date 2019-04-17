@@ -21,17 +21,14 @@ import androidx.lifecycle.ViewModel;
 // will be use with live data
 
 public class RoomViewModel extends ViewModel {
-    // Perlu data struktur terlebih dahulu //udah
+    // Perlu data struktur terlebih dahulu //udah // good jobbu
 
     private DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
 
-    // Placeholder
-    MutableLiveData<ArrayList<Room>> placeholders = new MutableLiveData<ArrayList<Room>>();
-
-    // Set data from Main Thread
-    public void SetData(ArrayList<Room> data){
-        placeholders.setValue(data);
-    }
+    // hold all value
+    private MutableLiveData<ArrayList<Room>> datas = new MutableLiveData<ArrayList<Room>>();
+    private MutableLiveData<ArrayList<Room>> dashboardDatas = new MutableLiveData<ArrayList<Room>>();
+    private MutableLiveData<Room> roomData = new MutableLiveData<Room>();
 
     // Get Feirbase
     public void getFirebase(String idUser){
@@ -49,6 +46,7 @@ public class RoomViewModel extends ViewModel {
 
 //                for (Room room: listRoom) Log.e("Room", Integer.toString(room.getID()) + room.getName() + " " + room.getPaymentDeadlineString());
                 SetData(listRoom);
+                SetDashboardData();
             }
 
             @Override
@@ -56,13 +54,6 @@ public class RoomViewModel extends ViewModel {
                 // kalo gagal
             }
         });
-    }
-
-
-    // Set data from different thread
-    // useful for Room framework or async method
-    public void SetDataAsync(ArrayList<Room> data){
-        placeholders.postValue(data);
     }
 
     public void setFirebase(String idUser, Integer idx){
@@ -83,13 +74,73 @@ public class RoomViewModel extends ViewModel {
         }
     }
 
-    // Get Data and return LiveData to be observed
-    public LiveData<ArrayList<Room>> GetData(){
-        return placeholders;
+    // Set data from Main Thread
+    private void SetData(ArrayList<Room> data){
+        datas.setValue(data);
+    }
+    private void SetDashboardData(){
+        ArrayList<Room> newDatas = new ArrayList<Room>();
+        for (Room data : datas.getValue()) {
+            if(data.getStatus().compareTo(Room.STATUS_EMPTY) != 0){
+                newDatas.add(data);
+            }
+        }
+
+        dashboardDatas.setValue(newDatas);
     }
 
-    // Fetch data from database
-    public void FetchData(){
+    // Set data from different thread
+    // useful for Room framework or async method
+    private void SetDataAsync(ArrayList<Room> data){
+        datas.postValue(data);
+    }
 
+    private void SetDashboardDataAsync(ArrayList<Room> data){
+        dashboardDatas.postValue(data);
+    }
+
+    // Get Data and return LiveData to be observed
+    public LiveData<ArrayList<Room>> GetData(){
+        return datas;
+    }
+
+    // Get data for dashboard only
+    public LiveData<ArrayList<Room>> GetDashboardData(){
+        return dashboardDatas;
+    }
+
+    // Set Room
+    // this is only container for UI(not connected to database)
+    public void SetRoom(Room room){
+        roomData.setValue(room);
+    }
+    public void SetRoomAsync(Room room){
+        roomData.postValue(room);
+    }
+
+    // Find invidual Room
+    public LiveData<Room> GetRoom(int RoomID){
+        // Get invidual room data
+        if(roomData.getValue() == null){
+            roomData.setValue(SearchRoom(RoomID));
+        }else if(roomData.getValue().getID() != RoomID){
+            roomData.setValue(SearchRoom(RoomID));
+        }
+
+        return roomData;
+    }
+
+    private Room SearchRoom(int RoomID){
+        Room room = new Room();
+        if(datas.getValue() != null){
+            for (Room res : datas.getValue()){
+                if(res.getID() == RoomID){
+                    room = res;
+                    break;
+                }
+            }
+        }
+
+        return room;
     }
 }

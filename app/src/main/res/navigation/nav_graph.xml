@@ -97,7 +97,12 @@
         android:id="@+id/roomDetailFragment"
         android:name="id.ac.umn.mykos.RoomDetailFragment"
         android:label="@string/roomDetailFragment"
-        tools:layout="@layout/fragment_room_detail" />
+        tools:layout="@layout/fragment_room_detail" >
+	    <argument
+		    android:name="RoomID"
+		    app:argType="integer"
+		    android:defaultValue="-1" />
+    </fragment>
     <!-- END ROOM DETAIL FRAGMENT -->
 
     <!-- START SETTINGS FRAGMENT -->
