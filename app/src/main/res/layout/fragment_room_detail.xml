@@ -1,382 +1,432 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:tag="@string/roomDetailFragment"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".RoomDetailFragment">
+<androidx.appcompat.widget.LinearLayoutCompat
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:app="http://schemas.android.com/apk/res-auto"
+	xmlns:tools="http://schemas.android.com/tools"
+	android:tag="@string/roomDetailFragment"
+	android:layout_width="match_parent"
+	android:layout_height="match_parent"
+	android:orientation="vertical"
+	tools:context=".RoomDetailFragment">
 
-    <androidx.appcompat.widget.Toolbar
-        android:id="@+id/toolbar"
-        android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        android:background="@color/colorThemeOrange"
-        app:theme="@style/ToolbarTheme"
-        android:actionMenuTextColor="@color/colorWhite"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:title="@string/room" />
+	<androidx.appcompat.widget.Toolbar
+		android:id="@+id/toolbar"
+		android:layout_width="match_parent"
+		android:layout_height="?attr/actionBarSize"
+		android:background="@color/colorThemeOrange"
+		app:theme="@style/ToolbarTheme"
+		android:actionMenuTextColor="@color/colorWhite"
+		app:layout_constraintEnd_toEndOf="parent"
+		app:layout_constraintStart_toStartOf="parent"
+		app:layout_constraintTop_toTopOf="parent"
+		app:title="@string/room" />
 
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@+id/toolbar"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
+	<TableLayout
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:orientation="vertical"
+		android:elevation="20dp">
 
-        <TableLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
+		<TableRow
+			android:id="@+id/RoomIDLabelRow"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:layout_weight="1"
+			android:orientation="vertical">
 
-	        <TableRow
-		        android:id="@+id/RoomIDLabelRow"
-		        android:layout_width="match_parent"
-		        android:layout_height="wrap_content"
-		        android:layout_weight="1"
-		        android:orientation="vertical">
+			<TextView
+				android:id="@+id/RoomIDLabel"
+				android:layout_width="match_parent"
+				android:layout_height="55dp"
+				android:layout_marginStart="8dp"
+				android:layout_marginTop="2dp"
+				android:layout_marginEnd="8dp"
+				android:layout_weight="1"
+				android:text="@string/roomid"
+				android:textAlignment="center"
+				android:textColor="@color/colorLine"
+				android:textSize="40sp"
+				android:transitionName="RoomIDLabel" />
+		</TableRow>
 
-		        <TextView
-			        android:id="@+id/RoomIDLabel"
-			        android:layout_width="match_parent"
-			        android:layout_height="55dp"
-			        android:layout_marginStart="8dp"
-			        android:layout_marginTop="2dp"
-			        android:layout_marginEnd="8dp"
-			        android:layout_weight="1"
-			        android:text="@string/roomid"
-			        android:textAlignment="center"
-			        android:textColor="@color/colorLine"
-			        android:textSize="40sp"
-			        android:transitionName="RoomIDLabel" />
-	        </TableRow>
+		<TableRow
+			android:id="@+id/RoomIDRow"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:layout_weight="1"
+			android:orientation="vertical">
 
-	        <TableRow
-		        android:id="@+id/RoomIDRow"
-		        android:layout_width="match_parent"
-		        android:layout_height="wrap_content"
-		        android:layout_weight="1"
-		        android:orientation="vertical">
+			<androidx.constraintlayout.widget.ConstraintLayout
+				android:layout_width="match_parent"
+				android:layout_height="match_parent"
+				android:layout_weight="1">
 
-		        <androidx.constraintlayout.widget.ConstraintLayout
-			        android:layout_width="match_parent"
-			        android:layout_height="match_parent"
-			        android:layout_weight="1">
+				<TextView
+					android:id="@+id/RoomID"
+					android:layout_width="0dp"
+					android:layout_height="0dp"
+					android:layout_marginTop="16dp"
+					android:layout_marginEnd="8dp"
+					android:layout_marginBottom="16dp"
+					android:layout_weight="1"
+					android:autoSizeMaxTextSize="100sp"
+					android:autoSizeTextType="uniform"
+					android:background="@drawable/drawable_circle"
+					android:gravity="center"
+					android:maxLines="1"
+					android:padding="8dp"
+					android:textAlignment="center"
+					android:textColor="@color/colorLine"
+					android:transitionName="RoomID"
+					app:layout_constraintBottom_toBottomOf="parent"
+					app:layout_constraintDimensionRatio="W,1:1"
+					app:layout_constraintEnd_toStartOf="@+id/guideline1"
+					app:layout_constraintStart_toStartOf="@+id/guideline"
+					app:layout_constraintTop_toTopOf="parent" />
 
-			        <TextView
-				        android:id="@+id/RoomID"
-				        android:layout_width="0dp"
-				        android:layout_height="0dp"
-				        android:layout_marginTop="16dp"
-				        android:layout_marginEnd="8dp"
-				        android:layout_marginBottom="16dp"
-				        android:layout_weight="1"
-				        android:autoSizeMaxTextSize="100sp"
-				        android:autoSizeTextType="uniform"
-				        android:background="@drawable/drawable_circle"
-				        android:gravity="center"
-				        android:maxLines="1"
-				        android:padding="8dp"
-				        android:textAlignment="center"
-				        android:textColor="@color/colorLine"
-				        android:transitionName="RoomID"
-				        app:layout_constraintBottom_toBottomOf="parent"
-				        app:layout_constraintDimensionRatio="W,1:1"
-				        app:layout_constraintEnd_toStartOf="@+id/guideline1"
-				        app:layout_constraintStart_toStartOf="@+id/guideline"
-				        app:layout_constraintTop_toTopOf="parent" />
+				<androidx.constraintlayout.widget.Guideline
+					android:id="@+id/guideline"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:orientation="vertical"
+					app:layout_constraintGuide_percent="0.25" />
 
-			        <androidx.constraintlayout.widget.Guideline
-				        android:id="@+id/guideline"
-				        android:layout_width="wrap_content"
-				        android:layout_height="wrap_content"
-				        android:orientation="vertical"
-				        app:layout_constraintGuide_percent="0.25" />
+				<androidx.constraintlayout.widget.Guideline
+					android:id="@+id/guideline1"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:orientation="vertical"
+					app:layout_constraintGuide_percent="0.75" />
+			</androidx.constraintlayout.widget.ConstraintLayout>
 
-			        <androidx.constraintlayout.widget.Guideline
-				        android:id="@+id/guideline1"
-				        android:layout_width="wrap_content"
-				        android:layout_height="wrap_content"
-				        android:orientation="vertical"
-				        app:layout_constraintGuide_percent="0.75" />
-		        </androidx.constraintlayout.widget.ConstraintLayout>
+		</TableRow>
 
-	        </TableRow>
+		<TableRow
+			android:id="@+id/line"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:layout_weight="1"
+			android:orientation="horizontal">
 
-	        <TableRow
-		        android:id="@+id/line"
-		        android:layout_width="match_parent"
-		        android:layout_height="wrap_content"
-		        android:layout_weight="1"
-		        android:orientation="horizontal">
+			<ImageView
+				android:id="@+id/imageView1"
+				android:layout_width="match_parent"
+				android:layout_height="1dp"
+				android:layout_weight="1"
+				android:src="@drawable/drawable_line"/>
+		</TableRow>
+	</TableLayout>
 
-		        <ImageView
-			        android:id="@+id/imageView1"
-			        android:layout_width="match_parent"
-			        android:layout_height="1dp"
-			        android:layout_weight="1"
-			        android:src="@drawable/drawable_line" />
-	        </TableRow>
+	<androidx.constraintlayout.widget.ConstraintLayout
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content">
 
-	        <TableRow
-		        android:id="@+id/NameRow"
-		        android:layout_width="match_parent"
-		        android:layout_height="wrap_content"
-		        android:layout_weight="1"
-		        android:orientation="horizontal"
-		        android:weightSum="1">
+		<ScrollView
+			android:layout_width="match_parent"
+			android:layout_height="match_parent"
+			app:layout_constraintEnd_toEndOf="parent"
+			app:layout_constraintStart_toStartOf="parent">
 
-		        <TextView
-			        android:id="@+id/NameLabel"
-			        android:layout_width="0dp"
-			        android:layout_height="95dp"
-			        android:layout_column="0"
-			        android:layout_marginStart="8dp"
-			        android:layout_marginEnd="4dp"
-			        android:layout_weight="0.25"
-			        android:gravity="center|start"
-			        android:text="@string/name"
-			        android:textColor="@color/colorLine"
-			        android:textSize="24sp"
-			        android:transitionName="NameLabel" />
+			<TableLayout
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:orientation="vertical">
 
-		        <TextView
-			        android:id="@+id/NameData"
-			        android:layout_width="0dp"
-			        android:layout_height="match_parent"
-			        android:layout_column="1"
-			        android:layout_weight="0.65"
-			        android:autoSizeMaxTextSize="30sp"
-			        android:autoSizeTextType="uniform"
-			        android:gravity="center|start"
-			        android:maxLines="2"
-			        android:textColor="@color/colorLine"
-			        android:transitionName="NameData" />
+				<TableRow
+					android:id="@+id/NameRow"
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:layout_weight="1"
+					android:orientation="horizontal"
+					android:weightSum="1">
 
-		        <ImageButton
-			        android:id="@+id/NameEditBtn"
-			        android:layout_width="0dp"
-			        android:layout_height="match_parent"
-			        android:layout_column="2"
-			        android:layout_weight="0.1"
-			        android:adjustViewBounds="true"
-			        android:contentDescription="Edit name"
-			        android:padding="7dp"
-			        android:scaleType="fitCenter"
-			        android:src="@drawable/edit_img"
-			        android:tint="@color/colorLine"
-			        app:backgroundTint="@android:color/transparent" />
-	        </TableRow>
+					<LinearLayout
+						android:id="@+id/NameRowInner"
+						android:layout_width="0dp"
+						android:layout_height="70dp"
+						android:orientation="vertical"
+						android:layout_column="0"
+						android:layout_weight="0.9">
 
-	        <TableRow
-		        android:id="@+id/line1"
-		        android:layout_width="match_parent"
-		        android:layout_height="match_parent"
-		        android:layout_weight="1"
-		        android:orientation="horizontal">
+						<TextView
+							android:id="@+id/NameLabel"
+							android:layout_width="match_parent"
+							android:layout_height="0dp"
+							android:layout_marginStart="8dp"
+							android:layout_marginEnd="4dp"
+							android:gravity="center|start"
+							android:layout_weight="0.4"
+							android:text="@string/name"
+							android:textColor="@color/colorLine"
+							android:textSize="20sp"
+							android:transitionName="NameLabel" />
 
-		        <ImageView
-			        android:id="@+id/imageView2"
-			        android:layout_width="match_parent"
-			        android:layout_height="1dp"
-			        android:layout_weight="1"
-			        android:src="@drawable/drawable_line" />
-	        </TableRow>
+						<TextView
+							android:id="@+id/NameData"
+							android:layout_width="match_parent"
+							android:layout_height="0dp"
+							android:layout_marginStart="8dp"
+							android:layout_marginEnd="4dp"
+							android:gravity="center|start"
+							android:layout_weight="0.6"
+							android:maxLines="2"
+							android:textColor="@color/colorLine"
+							android:textSize="20sp"
+							android:transitionName="NameData" />
 
-	        <TableRow
-		        android:id="@+id/ContactRow"
-		        android:layout_width="match_parent"
-		        android:layout_height="match_parent"
-		        android:layout_weight="1"
-		        android:orientation="horizontal"
-		        android:weightSum="1">
+					</LinearLayout>
 
-		        <TextView
-			        android:id="@+id/Contact"
-			        android:layout_width="0dp"
-			        android:layout_height="95dp"
-			        android:layout_column="0"
-			        android:layout_marginStart="8dp"
-			        android:layout_marginEnd="4dp"
-			        android:layout_weight="0.25"
-			        android:gravity="center|start"
-			        android:text="@string/contact"
-			        android:textColor="@color/colorLine"
-			        android:textSize="20sp" />
+					<ImageButton
+						android:id="@+id/NameEditBtn"
+						android:layout_width="0dp"
+						android:layout_height="match_parent"
+						android:layout_column="1"
+						android:layout_weight="0.1"
+						android:adjustViewBounds="true"
+						android:contentDescription="Edit name"
+						android:padding="7dp"
+						android:scaleType="fitCenter"
+						android:src="@drawable/edit_img"
+						android:tint="@color/colorLine"
+						app:backgroundTint="@android:color/transparent" />
+				</TableRow>
 
-		        <TextView
-			        android:id="@+id/ContactData"
-			        android:layout_width="0dp"
-			        android:layout_height="match_parent"
-			        android:layout_column="1"
-			        android:layout_weight="0.65"
-			        android:autoSizeMaxTextSize="30sp"
-			        android:autoSizeTextType="uniform"
-			        android:gravity="center|start"
-			        android:maxLines="2"
-			        android:textColor="@color/colorLine" />
+				<TableRow
+					android:id="@+id/line1"
+					android:layout_width="match_parent"
+					android:layout_height="match_parent"
+					android:layout_weight="1"
+					android:orientation="horizontal">
 
-		        <ImageButton
-			        android:id="@+id/ContactEditBtn"
-			        android:layout_width="0dp"
-			        android:layout_height="match_parent"
-			        android:layout_column="2"
-			        android:layout_weight="0.1"
-			        android:adjustViewBounds="true"
-			        android:contentDescription="Edit contact"
-			        android:padding="7dp"
-			        android:scaleType="fitCenter"
-			        android:src="@drawable/edit_img"
-			        android:tint="@color/colorLine"
-			        app:backgroundTint="@android:color/transparent" />
-	        </TableRow>
+					<ImageView
+						android:id="@+id/imageView2"
+						android:layout_width="match_parent"
+						android:layout_height="1dp"
+						android:layout_weight="1"
+						android:src="@drawable/drawable_line" />
+				</TableRow>
 
-	        <TableRow
-		        android:id="@+id/line2"
-		        android:layout_width="match_parent"
-		        android:layout_height="match_parent"
-		        android:layout_weight="1"
-		        android:orientation="horizontal">
+				<TableRow
+					android:id="@+id/ContactRow"
+					android:layout_width="match_parent"
+					android:layout_height="match_parent"
+					android:layout_weight="1"
+					android:orientation="horizontal"
+					android:weightSum="1">
 
-		        <ImageView
-			        android:id="@+id/imageView3"
-			        android:layout_width="match_parent"
-			        android:layout_height="1dp"
-			        android:layout_weight="1"
-			        android:src="@drawable/drawable_line" />
-	        </TableRow>
+					<LinearLayout
+						android:id="@+id/ContactRowInner"
+						android:layout_width="0dp"
+						android:layout_height="70dp"
+						android:orientation="vertical"
+						android:layout_column="0"
+						android:layout_weight="0.9">
 
-	        <TableRow
-		        android:id="@+id/ArriveRow"
-		        android:layout_width="match_parent"
-		        android:layout_height="match_parent"
-		        android:layout_weight="1"
-		        android:orientation="horizontal"
-		        android:weightSum="1">
+						<TextView
+							android:id="@+id/Contact"
+							android:layout_width="match_parent"
+							android:layout_height="0dp"
+							android:layout_marginStart="8dp"
+							android:layout_marginEnd="4dp"
+							android:gravity="center|start"
+							android:layout_weight="0.4"
+							android:textSize="20sp"
+							android:text="@string/contact"
+							android:textColor="@color/colorLine"/>
 
-		        <TextView
-			        android:id="@+id/Arrive"
-			        android:layout_width="0dp"
-			        android:layout_height="95dp"
-			        android:layout_column="0"
-			        android:layout_marginStart="8dp"
-			        android:layout_marginEnd="4dp"
-			        android:layout_weight="0.25"
-			        android:gravity="center|start"
-			        android:text="@string/arrivedate"
-			        android:textColor="@color/colorLine"
-			        android:textSize="16sp" />
+						<TextView
+							android:id="@+id/ContactData"
+							android:layout_width="match_parent"
+							android:layout_height="0dp"
+							android:layout_marginStart="8dp"
+							android:layout_marginEnd="4dp"
+							android:gravity="center|start"
+							android:layout_weight="0.6"
+							android:maxLines="2"
+							android:textSize="20sp"
+							android:textColor="@color/colorLine"/>
 
-		        <TextView
-			        android:id="@+id/ArriveData"
-			        android:layout_width="0dp"
-			        android:layout_height="match_parent"
-			        android:layout_column="1"
-			        android:layout_weight="0.65"
-			        android:autoSizeMaxTextSize="30sp"
-			        android:autoSizeTextType="uniform"
-			        android:gravity="center|start"
-			        android:maxLines="2"
-			        android:textColor="@color/colorLine" />
+					</LinearLayout>
 
-		        <ImageButton
-			        android:id="@+id/ArriveEditBtn"
-			        android:layout_width="0dp"
-			        android:layout_height="match_parent"
-			        android:layout_column="2"
-			        android:layout_weight="0.1"
-			        android:adjustViewBounds="true"
-			        android:contentDescription="Edit arrive date"
-			        android:padding="7dp"
-			        android:scaleType="fitCenter"
-			        android:src="@drawable/edit_img"
-			        android:tint="@color/colorLine"
-			        app:backgroundTint="@android:color/transparent" />
-	        </TableRow>
+					<ImageButton
+						android:id="@+id/ContactEditBtn"
+						android:layout_width="0dp"
+						android:layout_height="match_parent"
+						android:layout_column="1"
+						android:layout_weight="0.1"
+						android:adjustViewBounds="true"
+						android:contentDescription="Edit contact"
+						android:padding="7dp"
+						android:scaleType="fitCenter"
+						android:src="@drawable/edit_img"
+						android:tint="@color/colorLine"
+						app:backgroundTint="@android:color/transparent" />
+				</TableRow>
 
-	        <TableRow
-		        android:id="@+id/line3"
-		        android:layout_width="match_parent"
-		        android:layout_height="match_parent"
-		        android:layout_weight="1"
-		        android:orientation="horizontal">
+				<TableRow
+					android:id="@+id/line2"
+					android:layout_width="match_parent"
+					android:layout_height="match_parent"
+					android:layout_weight="1"
+					android:orientation="horizontal">
 
-		        <ImageView
-			        android:id="@+id/imageView4"
-			        android:layout_width="match_parent"
-			        android:layout_height="1dp"
-			        android:layout_weight="1"
-			        android:src="@drawable/drawable_line" />
-	        </TableRow>
+					<ImageView
+						android:id="@+id/imageView3"
+						android:layout_width="match_parent"
+						android:layout_height="1dp"
+						android:layout_weight="1"
+						android:src="@drawable/drawable_line" />
+				</TableRow>
 
-	        <TableRow
-		        android:id="@+id/deadlineRow"
-		        android:layout_width="match_parent"
-		        android:layout_height="match_parent"
-		        android:layout_weight="1"
-		        android:orientation="horizontal"
-		        android:weightSum="1">
+				<TableRow
+					android:id="@+id/ArriveRow"
+					android:layout_width="match_parent"
+					android:layout_height="match_parent"
+					android:layout_weight="1"
+					android:orientation="horizontal"
+					android:weightSum="1">
 
-		        <TextView
-			        android:id="@+id/DeadlineLabel"
-			        android:layout_width="0dp"
-			        android:layout_height="95dp"
-			        android:layout_column="0"
-			        android:layout_marginStart="8dp"
-			        android:layout_marginEnd="4dp"
-			        android:layout_weight="0.25"
-			        android:gravity="center|start"
-			        android:text="@string/paydeadline"
-			        android:textColor="@color/colorLine"
-			        android:textSize="12sp"
-			        android:transitionName="DeadlineLabel" />
+					<LinearLayout
+						android:id="@+id/ArriveRowInner"
+						android:layout_width="0dp"
+						android:layout_height="70dp"
+						android:orientation="vertical"
+						android:layout_column="0"
+						android:layout_weight="0.9">
 
-		        <TextView
-			        android:id="@+id/DeadlineData"
-			        android:layout_width="0dp"
-			        android:layout_height="match_parent"
-			        android:layout_column="1"
-			        android:layout_weight="0.65"
-			        android:autoSizeMaxTextSize="30sp"
-			        android:autoSizeTextType="uniform"
-			        android:gravity="center|start"
-			        android:maxLines="2"
-			        android:textColor="@color/colorLine"
-			        android:transitionName="DeadlineData" />
+						<TextView
+							android:id="@+id/Arrive"
+							android:layout_width="match_parent"
+							android:layout_height="0dp"
+							android:layout_marginStart="8dp"
+							android:layout_marginEnd="4dp"
+							android:gravity="center|start"
+							android:layout_weight="0.4"
+							android:textSize="20sp"
+							android:text="@string/arrivedate"
+							android:textColor="@color/colorLine"/>
 
-		        <ImageButton
-			        android:id="@+id/DeadlineEditBtn"
-			        android:layout_width="0dp"
-			        android:layout_height="match_parent"
-			        android:layout_column="2"
-			        android:layout_weight="0.1"
-			        android:adjustViewBounds="true"
-			        android:contentDescription="Edit payment deadline"
-			        android:padding="7dp"
-			        android:scaleType="fitCenter"
-			        android:src="@drawable/edit_img"
-			        android:tint="@color/colorLine"
-			        app:backgroundTint="@android:color/transparent" />
-	        </TableRow>
+						<TextView
+							android:id="@+id/ArriveData"
+							android:layout_width="match_parent"
+							android:layout_height="0dp"
+							android:layout_marginStart="8dp"
+							android:layout_marginEnd="4dp"
+							android:gravity="center|start"
+							android:layout_weight="0.6"
+							android:maxLines="2"
+							android:textSize="20sp"
+							android:textColor="@color/colorLine" />
 
-	        <TableRow
-		        android:id="@+id/line4"
-		        android:layout_width="match_parent"
-		        android:layout_height="match_parent"
-		        android:layout_weight="1"
-		        android:orientation="horizontal">
+					</LinearLayout>
 
-		        <ImageView
-			        android:id="@+id/imageView5"
-			        android:layout_width="match_parent"
-			        android:layout_height="1dp"
-			        android:layout_weight="1"
-			        android:src="@drawable/drawable_line" />
-	        </TableRow>
+					<ImageButton
+						android:id="@+id/ArriveEditBtn"
+						android:layout_width="0dp"
+						android:layout_height="match_parent"
+						android:layout_column="2"
+						android:layout_weight="0.1"
+						android:adjustViewBounds="true"
+						android:contentDescription="Edit arrive date"
+						android:padding="7dp"
+						android:scaleType="fitCenter"
+						android:src="@drawable/edit_img"
+						android:tint="@color/colorLine"
+						app:backgroundTint="@android:color/transparent" />
+				</TableRow>
 
-        </TableLayout>
-    </ScrollView>
+				<TableRow
+					android:id="@+id/line3"
+					android:layout_width="match_parent"
+					android:layout_height="match_parent"
+					android:layout_weight="1"
+					android:orientation="horizontal">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+					<ImageView
+						android:id="@+id/imageView4"
+						android:layout_width="match_parent"
+						android:layout_height="1dp"
+						android:layout_weight="1"
+						android:src="@drawable/drawable_line" />
+				</TableRow>
+
+				<TableRow
+					android:id="@+id/DeadlineRow"
+					android:layout_width="match_parent"
+					android:layout_height="match_parent"
+					android:layout_weight="1"
+					android:orientation="horizontal"
+					android:weightSum="1">
+
+					<LinearLayout
+						android:id="@+id/DeadlineRowInner"
+						android:layout_width="0dp"
+						android:layout_height="70dp"
+						android:orientation="vertical"
+						android:layout_column="0"
+						android:layout_weight="0.9">
+
+						<TextView
+							android:id="@+id/DeadlineLabel"
+							android:layout_width="match_parent"
+							android:layout_height="0dp"
+							android:layout_marginStart="8dp"
+							android:layout_marginEnd="4dp"
+							android:gravity="center|start"
+							android:layout_weight="0.4"
+							android:textSize="20sp"
+							android:text="@string/paydeadline"
+							android:textColor="@color/colorLine"
+							android:transitionName="DeadlineLabel" />
+
+						<TextView
+							android:id="@+id/DeadlineData"
+							android:layout_width="match_parent"
+							android:layout_height="0dp"
+							android:layout_marginStart="8dp"
+							android:layout_marginEnd="4dp"
+							android:gravity="center|start"
+							android:layout_weight="0.6"
+							android:maxLines="2"
+							android:textSize="20sp"
+							android:textColor="@color/colorLine"
+							android:transitionName="DeadlineData" />
+
+					</LinearLayout>
+
+					<ImageButton
+						android:id="@+id/DeadlineEditBtn"
+						android:layout_width="0dp"
+						android:layout_height="match_parent"
+						android:layout_column="2"
+						android:layout_weight="0.1"
+						android:adjustViewBounds="true"
+						android:contentDescription="Edit payment deadline"
+						android:padding="7dp"
+						android:scaleType="fitCenter"
+						android:src="@drawable/edit_img"
+						android:tint="@color/colorLine"
+						app:backgroundTint="@android:color/transparent" />
+				</TableRow>
+
+				<TableRow
+					android:id="@+id/line4"
+					android:layout_width="match_parent"
+					android:layout_height="match_parent"
+					android:layout_weight="1"
+					android:orientation="horizontal">
+
+					<ImageView
+						android:id="@+id/imageView5"
+						android:layout_width="match_parent"
+						android:layout_height="1dp"
+						android:layout_weight="1"
+						android:src="@drawable/drawable_line" />
+				</TableRow>
+
+			</TableLayout>
+		</ScrollView>
+
+	</androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.appcompat.widget.LinearLayoutCompat>
