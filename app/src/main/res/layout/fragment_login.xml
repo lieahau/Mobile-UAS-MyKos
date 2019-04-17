@@ -35,7 +35,8 @@
         + Overview page sudah dapat menampilkan semua kamar berstatus apapun (Occupied/Reserved/Empty)\n
         + Room Detail page sudah dapat menampilkan data kamar yang sesuai dari Dashboard/Overview\n\n
         - Settings page belum berfungsi\n
-        - Belum bisa tambah/ganti data dalam app (data masih dummy)\n
+        - Belum bisa tambah/ganti/hapus/reset data dalam app (data masih dummy)\n
+        - Belum bisa search dan sort di Dashboard page\n
         - Belum bisa offline mode\n
         - Belum ada sistem login \n" />
 
