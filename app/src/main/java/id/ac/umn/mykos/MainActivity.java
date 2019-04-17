@@ -101,7 +101,7 @@ public class MainActivity extends AppCompatActivity {
         roomViewModel.setFirebase(idUser, idx);
     }
 
-    // Retrieve data from FIrebase
+    // Retrieve data from Firebase
     public void getDatabase(String idUser){
         roomViewModel.getFirebase(idUser);
     }

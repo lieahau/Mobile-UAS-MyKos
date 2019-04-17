@@ -16,7 +16,6 @@ import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
 public class ListOverviewAdapter extends RecyclerView.Adapter<ListOverviewAdapter.ListOverviewView> {
-    // Perlu data struktur terlebih dahulu //udah // good jobbu
     ArrayList<Room> datas = new ArrayList<Room>();
 
     // Reference to NavController

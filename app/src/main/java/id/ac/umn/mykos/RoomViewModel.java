@@ -21,7 +21,6 @@ import androidx.lifecycle.ViewModel;
 // will be use with live data
 
 public class RoomViewModel extends ViewModel {
-    // Perlu data struktur terlebih dahulu //udah // good jobbu
 
     private DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
 
@@ -30,7 +29,7 @@ public class RoomViewModel extends ViewModel {
     private MutableLiveData<ArrayList<Room>> dashboardDatas = new MutableLiveData<ArrayList<Room>>();
     private MutableLiveData<Room> roomData = new MutableLiveData<Room>();
 
-    // Get Feirbase
+    // Get Firebase
     public void getFirebase(String idUser){
         mDatabase.addValueEventListener(new ValueEventListener() {
             @Override
