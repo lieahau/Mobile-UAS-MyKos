@@ -22,23 +22,5 @@
             android:layout_height="wrap_content"
             android:text="@string/dashboard" />
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Progress:\n
-    UI: seharusnya sudah semua kecuali ini:\n
-        - Belum ada UI Dialog untuk input data pada Room Detail page\n
-        - Belum ada UI untuk login page\n\n
-    Fungsionalitas:\n
-        + Sudah terintegrasi Firebase\n
-        + Dashboard page sudah dapat menampilkan semua kamar yang Occupied dan Reserved saja\n
-        + Overview page sudah dapat menampilkan semua kamar berstatus apapun (Occupied/Reserved/Empty)\n
-        + Room Detail page sudah dapat menampilkan data kamar yang sesuai dari Dashboard/Overview\n\n
-        - Settings page belum berfungsi\n
-        - Belum bisa tambah/ganti/hapus/reset data dalam app (data masih dummy)\n
-        - Belum bisa search dan sort di Dashboard page\n
-        - Belum bisa offline mode\n
-        - Belum ada sistem login \n" />
-
     </LinearLayout>
 </FrameLayout>
