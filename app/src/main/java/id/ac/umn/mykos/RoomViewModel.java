@@ -56,17 +56,17 @@ public class RoomViewModel extends ViewModel {
     }
 
     public void setFirebase(String idUser, Integer idx){
-        for(int i=0; i<idx/3; i++){
-            Room newRoom = new Room(i+1, "Orang", "01/01/2021", "31/12/2099", "---");
-//            mDatabase.child("users").child(idUser).child(Integer.toString(i)).setValue(newRoom);
-            mDatabase.child("rooms").child(Integer.toString(i)).setValue(newRoom);
-        }
-        for(int i=idx/3; i<idx*2/3; i++){
-            Room newRoom = new Room(i+1, "Makhlus halus", "01/01/2001", null, "---");
-//            mDatabase.child("users").child(idUser).child(Integer.toString(i)).setValue(newRoom);
-            mDatabase.child("rooms").child(Integer.toString(i)).setValue(newRoom);
-        }
-        for(int i=idx*2/3; i<idx; i++){
+//        for(int i=0; i<idx/3; i++){
+//            Room newRoom = new Room(i+1, "Orang", "01/01/2021", "31/12/2099", "---");
+////            mDatabase.child("users").child(idUser).child(Integer.toString(i)).setValue(newRoom);
+//            mDatabase.child("rooms").child(Integer.toString(i)).setValue(newRoom);
+//        }
+//        for(int i=idx/3; i<idx*2/3; i++){
+//            Room newRoom = new Room(i+1, "Makhlus halus", "01/01/2001", null, "---");
+////            mDatabase.child("users").child(idUser).child(Integer.toString(i)).setValue(newRoom);
+//            mDatabase.child("rooms").child(Integer.toString(i)).setValue(newRoom);
+//        }
+        for(int i=0; i<idx; i++){
             Room newRoom = new Room(i+1, "Empty", null, null, "---");
 //            mDatabase.child("users").child(idUser).child(Integer.toString(i)).setValue(newRoom);
             mDatabase.child("rooms").child(Integer.toString(i)).setValue(newRoom);
