@@ -11,6 +11,7 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -20,13 +21,42 @@ import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
-public class RoomDetailFragment extends Fragment {
+public class RoomDetailFragment extends Fragment implements RoomDetailDialog.OnClickPositiveButton {
     private RoomViewModel roomViewModel;
     TextView roomID, nameData, contactData, arriveData, deadlineData;
     ImageButton nameEditBtn, contactEditBtn, arriveEditBtn, deadlineEditBtn;
+    private boolean hasInitial;
 
     public RoomDetailFragment() {
         // Required empty public constructor
+    }
+
+    @Override
+    public void sendName(String input) {
+        Log.e("ROOM DETAIL FRAGMENT", "sendName: found incoming input: " + input);
+        /* TODO: WRITE ACTION AFTER INPUT NAME HERE */
+
+    }
+
+    @Override
+    public void sendContact(String input) {
+        Log.e("ROOM DETAIL FRAGMENT", "sendContact: found incoming input: " + input);
+        /* TODO: WRITE ACTION AFTER INPUT CONTACT HERE */
+
+    }
+
+    @Override
+    public void sendArrive(String input) {
+        Log.e("ROOM DETAIL FRAGMENT", "sendArrive: found incoming input: " + input);
+        /* TODO: WRITE ACTION AFTER INPUT ARRIVE DATE HERE */
+
+    }
+
+    @Override
+    public void sendDeadline(String input) {
+        Log.e("ROOM DETAIL FRAGMENT", "sendDeadline: found incoming input: " + input);
+        /* TODO: WRITE ACTION AFTER INPUT PAY DEADLINE HERE */
+
     }
 
     @Override
@@ -67,26 +97,59 @@ public class RoomDetailFragment extends Fragment {
         arriveEditBtn = view.findViewById(R.id.ArriveEditBtn);
         deadlineEditBtn = view.findViewById(R.id.DeadlineEditBtn);
 
+        hasInitial = false;
         // get args first and if args not -1
         // get Room data and set up content
         if(getArguments() != null){
             int RoomID = RoomDetailFragmentArgs.fromBundle(getArguments()).getRoomID();
             if(RoomID != -1){
-                roomViewModel.GetRoom(RoomID).observe(this, new Observer<Room>() {
-                    @Override
-                    public void onChanged(Room newData) {
-                        // Content will change automatically
-                        // if you SetRoom() when changing data
-                        // roomViewModel.SetRoom();
-                        roomID.setText(Integer.toString(newData.getID()));
-                        nameData.setText(newData.getName());
-                        contactData.setText(newData.getContact());
-                        arriveData.setText(newData.getArrivalDateString());
-                        deadlineData.setText(newData.getPaymentDeadlineString());
-                    }
+                roomViewModel.GetRoom(RoomID).observe(this, newData -> {
+                    // Content will change automatically
+                    // if you SetRoom() when changing data
+                    // roomViewModel.SetRoom();
+                    roomID.setText(Integer.toString(newData.getID()));
+                    nameData.setText(newData.getName());
+                    contactData.setText(newData.getContact());
+                    arriveData.setText(newData.getArrivalDateString());
+                    deadlineData.setText(newData.getPaymentDeadlineString());
+                    hasInitial = true;
                 });
             }
         }
+
+        nameEditBtn.setOnClickListener(v -> {
+            Bundle bundle = new Bundle();
+            bundle.putInt("layoutID", R.layout.dialog_edittext_text);
+            bundle.putString("target", "Name");
+            if(hasInitial) {
+                bundle.putString("initial", nameData.getText().toString());
+            }
+            RoomDetailDialog roomDetailDialog = new RoomDetailDialog();
+            roomDetailDialog.setArguments(bundle);
+            roomDetailDialog.setTargetFragment(RoomDetailFragment.this, 200);
+            roomDetailDialog.show(getFragmentManager(), "RoomDetailDialog");
+        });
+
+        contactEditBtn.setOnClickListener(v -> {
+            Bundle bundle = new Bundle();
+            bundle.putInt("layoutID", R.layout.dialog_edittext_number);
+            bundle.putString("target", "Contact");
+            if(hasInitial) {
+                bundle.putString("initial", contactData.getText().toString());
+            }
+            RoomDetailDialog roomDetailDialog = new RoomDetailDialog();
+            roomDetailDialog.setArguments(bundle);
+            roomDetailDialog.setTargetFragment(RoomDetailFragment.this, 200);
+            roomDetailDialog.show(getFragmentManager(), "RoomDetailDialog");
+        });
+
+        arriveEditBtn.setOnClickListener(v -> {
+
+        });
+
+        deadlineEditBtn.setOnClickListener(v -> {
+
+        });
 
         /* END SET UP CONTENT */
     }

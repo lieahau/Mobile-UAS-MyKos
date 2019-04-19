@@ -19,10 +19,22 @@
     <!-- Room Details -->
     <string name="room">Room</string>
     <string name="roomid">Room ID</string>
+
+    <string name="name0">Name</string>
     <string name="name">Name : </string>
+
+    <string name="contact0">Contact</string>
     <string name="contact">Contact : </string>
+    <string name="inputcontact">Input Contact&#8230;</string>
+
+    <string name="arrivedate0">Arrive Date</string>
     <string name="arrivedate">Arrive Date : </string>
+    <string name="inputarrivedate">Input Arrive Date&#8230;</string>
+
+    <string name="paydeadline0">Pay Deadline</string>
     <string name="paydeadline">Pay Deadline : </string>
+    <string name="inputpaydeadline">Input Pay Deadline&#8230;</string>
+
     <string name="reset">Reset</string>
 
     <!-- Dashboard -->

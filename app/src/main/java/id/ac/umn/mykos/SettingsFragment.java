@@ -91,7 +91,7 @@ public class SettingsFragment extends Fragment implements SettingsDialog.OnClick
         MaterialButton btn_numberOfRoom = view.findViewById(R.id.NumberOfRoomBtn);
         btn_numberOfRoom.setOnClickListener(v -> {
             Bundle bundle = new Bundle();
-            bundle.putInt("layoutID", R.layout.dialog_settings_edittext);
+            bundle.putInt("layoutID", R.layout.dialog_edittext_number);
             bundle.putString("target", "NumberOfRoom");
             SettingsDialog settingsDialog = new SettingsDialog();
             settingsDialog.setArguments(bundle);
@@ -113,7 +113,7 @@ public class SettingsFragment extends Fragment implements SettingsDialog.OnClick
         MaterialButton btn_maximalDueDate = view.findViewById(R.id.MaximalDueDateBtn);
         btn_maximalDueDate.setOnClickListener(v -> {
             Bundle bundle = new Bundle();
-            bundle.putInt("layoutID", R.layout.dialog_settings_edittext);
+            bundle.putInt("layoutID", R.layout.dialog_edittext_number);
             bundle.putString("target", "MaximalDueDate");
             SettingsDialog settingsDialog = new SettingsDialog();
             settingsDialog.setArguments(bundle);
