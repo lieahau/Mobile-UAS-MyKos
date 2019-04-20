@@ -1,5 +1,6 @@
 package id.ac.umn.mykos;
 
+import android.app.DatePickerDialog;
 import android.content.Context;
 import android.os.Bundle;
 
@@ -18,6 +19,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.DatePicker;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
@@ -45,19 +47,17 @@ public class RoomDetailFragment extends Fragment implements RoomDetailDialog.OnC
 
     }
 
-    @Override
-    public void sendArrive(String input) {
-        Log.e("ROOM DETAIL FRAGMENT", "sendArrive: found incoming input: " + input);
+    private DatePickerDialog.OnDateSetListener sendArrive = (view, year, month, day) -> { // year, month, and day is Integer
+        Log.e("ROOM DETAIL FRAGMENT", "sendArrive: found incoming input: " + day + "/" + month + "/" + year);
         /* TODO: WRITE ACTION AFTER INPUT ARRIVE DATE HERE */
 
-    }
+    };
 
-    @Override
-    public void sendDeadline(String input) {
-        Log.e("ROOM DETAIL FRAGMENT", "sendDeadline: found incoming input: " + input);
-        /* TODO: WRITE ACTION AFTER INPUT PAY DEADLINE HERE */
+    private DatePickerDialog.OnDateSetListener sendDeadline = (view, year, month, day) -> { // year, month, and day is Integer
+        Log.e("ROOM DETAIL FRAGMENT", "sendDeadline: found incoming input: " + day + "/" + month + "/" + year);
+        /* TODO: WRITE ACTION AFTER INPUT ARRIVE DATE HERE */
 
-    }
+    };
 
     @Override
     public void onAttach(@NonNull Context context) {
@@ -144,11 +144,15 @@ public class RoomDetailFragment extends Fragment implements RoomDetailDialog.OnC
         });
 
         arriveEditBtn.setOnClickListener(v -> {
-
+            RoomDetailDialog calendarDialog = new RoomDetailDialog().newCalendarInstance();
+            calendarDialog.setCallBack(sendArrive);
+            calendarDialog.show(getFragmentManager().beginTransaction(), "RoomDetailDialog");
         });
 
         deadlineEditBtn.setOnClickListener(v -> {
-
+            RoomDetailDialog calendarDialog = new RoomDetailDialog().newCalendarInstance();
+            calendarDialog.setCallBack(sendDeadline);
+            calendarDialog.show(getFragmentManager().beginTransaction(), "RoomDetailDialog");
         });
 
         /* END SET UP CONTENT */

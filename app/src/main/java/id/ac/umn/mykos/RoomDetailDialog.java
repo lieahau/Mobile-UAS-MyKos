@@ -1,5 +1,7 @@
 package id.ac.umn.mykos;
 
+import android.app.DatePickerDialog;
+import android.app.Dialog;
 import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
@@ -13,13 +15,25 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
 
+import java.util.Calendar;
+
 public class RoomDetailDialog extends DialogFragment {
+    DatePickerDialog.OnDateSetListener onDateSetListener;
+    private boolean isCalender = false;
+
+    public RoomDetailDialog(){}
+
+    public static RoomDetailDialog newCalendarInstance()
+    {
+        RoomDetailDialog dialog = new RoomDetailDialog();
+        dialog.isCalender = true;
+        return dialog;
+    }
+
     /* START CREATE INTERFACE FOR POSITIVE BUTTON FUNCTION */
     public interface OnClickPositiveButton{
         void sendName(String input);
         void sendContact(String input);
-        void sendArrive(String input);
-        void sendDeadline(String input);
     }
     private OnClickPositiveButton onClickPositiveButton;
     /* END CREATE INTERFACE FOR POSITIVE BUTTON FUNCTION */
@@ -34,9 +48,28 @@ public class RoomDetailDialog extends DialogFragment {
         }
     }
 
+    @NonNull
+    @Override
+    public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
+        if(!isCalender)
+            return super.onCreateDialog(savedInstanceState);
+        else{
+            final Calendar calendar = Calendar.getInstance();
+            int year = calendar.get(Calendar.YEAR);
+            int month = calendar.get(Calendar.MONTH);
+            int day = calendar.get(Calendar.DAY_OF_MONTH);
+
+            return new DatePickerDialog(getActivity(), onDateSetListener, year, month, day);
+        }
+    }
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        if(isCalender){
+            return super.onCreateView(inflater, container, savedInstanceState);
+        }
+
         /* START SETUP DIALOG VIEW */
         int id_layout = getArguments().getInt("layoutID");
         final View view = inflater.inflate(id_layout, container, false);
@@ -82,14 +115,18 @@ public class RoomDetailDialog extends DialogFragment {
                 getDialog().dismiss(); // close dialog
             });
         }
-        else if(target.equalsIgnoreCase("ArriveDate")){ // if click Input Arrive Date button
-
-        }
-        else if(target.equalsIgnoreCase("PayDeadline")){ // if click Input Pay Deadline button
-
-        }
+//        else if(target.equalsIgnoreCase("ArriveDate")){ // if click Input Arrive Date button
+//
+//        }
+//        else if(target.equalsIgnoreCase("PayDeadline")){ // if click Input Pay Deadline button
+//
+//        }
         /* END SETUP FUNCTION FOR POSITIVE BUTTON EACH TARGET */
 
         return view;
+    }
+
+    public void setCallBack(DatePickerDialog.OnDateSetListener onDate) {
+        onDateSetListener = onDate;
     }
 }
