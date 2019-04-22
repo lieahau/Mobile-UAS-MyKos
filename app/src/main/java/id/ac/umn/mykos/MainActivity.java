@@ -21,9 +21,12 @@ public class MainActivity extends AppCompatActivity {
     private RoomViewModel roomViewModel;
     private static FirebaseDatabase database = null;
 
+    // Always get reference of Firebase from here
+    // MainActivity.GetFirebaseInstance()
     public static FirebaseDatabase GetFirebaseInstance(){
         if(database == null){
             database = FirebaseDatabase.getInstance();
+            database.setPersistenceEnabled(true);
         }
 
         return database;
@@ -33,8 +36,6 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        GetFirebaseInstance().setPersistenceEnabled(true);
 
         // Retrieve data from FIrebase
         roomViewModel = ViewModelProviders.of(this).get(RoomViewModel.class);
@@ -104,7 +105,6 @@ public class MainActivity extends AppCompatActivity {
                     // exit
                     Log.d("Debug", "Exit");
                     super.onBackPressed();
-                    finish();
                 }else{
                     Log.d("Debug", "Press back");
                     navHost.getNavController().navigateUp();
