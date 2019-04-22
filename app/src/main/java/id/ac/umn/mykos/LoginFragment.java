@@ -5,6 +5,7 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.NavDirections;
 import androidx.navigation.Navigation;
 
 import android.view.LayoutInflater;
@@ -30,6 +31,14 @@ public class LoginFragment extends Fragment {
 
         Button dashboard = view.findViewById(R.id.btn_to_dashboard);
         final View viewRef = view;
-        dashboard.setOnClickListener(v -> Navigation.findNavController(viewRef).navigate(LoginFragmentDirections.actionLoginFragmentToDashboardFragment()));
+        dashboard.setOnClickListener(v -> {
+            NavDirections dir;
+            if(SharedPrefHandler.GetPrefInt(getActivity(), SharedPrefHandler.KEY_LANDINGPAGE) == SharedPrefHandler.LANDING_DASHBOARD)
+                dir = LoginFragmentDirections.actionLoginFragmentToDashboardFragment();
+            else
+                dir = LoginFragmentDirections.actionLoginFragmentToOverviewFragment();
+
+            Navigation.findNavController(viewRef).navigate(dir);
+        });
     }
 }

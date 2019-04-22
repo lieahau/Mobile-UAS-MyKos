@@ -22,7 +22,7 @@ import androidx.lifecycle.ViewModel;
 
 public class RoomViewModel extends ViewModel {
 
-    private DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
+    private DatabaseReference mDatabase = MainActivity.GetFirebaseInstance().getReference();
 
     // hold all value
     private MutableLiveData<ArrayList<Room>> datas = new MutableLiveData<ArrayList<Room>>();

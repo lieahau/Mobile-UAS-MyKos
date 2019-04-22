@@ -36,6 +36,7 @@ public class SettingsFragment extends Fragment implements SettingsDialog.OnClick
     public void sendNumberOfRoom(int input) {
         Log.e("SETTINGS FRAGMENT", "sendNumberOfRoom: found incoming input: " + input);
         /* TODO: WRITE ACTION AFTER INPUT NUMBER OF ROOM SETTING HERE */
+        SharedPrefHandler.SetPref(getActivity(), SharedPrefHandler.KEY_NUMBEROFROOM, input);
 
     }
 
@@ -46,11 +47,12 @@ public class SettingsFragment extends Fragment implements SettingsDialog.OnClick
         if(input.equalsIgnoreCase(roomIDType[0])){
             Log.e("SETTINGS FRAGMENT", "sendRoomIDValue: room id alphabetic");
             /* TODO: WRITE ACTION FOR ROOM ID VALUE = ALPHABETIC HERE*/
-
+            SharedPrefHandler.SetPref(getActivity(), SharedPrefHandler.KEY_ID, SharedPrefHandler.ID_ALPHABET);
         }
         else if(input.equalsIgnoreCase(roomIDType[1])){
             Log.e("SETTINGS FRAGMENT", "sendRoomIDValue: room id numeric");
             /* TODO: WRITE ACTION FOR ROOM ID VALUE = NUMERIC HERE */
+            SharedPrefHandler.SetPref(getActivity(), SharedPrefHandler.KEY_ID, SharedPrefHandler.ID_NUMERIC);
         }
     }
 
@@ -58,6 +60,7 @@ public class SettingsFragment extends Fragment implements SettingsDialog.OnClick
     public void sendMaximalDueDate(int input) {
         Log.e("SETTINGS FRAGMENT", "sendMaximalDueDate: found incoming input: " + input);
         /* TODO: WRITE ACTION AFTER INPUT MAXIMAL DUE DATE SETTING HERE */
+        SharedPrefHandler.SetPref(getActivity(), SharedPrefHandler.KEY_DUEDATE, input);
 
     }
     /* END CALL IMPLEMENTS FUNCTION */

@@ -19,13 +19,22 @@ import com.google.firebase.database.FirebaseDatabase;
 public class MainActivity extends AppCompatActivity {
     private NavHostFragment navHost;
     private RoomViewModel roomViewModel;
+    private static FirebaseDatabase database = null;
+
+    public static FirebaseDatabase GetFirebaseInstance(){
+        if(database == null){
+            database = FirebaseDatabase.getInstance();
+        }
+
+        return database;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        FirebaseDatabase.getInstance().setPersistenceEnabled(true);
+        GetFirebaseInstance().setPersistenceEnabled(true);
 
         // Retrieve data from FIrebase
         roomViewModel = ViewModelProviders.of(this).get(RoomViewModel.class);
@@ -87,10 +96,15 @@ public class MainActivity extends AppCompatActivity {
                 else if(curFragmentTag.compareTo(getString(R.string.dashboardFragment)) == 0
                         || curFragmentTag.compareTo(getString(R.string.overviewFragment)) == 0){
                     // save last UI state on SharedPre
+                    if(curFragmentTag.compareTo(getString(R.string.dashboardFragment)) == 0)
+                        SharedPrefHandler.SetPref(this, SharedPrefHandler.KEY_LANDINGPAGE, SharedPrefHandler.LANDING_DASHBOARD);
+                    else
+                        SharedPrefHandler.SetPref(this, SharedPrefHandler.KEY_LANDINGPAGE, SharedPrefHandler.LANDING_OVERVIEW);
 
                     // exit
                     Log.d("Debug", "Exit");
                     super.onBackPressed();
+                    finish();
                 }else{
                     Log.d("Debug", "Press back");
                     navHost.getNavController().navigateUp();
