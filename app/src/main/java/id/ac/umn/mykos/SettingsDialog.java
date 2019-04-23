@@ -59,6 +59,11 @@ public class SettingsDialog extends DialogFragment {
             final EditText editText = view.findViewById(R.id.editTextInput);
             editText.setHint(R.string.howmanyroom); // set hint for edit text
 
+            String initial = getArguments().getString("initial");
+            if(!initial.equalsIgnoreCase("")) {
+                editText.setText(initial); // set initial text for edit text
+            }
+
             // button onclick, call function sendNumberOfRoom with parameter int from input in edit text
             btnPositive.setOnClickListener(v -> {
                 String value = editText.getText().toString();
@@ -72,8 +77,11 @@ public class SettingsDialog extends DialogFragment {
         else if(target.equalsIgnoreCase("RoomIDValue")){ // if click Room ID Value option
             title.setText(R.string.roomidvalue); // set dialog title
 
-            // button onclick, call function sendRoomIDValue with parameter string from spinner (dropdown) menu item
             final Spinner spinner = view.findViewById(R.id.spinnerInput);
+            int initial = getArguments().getInt("initial");
+            spinner.setSelection(initial); // set initial selected spinner
+
+            // button onclick, call function sendRoomIDValue with parameter string from spinner (dropdown) menu item
             btnPositive.setOnClickListener(v -> {
                 onClickPositiveButton.sendRoomIDValue(String.valueOf(spinner.getSelectedItem()));
                 getDialog().dismiss(); // close dialog
@@ -84,6 +92,11 @@ public class SettingsDialog extends DialogFragment {
 
             final EditText editText = view.findViewById(R.id.editTextInput);
             editText.setHint(R.string.howmanyday); // set hint for edit text
+
+            String initial = getArguments().getString("initial");
+            if(!initial.equalsIgnoreCase("")) {
+                editText.setText(initial); // set initial text for edit text
+            }
 
             // button onclick, call function sendNumberOfRoom with parameter int from input in edit text
             btnPositive.setOnClickListener(v -> {

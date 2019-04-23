@@ -96,6 +96,7 @@ public class SettingsFragment extends Fragment implements SettingsDialog.OnClick
             Bundle bundle = new Bundle();
             bundle.putInt("layoutID", R.layout.dialog_edittext_number);
             bundle.putString("target", "NumberOfRoom");
+            bundle.putString("initial", Integer.toString(SharedPrefHandler.GetPrefInt(getActivity(), SharedPrefHandler.KEY_NUMBEROFROOM)));
             SettingsDialog settingsDialog = new SettingsDialog();
             settingsDialog.setArguments(bundle);
             settingsDialog.setTargetFragment(SettingsFragment.this, 200);
@@ -107,6 +108,7 @@ public class SettingsFragment extends Fragment implements SettingsDialog.OnClick
             Bundle bundle = new Bundle();
             bundle.putInt("layoutID", R.layout.dialog_settings_dropdown);
             bundle.putString("target", "RoomIDValue");
+            bundle.putInt("initial", SharedPrefHandler.GetPrefInt(getActivity(), SharedPrefHandler.KEY_ID));
             SettingsDialog settingsDialog = new SettingsDialog();
             settingsDialog.setArguments(bundle);
             settingsDialog.setTargetFragment(SettingsFragment.this, 200);
@@ -118,6 +120,7 @@ public class SettingsFragment extends Fragment implements SettingsDialog.OnClick
             Bundle bundle = new Bundle();
             bundle.putInt("layoutID", R.layout.dialog_edittext_number);
             bundle.putString("target", "MaximalDueDate");
+            bundle.putString("initial", Integer.toString(SharedPrefHandler.GetPrefInt(getActivity(), SharedPrefHandler.KEY_NUMBEROFROOM)));
             SettingsDialog settingsDialog = new SettingsDialog();
             settingsDialog.setArguments(bundle);
             settingsDialog.setTargetFragment(SettingsFragment.this, 200);
