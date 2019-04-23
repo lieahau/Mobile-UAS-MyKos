@@ -28,6 +28,8 @@ public class RoomDetailFragment extends Fragment implements RoomDetailDialog.OnC
     TextView roomID, nameData, contactData, arriveData, deadlineData;
     ImageButton nameEditBtn, contactEditBtn, arriveEditBtn, deadlineEditBtn;
     private boolean hasInitial;
+    private int RoomID;
+    private Room thisRoom;
 
     public RoomDetailFragment() {
         // Required empty public constructor
@@ -36,27 +38,33 @@ public class RoomDetailFragment extends Fragment implements RoomDetailDialog.OnC
     @Override
     public void sendName(String input) {
         Log.e("ROOM DETAIL FRAGMENT", "sendName: found incoming input: " + input);
-        /* TODO: WRITE ACTION AFTER INPUT NAME HERE */
-
+        thisRoom.setName(input);
+        roomViewModel.changeRoom(RoomID, thisRoom);
+        nameData.setText(input);
     }
 
     @Override
     public void sendContact(String input) {
         Log.e("ROOM DETAIL FRAGMENT", "sendContact: found incoming input: " + input);
-        /* TODO: WRITE ACTION AFTER INPUT CONTACT HERE */
-
+        thisRoom.setContact(input);
+        roomViewModel.changeRoom(RoomID, thisRoom);
+        contactData.setText(input);
     }
 
     private DatePickerDialog.OnDateSetListener sendArrive = (view, year, month, day) -> { // year, month, and day is Integer
         Log.e("ROOM DETAIL FRAGMENT", "sendArrive: found incoming input: " + day + "/" + month + "/" + year);
-        /* TODO: WRITE ACTION AFTER INPUT ARRIVE DATE HERE */
-
+        String str = day+"/"+month+"/"+year;
+        thisRoom.setArrivalDate(Room.stringToDate(str));
+        roomViewModel.changeRoom(RoomID, thisRoom);
+        arriveData.setText(str);
     };
 
     private DatePickerDialog.OnDateSetListener sendDeadline = (view, year, month, day) -> { // year, month, and day is Integer
         Log.e("ROOM DETAIL FRAGMENT", "sendDeadline: found incoming input: " + day + "/" + month + "/" + year);
-        /* TODO: WRITE ACTION AFTER INPUT ARRIVE DATE HERE */
-
+        String str = day+"/"+month+"/"+year;
+        thisRoom.setPaymentDeadline(Room.stringToDate(str));
+        roomViewModel.changeRoom(RoomID, thisRoom);
+        deadlineData.setText(str);
     };
 
     @Override
@@ -101,7 +109,8 @@ public class RoomDetailFragment extends Fragment implements RoomDetailDialog.OnC
         // get args first and if args not -1
         // get Room data and set up content
         if(getArguments() != null){
-            int RoomID = RoomDetailFragmentArgs.fromBundle(getArguments()).getRoomID();
+            RoomID = RoomDetailFragmentArgs.fromBundle(getArguments()).getRoomID();
+            thisRoom = roomViewModel.GetRoom(RoomID).getValue();
             if(RoomID != -1){
                 roomViewModel.GetRoom(RoomID).observe(this, newData -> {
                     // Content will change automatically

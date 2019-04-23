@@ -29,6 +29,8 @@ import android.view.ViewGroup;
 import com.google.android.material.navigation.NavigationView;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 
 public class DashboardFragment extends Fragment implements DashboardDialog.OnClickPositiveButton {
     private DrawerLayout drawerLayout;
@@ -55,7 +57,16 @@ public class DashboardFragment extends Fragment implements DashboardDialog.OnCli
             Drawable newIcon = searchItem.getIcon();
             newIcon.mutate().setColorFilter(getResources().getColor(R.color.colorLightGreen), PorterDuff.Mode.MULTIPLY);
             /* END CHANGE ICON COLOR TO GREEN */
+
             /* TODO: WRITE ACTION AFTER INPUT SEARCH HERE */
+//            ArrayList<Room> searchData = new ArrayList<Room>();
+//            for (Room room : roomViewModel.GetDashboardData().getValue()) {
+//                if (room.getName().toLowerCase().contains(input.toLowerCase())) {
+//                    searchData.add(room);
+//                }
+//            }
+//            dashboardAdapter.SetData(searchData);
+//            dashboardAdapter.notifyDataSetChanged();
 
         }
         else{ // empty string search
@@ -78,7 +89,17 @@ public class DashboardFragment extends Fragment implements DashboardDialog.OnCli
                 newIcon.mutate().setColorFilter(getResources().getColor(R.color.colorLightGreen), PorterDuff.Mode.MULTIPLY);
                 /* END CHANGE ICON COLOR TO GREEN */
 
-                /* TODO: WRITE SORT BY NAME HERE */
+                /* WRITE SORT BY NAME */
+                ArrayList<Room> sortData = roomViewModel.GetDashboardData().getValue();
+                Collections.sort(sortData, new Comparator<Room>() {
+                    @Override
+                    public int compare(Room room1, Room room2) {
+                        return room1.getName().compareToIgnoreCase(room2.getName());
+                    }
+                });
+
+                dashboardAdapter.SetData(sortData);
+                dashboardAdapter.notifyDataSetChanged();
             }
             else if(input.equalsIgnoreCase(getResources().getString(R.string.sortbyid))){ // SORT BY ID
                 /* START CHANGE ICON COLOR TO GREEN */
@@ -86,7 +107,16 @@ public class DashboardFragment extends Fragment implements DashboardDialog.OnCli
                 newIcon.mutate().setColorFilter(getResources().getColor(R.color.colorLightGreen), PorterDuff.Mode.MULTIPLY);
                 /* END CHANGE ICON COLOR TO GREEN */
 
-                /* TODO: WRITE SORT BY ID HERE */
+                /* WRITE SORT BY ID */
+                ArrayList<Room> sortData = roomViewModel.GetDashboardData().getValue();
+                Collections.sort(sortData, new Comparator<Room>() {
+                    @Override
+                    public int compare(Room room1, Room room2) {
+                        return room1.getID() < room2.getID() ? -1 : (room1.getID() > room2.getID() ) ? 1 : 0;
+                    }
+                });
+                dashboardAdapter.SetData(sortData);
+                dashboardAdapter.notifyDataSetChanged();
 
             }
             else if(input.equalsIgnoreCase(getResources().getString(R.string.sortbydeadline))){ // SORT BY DEADLINE
@@ -95,12 +125,28 @@ public class DashboardFragment extends Fragment implements DashboardDialog.OnCli
                 newIcon.mutate().setColorFilter(getResources().getColor(R.color.colorLightGreen), PorterDuff.Mode.MULTIPLY);
                 /* END CHANGE ICON COLOR TO GREEN */
 
-                /* TODO: WRITE SORT BY DEADLINE HERE */
+                /* WRITE SORT BY DEADLINE */
+                ArrayList<Room> sortData = roomViewModel.GetDashboardData().getValue();
+                Collections.sort(sortData, new Comparator<Room>() {
+                    @Override
+                    public int compare(Room room1, Room room2) {
+                        if(room1.getPaymentDeadline() == null && room2.getPaymentDeadline() == null) return 0;
+                        else if(room1.getPaymentDeadline() == null) return 1;
+                        else if(room2.getPaymentDeadline() == null) return -1;
+                        else return room1.getPaymentDeadline().compareTo(room2.getPaymentDeadline());
+                    }
+                });
+                dashboardAdapter.SetData(sortData);
+                dashboardAdapter.notifyDataSetChanged();
             }
         }
         else{ // UNSORT (NOT SELECT ANY SORT)
             Log.e("DASHBOARD FRAGMENT", "sendSort: no sort selected");
-            /* TODO: WRITE UNSORT DATA HERE */
+
+            /* WRITE UNSORT DATA */
+            ArrayList<Room> sortData = roomViewModel.GetDashboardData().getValue();
+            dashboardAdapter.SetData(sortData);
+            dashboardAdapter.notifyDataSetChanged();
 
             /* START CHANGE ICON COLOR TO BLACK */
             Drawable newIcon = sortItem.getIcon();

@@ -8,6 +8,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.GenericTypeIndicator;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
@@ -23,6 +24,7 @@ import androidx.lifecycle.ViewModel;
 public class RoomViewModel extends ViewModel {
 
     private DatabaseReference mDatabase = MainActivity.GetFirebaseInstance().getReference();
+    private String idUser;
 
     // hold all value
     private MutableLiveData<ArrayList<Room>> datas = new MutableLiveData<ArrayList<Room>>();
@@ -31,19 +33,19 @@ public class RoomViewModel extends ViewModel {
 
     // Get Firebase
     public void getFirebase(String idUser){
-        mDatabase.addValueEventListener(new ValueEventListener() {
+        this.idUser = idUser;
+        Query userDB = mDatabase.child(idUser).child("rooms");
+        userDB.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                GenericTypeIndicator<ArrayList<Room>> genericTypeIndicator =new GenericTypeIndicator<ArrayList<Room>>(){};
-//                ArrayList<Room> listRoom = dataSnapshot.child("users").child(idUser).getValue(genericTypeIndicator);
-                ArrayList<Room> listRoom = dataSnapshot.child("rooms").getValue(genericTypeIndicator);
+                ArrayList<Room> listRoom = new ArrayList<Room>();
 
-                if(listRoom == null){
-                    setFirebase("", 10);
-                    listRoom = dataSnapshot.child("rooms").getValue(genericTypeIndicator);
+                if(!dataSnapshot.exists()) setPlaceholder(10);
+                for (DataSnapshot postSnapshot: dataSnapshot.getChildren()) {
+                    Room room = postSnapshot.getValue(Room.class);
+                    listRoom.add(room);
                 }
 
-//                for (Room room: listRoom) Log.e("Room", Integer.toString(room.getID()) + room.getName() + " " + room.getPaymentDeadlineString());
                 SetData(listRoom);
                 SetDashboardData();
             }
@@ -55,22 +57,23 @@ public class RoomViewModel extends ViewModel {
         });
     }
 
-    public void setFirebase(String idUser, Integer idx){
-//        for(int i=0; i<idx/3; i++){
-//            Room newRoom = new Room(i+1, "Orang", "01/01/2021", "31/12/2099", "---");
-////            mDatabase.child("users").child(idUser).child(Integer.toString(i)).setValue(newRoom);
-//            mDatabase.child("rooms").child(Integer.toString(i)).setValue(newRoom);
-//        }
-//        for(int i=idx/3; i<idx*2/3; i++){
-//            Room newRoom = new Room(i+1, "Makhlus halus", "01/01/2001", null, "---");
-////            mDatabase.child("users").child(idUser).child(Integer.toString(i)).setValue(newRoom);
-//            mDatabase.child("rooms").child(Integer.toString(i)).setValue(newRoom);
-//        }
-        for(int i=0; i<idx; i++){
-            Room newRoom = new Room(i+1, "Empty", null, null, "---");
-//            mDatabase.child("users").child(idUser).child(Integer.toString(i)).setValue(newRoom);
-            mDatabase.child("rooms").child(Integer.toString(i)).setValue(newRoom);
+    public void setPlaceholder(Integer idx){
+        for(int i=1; i<=idx/3; i++){
+            Room newRoom = new Room(i, "Orang", "01/01/2001", "31/12/2099", "---");
+            mDatabase.child(idUser).child("rooms").child(Integer.toString(i)).setValue(newRoom);
         }
+        for(int i=idx/3+1; i<=idx*2/3; i++){
+            Room newRoom = new Room(i, "Makhlus halus", "01/01/2021", null, "---");
+            mDatabase.child(idUser).child("rooms").child(Integer.toString(i)).setValue(newRoom);
+        }
+        for(int i=idx*2/3+1; i<=idx; i++){
+            Room newRoom = new Room(i, "Empty", null, null, "---");
+            mDatabase.child(idUser).child("rooms").child(Integer.toString(i)).setValue(newRoom);
+        }
+    }
+
+    public void changeRoom(int id, Room newRoom){
+        mDatabase.child(idUser).child("rooms").child(Integer.toString(id)).setValue(newRoom);
     }
 
     // Set data from Main Thread

@@ -39,7 +39,7 @@ public class MainActivity extends AppCompatActivity {
 
         // Retrieve data from FIrebase
         roomViewModel = ViewModelProviders.of(this).get(RoomViewModel.class);
-        roomViewModel.getFirebase("");
+        roomViewModel.getFirebase("user1");
 
         navHost = (NavHostFragment) getSupportFragmentManager().findFragmentById(R.id.nav_host_fragment);
     }
@@ -112,11 +112,6 @@ public class MainActivity extends AppCompatActivity {
 
             }
         }
-    }
-
-    // Populate dummy data to Firebase
-    public void initDatabase(String idUser, Integer idx){
-        roomViewModel.setFirebase(idUser, idx);
     }
 
     // Retrieve data from Firebase

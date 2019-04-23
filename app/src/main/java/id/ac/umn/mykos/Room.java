@@ -71,12 +71,13 @@ public class Room {
         String str;
         Date now = new Date();
         if (this.arrivalDate == null) str = STATUS_EMPTY;
-        else if (this.arrivalDate.compareTo(new Date()) >= 0) str = STATUS_OCCUPIED;
+        else if (this.arrivalDate.compareTo(new Date()) <= 0) str = STATUS_OCCUPIED;
         else str = STATUS_RESERVED;
         return str;
     }
 
     public void setName(String name){this.name = name;}
+    public void setContact(String contact){this.contact = contact;}
     public void setArrivalDate(Date date){this.arrivalDate = date;}
     public void setPaymentDeadline(Date date){this.paymentDeadline = date;}
 
