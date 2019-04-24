@@ -34,6 +34,7 @@ public class RoomViewModel extends ViewModel {
     private MutableLiveData<ArrayList<Room>> dashboardDatas = new MutableLiveData<ArrayList<Room>>();
     private MutableLiveData<ArrayList<Room>> dashboardBackup = new MutableLiveData<ArrayList<Room>>();
     private MutableLiveData<Room> roomData = new MutableLiveData<Room>();
+    private String sortSave;
 
     // Get Firebase
     public void getFirebase(String idUser){
@@ -121,38 +122,43 @@ public class RoomViewModel extends ViewModel {
 
 
     public void sortRoom(Context c, String search, String sort){
-        ArrayList<Room> listData;
-        if(search != null && search != ""){ // SEARCH BY NAME
-            listData = new ArrayList<Room>();
-            for (Room room : GetDashboardData().getValue()) {
+        ArrayList<Room> listData = new ArrayList<Room>();
+
+        if(search == null){ // GET ALREADY SEARCHED LIST
+            listData = GetDashboardData().getValue();
+        }
+        else if(search.compareToIgnoreCase("")==0){ // GET FULL LIST
+            listData = GetDashboardBackup().getValue();
+        }
+        else{ // GET SEARCH LIST
+            for (Room room : GetDashboardBackup().getValue()) {
                 if (room.getName().toLowerCase().contains(search.toLowerCase())) {
                     listData.add(room);
                 }
             }
         }
-        else {
-            listData = GetDashboardBackup().getValue();
-            if(sort != null && sort != "") {
-                Collections.sort(listData, new Comparator<Room>() {
-                    @Override
-                    public int compare(Room room1, Room room2) {
-                        int result;
-                        if (sort.equalsIgnoreCase(c.getResources().getString(R.string.sortbyname))) { // SORT BY NAME
-                            result = room1.getName().compareToIgnoreCase(room2.getName());
-                        } else if (sort.equalsIgnoreCase(c.getResources().getString(R.string.sortbyid))) { // SORT BY NAME
-                            result = room1.getID() < room2.getID() ? -1 : (room1.getID() > room2.getID()) ? 1 : 0;
-                        } else if (sort.equalsIgnoreCase(c.getResources().getString(R.string.sortbydeadline))) { // SORT BY NAME
-                            if (room1.getPaymentDeadline() == null && room2.getPaymentDeadline() == null)
-                                result = 0;
-                            else if (room1.getPaymentDeadline() == null) result = 1;
-                            else if (room2.getPaymentDeadline() == null) result = -1;
-                            else
-                                result = room1.getPaymentDeadline().compareTo(room2.getPaymentDeadline());
-                        } else result = 0;
-                        return result;
+
+        if(sort == null) {} // Past SORTED
+        else sortSave = sort; // NEW SORT
+
+        if(sortSave != null) { //SORT
+            Collections.sort(listData, new Comparator<Room>() {
+                @Override
+                public int compare(Room room1, Room room2) {
+                    int result = 0;
+                    if (sortSave.equalsIgnoreCase(c.getResources().getString(R.string.sortbyname))) { // SORT BY NAME
+                        result = room1.getName().compareToIgnoreCase(room2.getName());
+                    } else if (sortSave.equalsIgnoreCase(c.getResources().getString(R.string.sortbyid))) { // SORT BY ID
+                        result = room1.getID() < room2.getID() ? -1 : (room1.getID() > room2.getID()) ? 1 : 0;
+                    } else if (sortSave.equalsIgnoreCase(c.getResources().getString(R.string.sortbydeadline))) { // SORT BY DEADLINE
+                        if (room1.getPaymentDeadline() == null && room2.getPaymentDeadline() == null) result = 0;
+                        else if (room1.getPaymentDeadline() == null) result = 1;
+                        else if (room2.getPaymentDeadline() == null) result = -1;
+                        else result = room1.getPaymentDeadline().compareTo(room2.getPaymentDeadline());
                     }
-                });
-            }
+                    return result;
+                }
+            });
         }
         dashboardDatas.setValue(listData);
     }

@@ -58,7 +58,7 @@ public class DashboardFragment extends Fragment implements DashboardDialog.OnCli
             newIcon.mutate().setColorFilter(getResources().getColor(R.color.colorLightGreen), PorterDuff.Mode.MULTIPLY);
             /* END CHANGE ICON COLOR TO GREEN */
 
-            /* TODO: WRITE ACTION AFTER INPUT SEARCH HERE */
+            /* WRITE ACTION AFTER INPUT SEARCH */
             roomViewModel.sortRoom(getActivity(), input, null);
             dashboardAdapter.notifyDataSetChanged();
         }
@@ -67,7 +67,8 @@ public class DashboardFragment extends Fragment implements DashboardDialog.OnCli
             Drawable newIcon = searchItem.getIcon();
             newIcon.mutate().setColorFilter(getResources().getColor(R.color.colorBlack), PorterDuff.Mode.MULTIPLY);
             /* END CHANGE ICON COLOR TO BLACK */
-            /* TODO: WRITE ACTION AFTER INPUT EMPTY SEARCH HERE */
+            roomViewModel.sortRoom(getActivity(), "", null);
+            dashboardAdapter.notifyDataSetChanged();
 
         }
     }
