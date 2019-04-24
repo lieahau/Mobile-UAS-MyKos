@@ -30,9 +30,11 @@ public class ListDashboardAdapter extends RecyclerView.Adapter<ListDashboardAdap
 
     // let ListDashboardDiffUtil make change to data
     public void SetData(ArrayList<Room> newList){
-        DiffUtil.DiffResult result = DiffUtil.calculateDiff(new ListOverviewDiffUtil(datas, newList));
+        if(datas.size() == newList.size()){
+            DiffUtil.DiffResult result = DiffUtil.calculateDiff(new ListOverviewDiffUtil(datas, newList));
+            result.dispatchUpdatesTo(this);
+        }
         datas = newList;
-        result.dispatchUpdatesTo(this);
     }
 
     @NonNull

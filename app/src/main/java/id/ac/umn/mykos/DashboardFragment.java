@@ -59,15 +59,8 @@ public class DashboardFragment extends Fragment implements DashboardDialog.OnCli
             /* END CHANGE ICON COLOR TO GREEN */
 
             /* TODO: WRITE ACTION AFTER INPUT SEARCH HERE */
-//            ArrayList<Room> searchData = new ArrayList<Room>();
-//            for (Room room : roomViewModel.GetDashboardData().getValue()) {
-//                if (room.getName().toLowerCase().contains(input.toLowerCase())) {
-//                    searchData.add(room);
-//                }
-//            }
-//            dashboardAdapter.SetData(searchData);
-//            dashboardAdapter.notifyDataSetChanged();
-
+            roomViewModel.sortRoom(getActivity(), input, null);
+            dashboardAdapter.notifyDataSetChanged();
         }
         else{ // empty string search
             /* START CHANGE ICON COLOR TO BLACK */
@@ -90,15 +83,7 @@ public class DashboardFragment extends Fragment implements DashboardDialog.OnCli
                 /* END CHANGE ICON COLOR TO GREEN */
 
                 /* WRITE SORT BY NAME */
-                ArrayList<Room> sortData = roomViewModel.GetDashboardData().getValue();
-                Collections.sort(sortData, new Comparator<Room>() {
-                    @Override
-                    public int compare(Room room1, Room room2) {
-                        return room1.getName().compareToIgnoreCase(room2.getName());
-                    }
-                });
-
-                dashboardAdapter.SetData(sortData);
+                roomViewModel.sortRoom(getActivity(), null, input);
                 dashboardAdapter.notifyDataSetChanged();
             }
             else if(input.equalsIgnoreCase(getResources().getString(R.string.sortbyid))){ // SORT BY ID
@@ -108,16 +93,8 @@ public class DashboardFragment extends Fragment implements DashboardDialog.OnCli
                 /* END CHANGE ICON COLOR TO GREEN */
 
                 /* WRITE SORT BY ID */
-                ArrayList<Room> sortData = roomViewModel.GetDashboardData().getValue();
-                Collections.sort(sortData, new Comparator<Room>() {
-                    @Override
-                    public int compare(Room room1, Room room2) {
-                        return room1.getID() < room2.getID() ? -1 : (room1.getID() > room2.getID() ) ? 1 : 0;
-                    }
-                });
-                dashboardAdapter.SetData(sortData);
+                roomViewModel.sortRoom(getActivity(), null, input);
                 dashboardAdapter.notifyDataSetChanged();
-
             }
             else if(input.equalsIgnoreCase(getResources().getString(R.string.sortbydeadline))){ // SORT BY DEADLINE
                 /* START CHANGE ICON COLOR TO GREEN */
@@ -126,17 +103,7 @@ public class DashboardFragment extends Fragment implements DashboardDialog.OnCli
                 /* END CHANGE ICON COLOR TO GREEN */
 
                 /* WRITE SORT BY DEADLINE */
-                ArrayList<Room> sortData = roomViewModel.GetDashboardData().getValue();
-                Collections.sort(sortData, new Comparator<Room>() {
-                    @Override
-                    public int compare(Room room1, Room room2) {
-                        if(room1.getPaymentDeadline() == null && room2.getPaymentDeadline() == null) return 0;
-                        else if(room1.getPaymentDeadline() == null) return 1;
-                        else if(room2.getPaymentDeadline() == null) return -1;
-                        else return room1.getPaymentDeadline().compareTo(room2.getPaymentDeadline());
-                    }
-                });
-                dashboardAdapter.SetData(sortData);
+                roomViewModel.sortRoom(getActivity(), null, input);
                 dashboardAdapter.notifyDataSetChanged();
             }
         }
@@ -144,8 +111,7 @@ public class DashboardFragment extends Fragment implements DashboardDialog.OnCli
             Log.e("DASHBOARD FRAGMENT", "sendSort: no sort selected");
 
             /* WRITE UNSORT DATA */
-            ArrayList<Room> sortData = roomViewModel.GetDashboardData().getValue();
-            dashboardAdapter.SetData(sortData);
+            roomViewModel.sortRoom(getActivity(), null, null);
             dashboardAdapter.notifyDataSetChanged();
 
             /* START CHANGE ICON COLOR TO BLACK */

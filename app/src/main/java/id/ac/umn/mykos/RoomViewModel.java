@@ -1,5 +1,6 @@
 package id.ac.umn.mykos;
 
+import android.content.Context;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -12,6 +13,8 @@ import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
@@ -29,6 +32,7 @@ public class RoomViewModel extends ViewModel {
     // hold all value
     private MutableLiveData<ArrayList<Room>> datas = new MutableLiveData<ArrayList<Room>>();
     private MutableLiveData<ArrayList<Room>> dashboardDatas = new MutableLiveData<ArrayList<Room>>();
+    private MutableLiveData<ArrayList<Room>> dashboardBackup = new MutableLiveData<ArrayList<Room>>();
     private MutableLiveData<Room> roomData = new MutableLiveData<Room>();
 
     // Get Firebase
@@ -89,6 +93,7 @@ public class RoomViewModel extends ViewModel {
         }
 
         dashboardDatas.setValue(newDatas);
+        dashboardBackup.setValue(newDatas);
     }
 
     // Set data from different thread
@@ -110,12 +115,54 @@ public class RoomViewModel extends ViewModel {
     public LiveData<ArrayList<Room>> GetDashboardData(){
         return dashboardDatas;
     }
+    public LiveData<ArrayList<Room>> GetDashboardBackup(){
+        return dashboardBackup;
+    }
+
+
+    public void sortRoom(Context c, String search, String sort){
+        ArrayList<Room> listData;
+        if(search != null && search != ""){ // SEARCH BY NAME
+            listData = new ArrayList<Room>();
+            for (Room room : GetDashboardData().getValue()) {
+                if (room.getName().toLowerCase().contains(search.toLowerCase())) {
+                    listData.add(room);
+                }
+            }
+        }
+        else {
+            listData = GetDashboardBackup().getValue();
+            if(sort != null && sort != "") {
+                Collections.sort(listData, new Comparator<Room>() {
+                    @Override
+                    public int compare(Room room1, Room room2) {
+                        int result;
+                        if (sort.equalsIgnoreCase(c.getResources().getString(R.string.sortbyname))) { // SORT BY NAME
+                            result = room1.getName().compareToIgnoreCase(room2.getName());
+                        } else if (sort.equalsIgnoreCase(c.getResources().getString(R.string.sortbyid))) { // SORT BY NAME
+                            result = room1.getID() < room2.getID() ? -1 : (room1.getID() > room2.getID()) ? 1 : 0;
+                        } else if (sort.equalsIgnoreCase(c.getResources().getString(R.string.sortbydeadline))) { // SORT BY NAME
+                            if (room1.getPaymentDeadline() == null && room2.getPaymentDeadline() == null)
+                                result = 0;
+                            else if (room1.getPaymentDeadline() == null) result = 1;
+                            else if (room2.getPaymentDeadline() == null) result = -1;
+                            else
+                                result = room1.getPaymentDeadline().compareTo(room2.getPaymentDeadline());
+                        } else result = 0;
+                        return result;
+                    }
+                });
+            }
+        }
+        dashboardDatas.setValue(listData);
+    }
 
     // Set Room
     // this is only container for UI(not connected to database)
     public void SetRoom(Room room){
         roomData.setValue(room);
     }
+
     public void SetRoomAsync(Room room){
         roomData.postValue(room);
     }
