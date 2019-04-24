@@ -42,6 +42,10 @@ public class DashboardFragment extends Fragment implements DashboardDialog.OnCli
     private NavController navController;
     private RoomViewModel roomViewModel;
     private MenuItem sortItem, searchItem;
+    private String initialSearch;
+    private int initialSort;
+    private static final String BUNDLE_INITIAL_SEARCH = "BUNDLE_INITIAL_SEARCH";
+    private static final String BUNDLE_INITIAL_SORT = "BUNDLE_INITIAL_SORT";
 
     public DashboardFragment() {
         // Required empty public constructor
@@ -51,6 +55,8 @@ public class DashboardFragment extends Fragment implements DashboardDialog.OnCli
     @Override
     public void sendSearch(String input) {
         Log.e("DASHBOARD FRAGMENT", "sendSearch: found incoming input: " + input);
+        initialSearch = input;
+        SharedPrefHandler.SetPref(getActivity(), SharedPrefHandler.KEY_SEARCH, input);
 
         if(!input.equalsIgnoreCase("")) { // if input NOT EMPTY
             /* START CHANGE ICON COLOR TO GREEN */
@@ -67,7 +73,6 @@ public class DashboardFragment extends Fragment implements DashboardDialog.OnCli
             newIcon.mutate().setColorFilter(getResources().getColor(R.color.colorBlack), PorterDuff.Mode.MULTIPLY);
             /* END CHANGE ICON COLOR TO BLACK */
             roomViewModel.sortRoom(getActivity(), "", null);
-
         }
     }
 
@@ -76,6 +81,8 @@ public class DashboardFragment extends Fragment implements DashboardDialog.OnCli
         if(!input.equalsIgnoreCase("")){
             Log.e("DASHBOARD FRAGMENT", "sendSort: found incoming input: " + input);
             if(input.equalsIgnoreCase(getResources().getString(R.string.sortbyname))){ // SORT BY NAME
+                initialSort = R.id.radio_sort_name;
+
                 /* START CHANGE ICON COLOR TO GREEN */
                 Drawable newIcon = sortItem.getIcon();
                 newIcon.mutate().setColorFilter(getResources().getColor(R.color.colorLightGreen), PorterDuff.Mode.MULTIPLY);
@@ -85,15 +92,19 @@ public class DashboardFragment extends Fragment implements DashboardDialog.OnCli
                 roomViewModel.sortRoom(getActivity(), null, input);
             }
             else if(input.equalsIgnoreCase(getResources().getString(R.string.sortbyid))){ // SORT BY ID
-                /* START CHANGE ICON COLOR TO GREEN */
+                initialSort = R.id.radio_sort_id;
+
+                /* START CHANGE ICON COLOR TO BLACK */
                 Drawable newIcon = sortItem.getIcon();
-                newIcon.mutate().setColorFilter(getResources().getColor(R.color.colorLightGreen), PorterDuff.Mode.MULTIPLY);
-                /* END CHANGE ICON COLOR TO GREEN */
+                newIcon.mutate().setColorFilter(getResources().getColor(R.color.colorBlack), PorterDuff.Mode.MULTIPLY);
+                /* END CHANGE ICON COLOR TO BLACK */
 
                 /* WRITE SORT BY ID */
                 roomViewModel.sortRoom(getActivity(), null, input);
             }
             else if(input.equalsIgnoreCase(getResources().getString(R.string.sortbydeadline))){ // SORT BY DEADLINE
+                initialSort = R.id.radio_sort_deadline;
+
                 /* START CHANGE ICON COLOR TO GREEN */
                 Drawable newIcon = sortItem.getIcon();
                 newIcon.mutate().setColorFilter(getResources().getColor(R.color.colorLightGreen), PorterDuff.Mode.MULTIPLY);
@@ -102,18 +113,7 @@ public class DashboardFragment extends Fragment implements DashboardDialog.OnCli
                 /* WRITE SORT BY DEADLINE */
                 roomViewModel.sortRoom(getActivity(), null, input);
             }
-        }
-        else{ // UNSORT (NOT SELECT ANY SORT)
-            Log.e("DASHBOARD FRAGMENT", "sendSort: no sort selected");
-
-            /* WRITE UNSORT DATA */
-            roomViewModel.sortRoom(getActivity(), null, null);
-            //dashboardAdapter.notifyDataSetChanged();
-
-            /* START CHANGE ICON COLOR TO BLACK */
-            Drawable newIcon = sortItem.getIcon();
-            newIcon.mutate().setColorFilter(getResources().getColor(R.color.colorBlack), PorterDuff.Mode.MULTIPLY);
-            /* END CHANGE ICON COLOR TO BLACK */
+            SharedPrefHandler.SetPref(getActivity(), SharedPrefHandler.KEY_SORT, initialSort);
         }
     }
     /* END CALL IMPLEMENTS FUNCTION */
@@ -186,6 +186,7 @@ public class DashboardFragment extends Fragment implements DashboardDialog.OnCli
                 bundle = new Bundle();
                 bundle.putInt("layoutID", R.layout.dialog_dashboard_search);
                 bundle.putString("target", "Search");
+                bundle.putString("initial", initialSearch);
                 dashboardDialog = new DashboardDialog();
                 dashboardDialog.setArguments(bundle);
                 dashboardDialog.setTargetFragment(DashboardFragment.this, 200);
@@ -197,6 +198,7 @@ public class DashboardFragment extends Fragment implements DashboardDialog.OnCli
                 bundle = new Bundle();
                 bundle.putInt("layoutID", R.layout.dialog_dashboard_sort);
                 bundle.putString("target", "Sort");
+                bundle.putInt("initial", initialSort);
                 dashboardDialog = new DashboardDialog();
                 dashboardDialog.setArguments(bundle);
                 dashboardDialog.setTargetFragment(DashboardFragment.this, 200);
@@ -217,11 +219,23 @@ public class DashboardFragment extends Fragment implements DashboardDialog.OnCli
         sortItem = menu.findItem(R.id.btn_sort);
         searchItem = menu.findItem(R.id.btn_search);
 
+        initialSort = SharedPrefHandler.GetPrefInt(getActivity(), SharedPrefHandler.KEY_SORT);
         Drawable newIcon = sortItem.getIcon();
-        newIcon.mutate().setColorFilter(getResources().getColor(R.color.colorBlack), PorterDuff.Mode.MULTIPLY);
+        if(initialSort == R.id.radio_sort_id) {
+            newIcon.mutate().setColorFilter(getResources().getColor(R.color.colorBlack), PorterDuff.Mode.MULTIPLY);
+        }
+        else{
+            newIcon.mutate().setColorFilter(getResources().getColor(R.color.colorLightGreen), PorterDuff.Mode.MULTIPLY);
+        }
 
+        initialSearch = SharedPrefHandler.GetPrefString(getActivity(), SharedPrefHandler.KEY_SEARCH);
         Drawable newIcon2 = searchItem.getIcon();
-        newIcon2.mutate().setColorFilter(getResources().getColor(R.color.colorBlack), PorterDuff.Mode.MULTIPLY);
+        if(initialSearch.equalsIgnoreCase("")) {
+            newIcon2.mutate().setColorFilter(getResources().getColor(R.color.colorBlack), PorterDuff.Mode.MULTIPLY);
+        }
+        else{
+            newIcon2.mutate().setColorFilter(getResources().getColor(R.color.colorLightGreen), PorterDuff.Mode.MULTIPLY);
+        }
     }
 
     private void navigationDrawer(final View view, final DrawerLayout drawerLayout){

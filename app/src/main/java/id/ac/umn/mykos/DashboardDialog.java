@@ -59,6 +59,7 @@ public class DashboardDialog extends DialogFragment {
 
             final EditText editText = view.findViewById(R.id.editTextInput);
             editText.setHint(R.string.inputname); // set hint for edit text
+            editText.setText(getArguments().getString("initial", ""));
 
             // button onclick, call function sendSearch with parameter string from input in edit text
             btnPositive.setOnClickListener(v -> {
@@ -70,18 +71,17 @@ public class DashboardDialog extends DialogFragment {
         else if(target.equalsIgnoreCase("Sort")){ // if click sort icon in toolbar
             title.setText(R.string.sort); // set dialog title
 
+            int initial = getArguments().getInt("initial", R.id.radio_sort_id);
+            final RadioGroup radioGroup = view.findViewById(R.id.radio_sort_group);
+            radioGroup.check(initial);
+
             // button onclick, call function sendSort with parameter String based on selected radio
             btnPositive.setOnClickListener(v -> {
                 String value;
-                RadioGroup radioGroup = view.findViewById(R.id.radio_sort_group);
+
                 int selectedID = radioGroup.getCheckedRadioButtonId();
-                if(selectedID == -1) {
-                    value = ""; // EMPTY STRING IF DIDN'T CHOOSE ANYTHING
-                }
-                else{
-                    RadioButton radioButton = view.findViewById(selectedID);
-                    value = radioButton.getText().toString();
-                }
+                RadioButton radioButton = view.findViewById(selectedID);
+                value = radioButton.getText().toString();
                 onClickPositiveButton.sendSort(value);
                 getDialog().dismiss(); // close dialog
             });

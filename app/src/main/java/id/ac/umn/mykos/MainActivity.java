@@ -37,11 +37,16 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        // Retrieve data from FIrebase
+        // Retrieve data from Firebase
         roomViewModel = ViewModelProviders.of(this).get(RoomViewModel.class);
         roomViewModel.getFirebase("user1");
 
+        // Set nav host fragment
         navHost = (NavHostFragment) getSupportFragmentManager().findFragmentById(R.id.nav_host_fragment);
+
+        // Set initial shared pref
+        SharedPrefHandler.SetPref(MainActivity.this, SharedPrefHandler.KEY_SEARCH, "");
+        SharedPrefHandler.SetPref(MainActivity.this, SharedPrefHandler.KEY_SORT, R.id.radio_sort_id);
     }
 
     public void setActionBar(Toolbar toolbar){
