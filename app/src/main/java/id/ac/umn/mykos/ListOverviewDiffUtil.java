@@ -34,7 +34,7 @@ public class ListOverviewDiffUtil extends DiffUtil.Callback {
     // akan membandingkan idnya
     @Override
     public boolean areItemsTheSame(int oldItemPosition, int newItemPosition) {
-        if(oldDatas.get(oldItemPosition).getID() == newDatas.get(oldItemPosition).getID()){
+        if(oldDatas.get(oldItemPosition).getID().intValue() == newDatas.get(newItemPosition).getID().intValue()){
             return true;
         }
         return false;

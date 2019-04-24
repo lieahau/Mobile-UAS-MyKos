@@ -1,6 +1,7 @@
 package id.ac.umn.mykos;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -30,11 +31,9 @@ public class ListDashboardAdapter extends RecyclerView.Adapter<ListDashboardAdap
 
     // let ListDashboardDiffUtil make change to data
     public void SetData(ArrayList<Room> newList){
-        if(datas.size() == newList.size()){
-            DiffUtil.DiffResult result = DiffUtil.calculateDiff(new ListOverviewDiffUtil(datas, newList));
-            result.dispatchUpdatesTo(this);
-        }
+        DiffUtil.DiffResult result = DiffUtil.calculateDiff(new ListDashboardDiffUtil(datas, newList), true);
         datas = newList;
+        result.dispatchUpdatesTo(this);
     }
 
     @NonNull
@@ -48,6 +47,7 @@ public class ListDashboardAdapter extends RecyclerView.Adapter<ListDashboardAdap
     @Override
     public void onBindViewHolder(@NonNull ListDashboardView holder, int position) {
         // Setup data data into ListDashboardView
+        Log.d("Debug", "Normal Bind");
         Room room = datas.get(position);
         holder.bind(room);
     }
@@ -55,7 +55,7 @@ public class ListDashboardAdapter extends RecyclerView.Adapter<ListDashboardAdap
     @Override
     public void onBindViewHolder(@NonNull ListDashboardView holder, int position, @NonNull List<Object> payloads) {
         Room room = datas.get(position);
-
+        Log.d("Debug", "Payload Empty: "+payloads.isEmpty());
         if(!payloads.isEmpty()){
             Bundle payload = (Bundle) payloads.get(0);
             if(payload.containsKey(ListDashboardDiffUtil.NAME)){

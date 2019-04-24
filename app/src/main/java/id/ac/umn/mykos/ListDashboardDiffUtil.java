@@ -1,6 +1,7 @@
 package id.ac.umn.mykos;
 
 import android.os.Bundle;
+import android.util.Log;
 
 import java.util.ArrayList;
 
@@ -35,7 +36,7 @@ public class ListDashboardDiffUtil extends DiffUtil.Callback {
     // akan membandingkan idnya
     @Override
     public boolean areItemsTheSame(int oldItemPosition, int newItemPosition) {
-        if(oldDatas.get(oldItemPosition).getID() == newDatas.get(oldItemPosition).getID()){
+        if(oldDatas.get(oldItemPosition).getID().intValue() == newDatas.get(newItemPosition).getID().intValue()){
             return true;
         }
         return false;

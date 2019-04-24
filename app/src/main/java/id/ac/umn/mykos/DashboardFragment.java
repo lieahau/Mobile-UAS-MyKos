@@ -60,7 +60,6 @@ public class DashboardFragment extends Fragment implements DashboardDialog.OnCli
 
             /* WRITE ACTION AFTER INPUT SEARCH */
             roomViewModel.sortRoom(getActivity(), input, null);
-            dashboardAdapter.notifyDataSetChanged();
         }
         else{ // empty string search
             /* START CHANGE ICON COLOR TO BLACK */
@@ -68,7 +67,6 @@ public class DashboardFragment extends Fragment implements DashboardDialog.OnCli
             newIcon.mutate().setColorFilter(getResources().getColor(R.color.colorBlack), PorterDuff.Mode.MULTIPLY);
             /* END CHANGE ICON COLOR TO BLACK */
             roomViewModel.sortRoom(getActivity(), "", null);
-            dashboardAdapter.notifyDataSetChanged();
 
         }
     }
@@ -85,7 +83,6 @@ public class DashboardFragment extends Fragment implements DashboardDialog.OnCli
 
                 /* WRITE SORT BY NAME */
                 roomViewModel.sortRoom(getActivity(), null, input);
-                dashboardAdapter.notifyDataSetChanged();
             }
             else if(input.equalsIgnoreCase(getResources().getString(R.string.sortbyid))){ // SORT BY ID
                 /* START CHANGE ICON COLOR TO GREEN */
@@ -95,7 +92,6 @@ public class DashboardFragment extends Fragment implements DashboardDialog.OnCli
 
                 /* WRITE SORT BY ID */
                 roomViewModel.sortRoom(getActivity(), null, input);
-                dashboardAdapter.notifyDataSetChanged();
             }
             else if(input.equalsIgnoreCase(getResources().getString(R.string.sortbydeadline))){ // SORT BY DEADLINE
                 /* START CHANGE ICON COLOR TO GREEN */
@@ -105,7 +101,6 @@ public class DashboardFragment extends Fragment implements DashboardDialog.OnCli
 
                 /* WRITE SORT BY DEADLINE */
                 roomViewModel.sortRoom(getActivity(), null, input);
-                dashboardAdapter.notifyDataSetChanged();
             }
         }
         else{ // UNSORT (NOT SELECT ANY SORT)
@@ -113,7 +108,7 @@ public class DashboardFragment extends Fragment implements DashboardDialog.OnCli
 
             /* WRITE UNSORT DATA */
             roomViewModel.sortRoom(getActivity(), null, null);
-            dashboardAdapter.notifyDataSetChanged();
+            //dashboardAdapter.notifyDataSetChanged();
 
             /* START CHANGE ICON COLOR TO BLACK */
             Drawable newIcon = sortItem.getIcon();
@@ -163,7 +158,11 @@ public class DashboardFragment extends Fragment implements DashboardDialog.OnCli
 
         /* START HANDLING DASHBOARD LIST*/
         dashboardAdapter = new ListDashboardAdapter(new ArrayList<Room>(), navController);
-        roomViewModel.GetDashboardData().observe(this, newData -> dashboardAdapter.SetData(newData));
+        roomViewModel.GetDashboardData().observe(this, newData -> {
+            dashboardAdapter.SetData(newData);
+            dashboardAdapter.notifyDataSetChanged();
+            Log.d("Debug", "SetData");
+        });
 
         dashboardList = view.findViewById(R.id.dashboardList);
         dashboardList.setAdapter(dashboardAdapter);
