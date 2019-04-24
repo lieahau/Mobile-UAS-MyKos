@@ -45,14 +45,14 @@ public class SettingsFragment extends Fragment implements SettingsDialog.OnClick
         Log.e("SETTINGS FRAGMENT", "sendRoomIDValue: found incoming input: " + input);
         String[] roomIDType = getResources().getStringArray(R.array.roomidvalue_array);
         if(input.equalsIgnoreCase(roomIDType[0])){
-            Log.e("SETTINGS FRAGMENT", "sendRoomIDValue: room id alphabetic");
-            /* TODO: WRITE ACTION FOR ROOM ID VALUE = ALPHABETIC HERE*/
-            SharedPrefHandler.SetPref(getActivity(), SharedPrefHandler.KEY_ID, SharedPrefHandler.ID_ALPHABET);
-        }
-        else if(input.equalsIgnoreCase(roomIDType[1])){
             Log.e("SETTINGS FRAGMENT", "sendRoomIDValue: room id numeric");
             /* TODO: WRITE ACTION FOR ROOM ID VALUE = NUMERIC HERE */
             SharedPrefHandler.SetPref(getActivity(), SharedPrefHandler.KEY_ID, SharedPrefHandler.ID_NUMERIC);
+        }
+        else if(input.equalsIgnoreCase(roomIDType[1])){
+            Log.e("SETTINGS FRAGMENT", "sendRoomIDValue: room id alphabetic");
+            /* TODO: WRITE ACTION FOR ROOM ID VALUE = ALPHABETIC HERE*/
+            SharedPrefHandler.SetPref(getActivity(), SharedPrefHandler.KEY_ID, SharedPrefHandler.ID_ALPHABET);
         }
     }
 
@@ -120,7 +120,7 @@ public class SettingsFragment extends Fragment implements SettingsDialog.OnClick
             Bundle bundle = new Bundle();
             bundle.putInt("layoutID", R.layout.dialog_edittext_number);
             bundle.putString("target", "MaximalDueDate");
-            bundle.putString("initial", Integer.toString(SharedPrefHandler.GetPrefInt(getActivity(), SharedPrefHandler.KEY_NUMBEROFROOM)));
+            bundle.putString("initial", Integer.toString(SharedPrefHandler.GetPrefInt(getActivity(), SharedPrefHandler.KEY_DUEDATE)));
             SettingsDialog settingsDialog = new SettingsDialog();
             settingsDialog.setArguments(bundle);
             settingsDialog.setTargetFragment(SettingsFragment.this, 200);

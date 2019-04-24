@@ -58,8 +58,8 @@
     <string name="roomidvalue">Room ID value</string>
     <string name="choose">Choose</string>
     <string-array name="roomidvalue_array">
-        <item>Alphabetic</item>
         <item>Numeric</item>
+        <item>Alphabetic</item>
     </string-array>
 
     <string name="maximalduedate">Maximal due date</string>
