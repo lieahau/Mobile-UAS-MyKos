@@ -43,7 +43,7 @@ public class LoginFragment extends Fragment implements GoogleApiClient.OnConnect
     //
     GoogleApiClient mGoogleApiClient;
     GoogleSignInClient mGoogleSignInClient;
-
+    public View viewRef = null;
     //
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
@@ -64,18 +64,12 @@ public class LoginFragment extends Fragment implements GoogleApiClient.OnConnect
                 .build();
         //
 
-        final View viewRef = view;
+        viewRef = view;
         dashboard.setOnClickListener(v -> {
             //
             signIn();
             //
-            NavDirections dir;
-            if(SharedPrefHandler.GetPrefInt(getActivity(), SharedPrefHandler.KEY_LANDINGPAGE) == SharedPrefHandler.LANDING_DASHBOARD)
-                dir = LoginFragmentDirections.actionLoginFragmentToDashboardFragment();
-            else
-                dir = LoginFragmentDirections.actionLoginFragmentToOverviewFragment();
 
-            Navigation.findNavController(viewRef).navigate(dir);
         });
         signOut.setOnClickListener(v -> {
             signOut();
@@ -96,7 +90,7 @@ public class LoginFragment extends Fragment implements GoogleApiClient.OnConnect
             }
         });
     }
-    public void OnActivityResult(int requestCode, int resultCode, Intent data){
+    public void onActivityResult(int requestCode, int resultCode, Intent data){
         super.onActivityResult(requestCode, resultCode, data);
 
         if(requestCode == 9001){
@@ -112,9 +106,18 @@ public class LoginFragment extends Fragment implements GoogleApiClient.OnConnect
             // sign success
             GoogleSignInAccount acct = result.getSignInAccount();
 
+            // acct have login data
+            NavDirections dir;
+            if(SharedPrefHandler.GetPrefInt(getActivity(), SharedPrefHandler.KEY_LANDINGPAGE) == SharedPrefHandler.LANDING_DASHBOARD)
+                dir = LoginFragmentDirections.actionLoginFragmentToDashboardFragment();
+            else
+                dir = LoginFragmentDirections.actionLoginFragmentToOverviewFragment();
+
+            Navigation.findNavController(viewRef).navigate(dir);
+
         }
         else{
-            // sign failed
+            // sign failed (google login box closed)
 
         }
     }
