@@ -50,6 +50,9 @@ public class LoginFragment extends Fragment{
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        auth = new GoogleAuth(this);
+        this.view = view;
+
         SignInButton dashboard = view.findViewById(R.id.btn_to_dashboard);
         Button signOut = view.findViewById(R.id.signOut);
 
@@ -57,13 +60,11 @@ public class LoginFragment extends Fragment{
         FirebaseUser user = MainActivity.GetFirebaseAuth().getCurrentUser();
         // check if user already login or not
         // if already login then proceed without login
+
         if(user != null){
             auth.HandleDataAfterSignIn(user.getUid());
             Navigate();
         }else{
-            auth = new GoogleAuth(this);
-            this.view = view;
-
             auth.signIn();
         }
         /* END INIT GOOGLE AUTH CLASS */

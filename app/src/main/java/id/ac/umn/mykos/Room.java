@@ -55,6 +55,20 @@ public class Room {
     }
 
     public Integer getID(){return this.id;}
+
+    public static String IDNumericIntoAlphabet(int id){
+        String res = "";
+        id -= 1;
+        while(id >= 0){
+            int i = 65 + id%26;
+            char c = (char)i;
+            res += c;
+            id -= 26;
+        }
+
+        return res;
+    }
+
     public String getName(){return name;}
     public Date getArrivalDate(){return this.arrivalDate;}
     public String getArrivalDateString(){

@@ -157,7 +157,7 @@ public class DashboardFragment extends Fragment implements DashboardDialog.OnCli
         /* END CREATE TOOLBAR */
 
         /* START HANDLING DASHBOARD LIST*/
-        dashboardAdapter = new ListDashboardAdapter(new ArrayList<Room>(), navController);
+        dashboardAdapter = new ListDashboardAdapter(new ArrayList<Room>(), navController, getActivity());
         roomViewModel.GetDashboardData().observe(this, newData -> {
             dashboardAdapter.SetData(newData);
             dashboardAdapter.notifyDataSetChanged();

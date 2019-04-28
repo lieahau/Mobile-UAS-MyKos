@@ -80,7 +80,7 @@ public class OverviewFragment extends Fragment {
         /* END CREATE TOOLBAR */
 
         /* START HANDLING OVERVIEW LIST*/
-        overviewAdapter = new ListOverviewAdapter(new ArrayList<Room>(), navController);
+        overviewAdapter = new ListOverviewAdapter(new ArrayList<Room>(), navController, getActivity());
         roomViewModel.GetData().observe(this, new Observer<ArrayList<Room>>() {
             @Override
             public void onChanged(ArrayList<Room> newData) {

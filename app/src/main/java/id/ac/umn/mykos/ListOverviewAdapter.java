@@ -1,5 +1,6 @@
 package id.ac.umn.mykos;
 
+import android.app.Activity;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,14 +19,16 @@ import androidx.recyclerview.widget.RecyclerView;
 public class ListOverviewAdapter extends RecyclerView.Adapter<ListOverviewAdapter.ListOverviewView> {
     ArrayList<Room> datas = new ArrayList<Room>();
 
-    // Reference to NavController
+    // Reference to NavController and activity
     NavController navController;
+    Activity activity;
 
     public ListOverviewAdapter(){}
 
-    public ListOverviewAdapter(ArrayList<Room> newList, NavController navController){
+    public ListOverviewAdapter(ArrayList<Room> newList, NavController navController, Activity activity){
         SetData(newList);
         this.navController = navController;
+        this.activity = activity;
     }
 
     // let ListDashboardDiffUtil make change to data
@@ -102,7 +105,14 @@ public class ListOverviewAdapter extends RecyclerView.Adapter<ListOverviewAdapte
                 navController.navigate(action, extras);
             });
 
-            RoomIDText.setText(Integer.toString(room.getID()));
+            // Check ID convention setting
+            // if ID_NUMERIC then dashboard and overview will show number
+            // if ID_ALPHABET then dashboard and overview will show character
+            if(SharedPrefHandler.GetPrefInt(activity, SharedPrefHandler.KEY_ID) == SharedPrefHandler.ID_NUMERIC)
+                RoomIDText.setText(Integer.toString(room.getID()));
+            else
+                RoomIDText.setText(Room.IDNumericIntoAlphabet(room.getID().intValue()));
+
             RoomStatusText.setText(room.getStatus());
         }
     }

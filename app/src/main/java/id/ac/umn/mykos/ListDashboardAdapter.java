@@ -1,5 +1,6 @@
 package id.ac.umn.mykos;
 
+import android.app.Activity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -19,14 +20,16 @@ import androidx.recyclerview.widget.RecyclerView;
 public class ListDashboardAdapter extends RecyclerView.Adapter<ListDashboardAdapter.ListDashboardView> {
     ArrayList<Room> datas = new ArrayList<Room>();
 
-    // Reference to NavController
+    // Reference to NavController and activity
     NavController navController;
+    Activity activity;
 
     public ListDashboardAdapter(){}
 
-    public ListDashboardAdapter(ArrayList<Room> newList, NavController navController){
+    public ListDashboardAdapter(ArrayList<Room> newList, NavController navController, Activity activity){
         SetData(newList);
         this.navController = navController;
+        this.activity = activity;
     }
 
     // let ListDashboardDiffUtil make change to data
@@ -118,7 +121,14 @@ public class ListDashboardAdapter extends RecyclerView.Adapter<ListDashboardAdap
                 navController.navigate(action, extras);
             });
 
-            RoomIDText.setText(Integer.toString(room.getID()));
+            // Check ID convention setting
+            // if ID_NUMERIC then dashboard and overview will show number
+            // if ID_ALPHABET then dashboard and overview will show character
+            if(SharedPrefHandler.GetPrefInt(activity, SharedPrefHandler.KEY_ID) == SharedPrefHandler.ID_NUMERIC)
+                RoomIDText.setText(Integer.toString(room.getID()));
+            else
+                RoomIDText.setText(Room.IDNumericIntoAlphabet(room.getID().intValue()));
+
             NameText.setText(room.getName());
             DeadlineText.setText(room.getPaymentDeadlineString());
         }
