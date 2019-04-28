@@ -1,5 +1,6 @@
 package id.ac.umn.mykos;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -9,26 +10,31 @@ import androidx.fragment.app.Fragment;
 import androidx.navigation.NavDirections;
 import androidx.navigation.Navigation;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.Toast;
 
-import com.google.android.gms.auth.api.Auth;
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
-import com.google.android.gms.auth.api.signin.GoogleSignInClient;
-import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.auth.api.signin.GoogleSignInResult;
-import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.SignInButton;
-import com.google.android.gms.common.api.GoogleApiClient;
-import com.google.android.gms.common.api.ResultCallback;
-import com.google.android.gms.common.api.Status;
+import com.google.android.gms.common.api.ApiException;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthCredential;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.GoogleAuthProvider;
 
 import static com.google.android.gms.auth.api.Auth.GoogleSignInApi;
 
-public class LoginFragment extends Fragment implements GoogleApiClient.OnConnectionFailedListener {
+public class LoginFragment extends Fragment{
+    private GoogleAuth auth;
+    private View view;
+
     public LoginFragment() {
         // Required empty public constructor
     }
@@ -40,11 +46,6 @@ public class LoginFragment extends Fragment implements GoogleApiClient.OnConnect
         return inflater.inflate(R.layout.fragment_login, container, false);
     }
 
-    //
-    GoogleApiClient mGoogleApiClient;
-    GoogleSignInClient mGoogleSignInClient;
-    public View viewRef = null;
-    //
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
@@ -52,78 +53,81 @@ public class LoginFragment extends Fragment implements GoogleApiClient.OnConnect
         SignInButton dashboard = view.findViewById(R.id.btn_to_dashboard);
         Button signOut = view.findViewById(R.id.signOut);
 
+        /* START INIT GOOGLE AUTH CLASS */
+        FirebaseUser user = MainActivity.GetFirebaseAuth().getCurrentUser();
+        // check if user already login or not
+        // if already login then proceed without login
+        if(user != null){
+            auth.HandleDataAfterSignIn(user.getUid());
+            Navigate();
+        }else{
+            auth = new GoogleAuth(this);
+            this.view = view;
 
-        // Configure Google Sign In
-        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-                .requestEmail()
-                .build();
-
-        mGoogleApiClient = new GoogleApiClient.Builder(this.getActivity())
-                .enableAutoManage(this.getActivity(), this)
-                .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
-                .build();
-        //
-
-        viewRef = view;
-        dashboard.setOnClickListener(v -> {
-            //
-            signIn();
-            //
-
-        });
-        signOut.setOnClickListener(v -> {
-            signOut();
-        });
-    }
-
-    // call this func to open google sign in box
-    private void signIn() {
-        Intent signInIntent = GoogleSignInApi.getSignInIntent(mGoogleApiClient);
-        startActivityForResult(signInIntent, 9001);
-    }
-    // call this func to sign out google
-    private void signOut(){
-        Auth.GoogleSignInApi.signOut(mGoogleApiClient).setResultCallback(new ResultCallback<Status>() {
-            @Override
-            public void onResult(@NonNull Status status) {
-
-            }
-        });
-    }
-    public void onActivityResult(int requestCode, int resultCode, Intent data){
-        super.onActivityResult(requestCode, resultCode, data);
-
-        if(requestCode == 9001){
-            GoogleSignInResult result = GoogleSignInApi.getSignInResultFromIntent(data);
-            handleSignInResult(result);
+            auth.signIn();
         }
+        /* END INIT GOOGLE AUTH CLASS */
     }
 
-    // after sign in comes here
-    private void handleSignInResult(GoogleSignInResult result){
+    private void Navigate(){
+        NavDirections dir;
+        if(SharedPrefHandler.GetPrefInt(getActivity(), SharedPrefHandler.KEY_LANDINGPAGE) == SharedPrefHandler.LANDING_DASHBOARD)
+            dir = LoginFragmentDirections.actionLoginFragmentToDashboardFragment();
+        else
+            dir = LoginFragmentDirections.actionLoginFragmentToOverviewFragment();
 
-        if(result.isSuccess()){
-            // sign success
-            GoogleSignInAccount acct = result.getSignInAccount();
-
-            // acct have login data
-            NavDirections dir;
-            if(SharedPrefHandler.GetPrefInt(getActivity(), SharedPrefHandler.KEY_LANDINGPAGE) == SharedPrefHandler.LANDING_DASHBOARD)
-                dir = LoginFragmentDirections.actionLoginFragmentToDashboardFragment();
-            else
-                dir = LoginFragmentDirections.actionLoginFragmentToOverviewFragment();
-
-            Navigation.findNavController(viewRef).navigate(dir);
-
-        }
-        else{
-            // sign failed (google login box closed)
-
-        }
+        Navigation.findNavController(view).navigate(dir);
     }
 
     @Override
-    public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
-        // if not connect
+    public void onActivityResult(int requestCode, int resultCode, Intent data){
+        super.onActivityResult(requestCode, resultCode, data);
+        Log.d("Debug", "On Activity Result, request code: "+requestCode);
+
+        if(requestCode == 9001){
+            Context context = getActivity();
+            GoogleSignIn.getSignedInAccountFromIntent(data).addOnCompleteListener(new OnCompleteListener<GoogleSignInAccount>() {
+                @Override
+                public void onComplete(@NonNull Task<GoogleSignInAccount> task) {
+                    if(task.isSuccessful()){
+                        try{
+                            Log.d("Debug", "try to get sign in account");
+                            GoogleSignInAccount googleAccount = task.getResult(ApiException.class);
+                            if(googleAccount == null) throw new NullPointerException();
+                            Log.d("Debug", "Get Sign In account");
+
+                            AuthCredential credential = GoogleAuthProvider.getCredential(googleAccount.getIdToken(), null);
+                            MainActivity.GetFirebaseAuth().signInWithCredential(credential).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                                @Override
+                                public void onComplete(@NonNull Task<AuthResult> task) {
+                                    // if successfully login with google credential
+                                    if(task.isSuccessful()){
+                                        Log.d("Debug", "Success sign in with credential");
+                                        FirebaseUser user = MainActivity.GetFirebaseAuth().getCurrentUser();
+                                        Toast.makeText(getContext(), user.getEmail() + " sign in successful", Toast.LENGTH_LONG).show();
+                                        auth.HandleDataAfterSignIn(user.getUid());
+                                        Navigate();
+                                    }else{
+                                        Toast.makeText(getContext(), "Fail to sign in", Toast.LENGTH_LONG).show();
+                                    }
+                                }
+                            });
+                        }
+                        catch (ApiException e){
+                            // sign failed (google login box closed)
+                            Log.d("Debug", "Fail to sign in");
+                            Toast.makeText(context, "Fail to sign in", Toast.LENGTH_LONG).show();
+                        }
+                        catch (NullPointerException e){
+                            Log.d("Debug", "Fail to sign in");
+                            Toast.makeText(context, "Fail to sign in", Toast.LENGTH_LONG).show();
+                        }
+                    }else{
+                        Log.d("Debug", "Fail to sign in, Exception: " + task.getException());
+                        Toast.makeText(context, "Fail to sign in", Toast.LENGTH_LONG).show();
+                    }
+                }
+            });
+        }
     }
 }

@@ -13,13 +13,15 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.FirebaseDatabase;
 
 
 public class MainActivity extends AppCompatActivity {
     private NavHostFragment navHost;
-    private RoomViewModel roomViewModel;
     private static FirebaseDatabase database = null;
+    private static FirebaseAuth firebaseAuth = null;
 
     // Always get reference of Firebase from here
     // MainActivity.GetFirebaseInstance()
@@ -32,14 +34,18 @@ public class MainActivity extends AppCompatActivity {
         return database;
     }
 
+    public static FirebaseAuth GetFirebaseAuth(){
+        if(firebaseAuth == null){
+            firebaseAuth = FirebaseAuth.getInstance();
+        }
+
+        return firebaseAuth;
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        // Retrieve data from Firebase
-        roomViewModel = ViewModelProviders.of(this).get(RoomViewModel.class);
-        roomViewModel.getFirebase("user1");
 
         // Set nav host fragment
         navHost = (NavHostFragment) getSupportFragmentManager().findFragmentById(R.id.nav_host_fragment);
@@ -117,10 +123,5 @@ public class MainActivity extends AppCompatActivity {
 
             }
         }
-    }
-
-    // Retrieve data from Firebase
-    public void getDatabase(String idUser){
-        roomViewModel.getFirebase(idUser);
     }
 }

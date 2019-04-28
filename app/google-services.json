@@ -15,6 +15,22 @@
       },
       "oauth_client": [
         {
+          "client_id": "365108517044-d2njf6llgvimui5d3bsvnro6ogvaldl7.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "id.ac.umn.mykos",
+            "certificate_hash": "23e3bf8541310a85d5480e796cabe12b749908ed"
+          }
+        },
+        {
+          "client_id": "365108517044-353tft6ls2dgqc97m48fs5bumhn2144c.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "id.ac.umn.mykos",
+            "certificate_hash": "b83314c02013911130b548c66844df58155551e8"
+          }
+        },
+        {
           "client_id": "365108517044-3eapi8tg4eo6dqjv3h158995mfmkub47.apps.googleusercontent.com",
           "client_type": 3
         }
