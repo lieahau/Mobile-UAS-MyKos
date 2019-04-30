@@ -72,12 +72,12 @@ public class Room {
     public String getName(){return name;}
     public Date getArrivalDate(){return this.arrivalDate;}
     public String getArrivalDateString(){
-        if(this.arrivalDate == null) return STATUS_EMPTY;
+        if(this.arrivalDate == null) return "--/--/----";
         return dateToString(this.arrivalDate);
     }
     public Date getPaymentDeadline(){return this.paymentDeadline;}
     public String getPaymentDeadlineString(){
-            if(this.paymentDeadline == null) return STATUS_EMPTY;
+            if(this.paymentDeadline == null) return "--/--/----";
             return dateToString(this.paymentDeadline);
     }
     public String getContact(){return this.contact;}
