@@ -68,6 +68,9 @@ public class LoginFragment extends Fragment{
             auth.signIn();
         }
         /* END INIT GOOGLE AUTH CLASS */
+        dashboard.setOnClickListener(v -> {
+            auth.signIn();
+        });
     }
 
     private void Navigate(){
