@@ -1,5 +1,6 @@
 package id.ac.umn.mykos;
 
+import android.content.Context;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -9,6 +10,7 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProviders;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 
@@ -26,6 +28,7 @@ public class SettingsFragment extends Fragment implements SettingsDialog.OnClick
     private ActionBarDrawerToggle toggle;
     private NavigationView navigationView;
     private NavController navController;
+    private RoomViewModel roomViewModel;
 
     public SettingsFragment() {
         // Required empty public constructor
@@ -35,7 +38,9 @@ public class SettingsFragment extends Fragment implements SettingsDialog.OnClick
     @Override
     public void sendNumberOfRoom(int input) {
         Log.e("SETTINGS FRAGMENT", "sendNumberOfRoom: found incoming input: " + input);
-        /* TODO: WRITE ACTION AFTER INPUT NUMBER OF ROOM SETTING HERE */
+        /* CHANGE NUMBER OF ROOM */
+        roomViewModel.setPlaceholder(input);
+
         SharedPrefHandler.SetPref(getActivity(), SharedPrefHandler.KEY_NUMBEROFROOM, input);
 
     }
@@ -64,6 +69,15 @@ public class SettingsFragment extends Fragment implements SettingsDialog.OnClick
 
     }
     /* END CALL IMPLEMENTS FUNCTION */
+
+    @Override
+    public void onAttach(@NonNull Context context) {
+        super.onAttach(context);
+        /* START INIT ROOM VIEW MODEL */
+        // Use activity context to make it shareable between fragment
+        roomViewModel = ViewModelProviders.of(getActivity()).get(RoomViewModel.class);
+        /* END INIT ROOM VIEW MODEL */
+    }
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {

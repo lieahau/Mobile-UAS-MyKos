@@ -62,18 +62,17 @@ public class RoomViewModel extends ViewModel {
     }
 
     public void setPlaceholder(Integer idx){
-//        for(int i=1; i<=idx/3; i++){
-//            Room newRoom = new Room(i, "Orang", "01/01/2001", "31/12/2099", "---");
-//            mDatabase.child(idUser).child("rooms").child(Integer.toString(i)).setValue(newRoom);
-//        }
-//        for(int i=idx/3+1; i<=idx*2/3; i++){
-//            Room newRoom = new Room(i, "Makhlus halus", "01/01/2021", null, "---");
-//            mDatabase.child(idUser).child("rooms").child(Integer.toString(i)).setValue(newRoom);
-//        }
-        for(int i=1; i<=idx; i++){
-            Room newRoom = new Room(i, "Empty", null, null, "---");
-            mDatabase.child(idUser).child("rooms").child(Integer.toString(i)).setValue(newRoom);
+        ArrayList<Room> temp = datas.getValue();
+        mDatabase.child(idUser).child("rooms").removeValue();
+
+        for(int i=0; i<idx; i++){
+            Room newRoom;
+            if(temp == null || temp.size() <= i || temp.get(i) == null) newRoom = new Room(i+1, "Empty", null, null, "---");
+            else newRoom = temp.get(i);
+
+            mDatabase.child(idUser).child("rooms").child(Integer.toString(i+1)).setValue(newRoom);
         }
+
     }
 
     public void changeRoom(int id, Room newRoom){
