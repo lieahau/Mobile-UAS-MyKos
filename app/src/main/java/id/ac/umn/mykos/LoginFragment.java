@@ -62,7 +62,7 @@ public class LoginFragment extends Fragment{
         // if already login then proceed without login
 
         if(user != null){
-            auth.HandleDataAfterSignIn(user.getUid());
+            auth.HandleDataAfterSignIn(user.getUid(), false);
             Navigate();
         }else{
             auth.signIn();
@@ -106,10 +106,11 @@ public class LoginFragment extends Fragment{
                                 public void onComplete(@NonNull Task<AuthResult> task) {
                                     // if successfully login with google credential
                                     if(task.isSuccessful()){
-                                        Log.d("Debug", "Success sign in with credential");
+                                        boolean isNew = task.getResult().getAdditionalUserInfo().isNewUser();
+                                        Log.d("Debug", "Success sign in with credential, "+ (isNew ? "new user" : "old user"));
                                         FirebaseUser user = MainActivity.GetFirebaseAuth().getCurrentUser();
                                         Toast.makeText(getContext(), user.getEmail() + " sign in successful", Toast.LENGTH_LONG).show();
-                                        auth.HandleDataAfterSignIn(user.getUid());
+                                        auth.HandleDataAfterSignIn(user.getUid(),isNew);
                                         Navigate();
                                     }else{
                                         Toast.makeText(getContext(), "Fail to sign in", Toast.LENGTH_LONG).show();

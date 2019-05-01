@@ -175,7 +175,14 @@ public class RoomDetailFragment extends Fragment implements RoomDetailDialog.OnC
 
                 return true;
             case R.id.btn_reset:
-                /* TODO: RESET HERE */
+                /* RESET ROOM */
+                Room empty = new Room(RoomID, "Empty", null, null, "---");
+                roomViewModel.changeRoom(RoomID, empty);
+                nameData.setText("Empty");
+                contactData.setText("---");
+                arriveData.setText("--/--/----");
+                deadlineData.setText("--/--/----");
+
 
                 return true;
             default:

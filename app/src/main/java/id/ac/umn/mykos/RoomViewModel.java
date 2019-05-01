@@ -45,7 +45,6 @@ public class RoomViewModel extends ViewModel {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 ArrayList<Room> listRoom = new ArrayList<Room>();
 
-                if(!dataSnapshot.exists()) setPlaceholder(10);
                 for (DataSnapshot postSnapshot: dataSnapshot.getChildren()) {
                     Room room = postSnapshot.getValue(Room.class);
                     listRoom.add(room);

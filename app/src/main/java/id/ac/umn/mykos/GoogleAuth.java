@@ -55,13 +55,14 @@ public class GoogleAuth{
         mGoogleSignInClient.signOut();
     }
 
-    public void HandleDataAfterSignIn(String iduser){
+    public void HandleDataAfterSignIn(String iduser, boolean isNew){
         // Retrieve data from Firebase
         FragmentActivity activity = this.fragment.getActivity();
         if(activity != null){
             Log.d("Debug", "Successfully set Room View Model");
             RoomViewModel roomViewModel = ViewModelProviders.of(activity).get(RoomViewModel.class);
             roomViewModel.getFirebase(iduser);
+            if(isNew) roomViewModel.setPlaceholder(10);
         }else{
             Log.d("Debug", "Activity fragment is null");
         }
