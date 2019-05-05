@@ -22,6 +22,10 @@ import android.view.ViewGroup;
 import android.widget.DatePicker;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import java.util.Calendar;
+import java.util.Date;
 
 public class RoomDetailFragment extends Fragment implements RoomDetailDialog.OnClickPositiveButton {
     private RoomViewModel roomViewModel;
@@ -54,17 +58,29 @@ public class RoomDetailFragment extends Fragment implements RoomDetailDialog.OnC
     private DatePickerDialog.OnDateSetListener sendArrive = (view, year, month, day) -> { // year, month, and day is Integer
         Log.e("ROOM DETAIL FRAGMENT", "sendArrive: found incoming input: " + day + "/" + month + "/" + year);
         String str = day+"/"+month+"/"+year;
-        thisRoom.setArrivalDate(Room.stringToDate(str));
-        roomViewModel.changeRoom(RoomID, thisRoom);
-        arriveData.setText(str);
+        Date input = Room.stringToDate(str);
+        Log.d("Debug", "Debug set arrive date: "+Calendar.getInstance().getTime().compareTo(input));
+        if(Calendar.getInstance().getTime().compareTo(input) >= 0){
+            thisRoom.setArrivalDate(input);
+            roomViewModel.changeRoom(RoomID, thisRoom);
+            arriveData.setText(str);
+        }else{
+            Toast.makeText(getContext(), "Can't input date before today", Toast.LENGTH_LONG).show();
+        }
     };
 
     private DatePickerDialog.OnDateSetListener sendDeadline = (view, year, month, day) -> { // year, month, and day is Integer
         Log.e("ROOM DETAIL FRAGMENT", "sendDeadline: found incoming input: " + day + "/" + month + "/" + year);
         String str = day+"/"+month+"/"+year;
-        thisRoom.setPaymentDeadline(Room.stringToDate(str));
-        roomViewModel.changeRoom(RoomID, thisRoom);
-        deadlineData.setText(str);
+        Date input = Room.stringToDate(str);
+        Log.d("Debug", "Debug set deadline date: "+Calendar.getInstance().getTime().compareTo(input));
+        if(Calendar.getInstance().getTime().compareTo(input) >= 0){
+            thisRoom.setPaymentDeadline(input);
+            roomViewModel.changeRoom(RoomID, thisRoom);
+            deadlineData.setText(str);
+        }else{
+            Toast.makeText(getContext(), "Can't input date before today", Toast.LENGTH_LONG).show();
+        }
     };
 
     @Override

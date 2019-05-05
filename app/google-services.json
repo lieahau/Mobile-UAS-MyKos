@@ -15,19 +15,19 @@
       },
       "oauth_client": [
         {
-          "client_id": "365108517044-d2njf6llgvimui5d3bsvnro6ogvaldl7.apps.googleusercontent.com",
+          "client_id": "365108517044-oqvaqd5mfgn59pl4ttqsogc5bm95dt3h.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "id.ac.umn.mykos",
-            "certificate_hash": "23e3bf8541310a85d5480e796cabe12b749908ed"
+            "certificate_hash": "fad0e683fd45765894eee99308d5818a47d62bbc"
           }
         },
         {
-          "client_id": "365108517044-353tft6ls2dgqc97m48fs5bumhn2144c.apps.googleusercontent.com",
+          "client_id": "365108517044-66tru27481ve5vvfpdrbhip9vc7cf7sf.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "id.ac.umn.mykos",
-            "certificate_hash": "b83314c02013911130b548c66844df58155551e8"
+            "certificate_hash": "107bdcfd39a4efaaebe7c0b256c60d4de6c087f2"
           }
         },
         {

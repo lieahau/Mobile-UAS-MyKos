@@ -7,20 +7,20 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.NavController;
 import androidx.navigation.NavDirections;
 import androidx.navigation.Navigation;
 
+import android.os.Handler;
+import android.os.Looper;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.Toast;
 
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
-import com.google.android.gms.auth.api.signin.GoogleSignInResult;
-import com.google.android.gms.common.SignInButton;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -29,11 +29,9 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
 
-import static com.google.android.gms.auth.api.Auth.GoogleSignInApi;
-
 public class LoginFragment extends Fragment{
     private GoogleAuth auth;
-    private View view;
+    private NavController navController;
 
     public LoginFragment() {
         // Required empty public constructor
@@ -51,10 +49,7 @@ public class LoginFragment extends Fragment{
         super.onViewCreated(view, savedInstanceState);
 
         auth = new GoogleAuth(this);
-        this.view = view;
-
-        SignInButton dashboard = view.findViewById(R.id.btn_to_dashboard);
-        Button signOut = view.findViewById(R.id.signOut);
+        this.navController = Navigation.findNavController(view);
 
         /* START INIT GOOGLE AUTH CLASS */
         FirebaseUser user = MainActivity.GetFirebaseAuth().getCurrentUser();
@@ -62,15 +57,23 @@ public class LoginFragment extends Fragment{
         // if already login then proceed without login
 
         if(user != null){
-            auth.HandleDataAfterSignIn(user.getUid(), false);
-            Navigate();
+            // delay navigation to show splash screen
+            // execute runable in main thread
+            // not blocking
+            Handler delay = new Handler(Looper.getMainLooper());
+            delay.postDelayed(() -> {
+                auth.HandleDataAfterSignIn(user.getUid(), false);
+                Navigate();
+            }, 5);
         }else{
             auth.signIn();
         }
-        /* END INIT GOOGLE AUTH CLASS */
-        dashboard.setOnClickListener(v -> {
+
+        // tap screen to login again
+        view.setOnClickListener(v -> {
             auth.signIn();
         });
+        /* END INIT GOOGLE AUTH CLASS */
     }
 
     private void Navigate(){
@@ -80,7 +83,7 @@ public class LoginFragment extends Fragment{
         else
             dir = LoginFragmentDirections.actionLoginFragmentToOverviewFragment();
 
-        Navigation.findNavController(view).navigate(dir);
+        navController.navigate(dir);
     }
 
     @Override
@@ -113,7 +116,7 @@ public class LoginFragment extends Fragment{
                                         auth.HandleDataAfterSignIn(user.getUid(),isNew);
                                         Navigate();
                                     }else{
-                                        Toast.makeText(getContext(), "Fail to sign in", Toast.LENGTH_LONG).show();
+                                        Toast.makeText(getContext(), "Tap screen to sign in", Toast.LENGTH_LONG).show();
                                     }
                                 }
                             });
@@ -121,15 +124,15 @@ public class LoginFragment extends Fragment{
                         catch (ApiException e){
                             // sign failed (google login box closed)
                             Log.d("Debug", "Fail to sign in");
-                            Toast.makeText(context, "Fail to sign in", Toast.LENGTH_LONG).show();
+                            Toast.makeText(context, "Tap screen to sign in", Toast.LENGTH_LONG).show();
                         }
                         catch (NullPointerException e){
                             Log.d("Debug", "Fail to sign in");
-                            Toast.makeText(context, "Fail to sign in", Toast.LENGTH_LONG).show();
+                            Toast.makeText(context, "Tap screen to sign in", Toast.LENGTH_LONG).show();
                         }
                     }else{
                         Log.d("Debug", "Fail to sign in, Exception: " + task.getException());
-                        Toast.makeText(context, "Fail to sign in", Toast.LENGTH_LONG).show();
+                        Toast.makeText(context, "Tap screen to sign in", Toast.LENGTH_LONG).show();
                     }
                 }
             });

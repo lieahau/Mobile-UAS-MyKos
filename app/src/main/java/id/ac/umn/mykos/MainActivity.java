@@ -122,6 +122,10 @@ public class MainActivity extends AppCompatActivity {
                 }
 
             }
+        }else{
+            // exit
+            Log.d("Debug", "Exit");
+            super.onBackPressed();
         }
     }
 }

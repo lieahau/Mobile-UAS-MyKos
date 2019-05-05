@@ -8,7 +8,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import java.time.DayOfWeek;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import androidx.annotation.NonNull;
@@ -88,6 +91,8 @@ public class ListDashboardAdapter extends RecyclerView.Adapter<ListDashboardAdap
         TextView NameText;
         TextView DeadlineText;
 
+        TextView noticeText;
+
         FragmentNavigator.Extras extras;
 
         public ListDashboardView(@NonNull View itemView) {
@@ -100,6 +105,8 @@ public class ListDashboardAdapter extends RecyclerView.Adapter<ListDashboardAdap
             RoomIDText = itemView.findViewById(R.id.RoomID);
             NameText = itemView.findViewById(R.id.NameData);
             DeadlineText = itemView.findViewById(R.id.DeadlineData);
+
+            noticeText = itemView.findViewById(R.id.NOTICE);
 
             extras = new FragmentNavigator.Extras.Builder()
                     .addSharedElement(RoomIDText, "RoomID")
@@ -130,7 +137,25 @@ public class ListDashboardAdapter extends RecyclerView.Adapter<ListDashboardAdap
                 RoomIDText.setText(Room.IDNumericIntoAlphabet(room.getID().intValue()));
 
             NameText.setText(room.getName());
-            DeadlineText.setText(room.getPaymentDeadlineString());
+
+            // Set notice text
+            // if pass deadline but still inside deadline + maximal due date then set notice with orange text
+            // if pass deadline + maximal due date then set notice with red text
+            if(room.getPaymentDeadline() != null){
+                DeadlineText.setText(room.getPaymentDeadlineString());
+                Date todayDate = Calendar.getInstance().getTime();
+                long daypass = (room.getPaymentDeadline().getTime() - todayDate.getTime()) / (24*60*6*1000);
+                int maxDeadline = SharedPrefHandler.GetPrefInt(activity, SharedPrefHandler.KEY_DUEDATE);
+                Log.d("Debug", room.getName()+" daypass: "+daypass+", maxDeadline: "+maxDeadline);
+                if((int)daypass >= 0 && (int)daypass <= maxDeadline){
+                    noticeText.setText(room.getName()+ " pass payment date( "+ daypass +" days have passed )");
+                    noticeText.setTextColor(activity.getResources().getColor(R.color.colorThemeOrange));
+                }
+                else if((int)daypass > maxDeadline){
+                    noticeText.setText("This person pass maximal payment date");
+                    noticeText.setTextColor(activity.getResources().getColor(R.color.colorRed));
+                }
+            }
         }
     }
 
