@@ -126,7 +126,7 @@
 		android:layout_marginBottom="4dp"
 		android:autoSizeTextType="uniform"
 		android:contentDescription="Notice"
-		android:gravity="center"
+		android:gravity="start|center_vertical"
 		android:maxLines="1"
 		android:textColor="@color/colorLine"
 		app:layout_constraintBottom_toBottomOf="parent"

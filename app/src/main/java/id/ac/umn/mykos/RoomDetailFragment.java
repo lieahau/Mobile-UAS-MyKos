@@ -24,6 +24,9 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -56,11 +59,21 @@ public class RoomDetailFragment extends Fragment implements RoomDetailDialog.OnC
     }
 
     private DatePickerDialog.OnDateSetListener sendArrive = (view, year, month, day) -> { // year, month, and day is Integer
+        month++;
         Log.e("ROOM DETAIL FRAGMENT", "sendArrive: found incoming input: " + day + "/" + month + "/" + year);
         String str = day+"/"+month+"/"+year;
         Date input = Room.stringToDate(str);
-        Log.d("Debug", "Debug set arrive date: "+Calendar.getInstance().getTime().compareTo(input));
-        if(Calendar.getInstance().getTime().compareTo(input) >= 0){
+        Date todayDate = Calendar.getInstance().getTime();
+        try {
+            DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+            todayDate = dateFormat.parse(dateFormat.format(todayDate));
+        }
+        catch (ParseException e){
+            Log.e("Error", "Error parsing date");
+        }
+        long daypass = (input.getTime() - todayDate.getTime()) / (24*60*60*1000);
+        Log.d("Debug", "Debug set arrive date: "+daypass);
+        if((int)daypass >= 0){
             thisRoom.setArrivalDate(input);
             roomViewModel.changeRoom(RoomID, thisRoom);
             arriveData.setText(str);
@@ -70,11 +83,21 @@ public class RoomDetailFragment extends Fragment implements RoomDetailDialog.OnC
     };
 
     private DatePickerDialog.OnDateSetListener sendDeadline = (view, year, month, day) -> { // year, month, and day is Integer
+        month++;
         Log.e("ROOM DETAIL FRAGMENT", "sendDeadline: found incoming input: " + day + "/" + month + "/" + year);
         String str = day+"/"+month+"/"+year;
         Date input = Room.stringToDate(str);
-        Log.d("Debug", "Debug set deadline date: "+Calendar.getInstance().getTime().compareTo(input));
-        if(Calendar.getInstance().getTime().compareTo(input) >= 0){
+        Date todayDate = Calendar.getInstance().getTime();
+        try {
+            DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+            todayDate = dateFormat.parse(dateFormat.format(todayDate));
+        }
+        catch (ParseException e){
+            Log.e("Error", "Error parsing date");
+        }
+        long daypass = (input.getTime() - todayDate.getTime()) / (24*60*60*1000);
+        Log.d("Debug", "Debug set deadline date: "+daypass);
+        if(daypass >= 0){
             thisRoom.setPaymentDeadline(input);
             roomViewModel.changeRoom(RoomID, thisRoom);
             deadlineData.setText(str);

@@ -2,12 +2,16 @@ package id.ac.umn.mykos;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.text.format.DateUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.time.DayOfWeek;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -144,7 +148,14 @@ public class ListDashboardAdapter extends RecyclerView.Adapter<ListDashboardAdap
             if(room.getPaymentDeadline() != null){
                 DeadlineText.setText(room.getPaymentDeadlineString());
                 Date todayDate = Calendar.getInstance().getTime();
-                long daypass = (room.getPaymentDeadline().getTime() - todayDate.getTime()) / (24*60*6*1000);
+                try {
+                    DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+                    todayDate = dateFormat.parse(dateFormat.format(todayDate));
+                }
+                catch (ParseException e){
+                    Log.e("Error", "Error parsing date");
+                }
+                long daypass = (todayDate.getTime() - room.getPaymentDeadline().getTime()) / (24*60*60*1000);
                 int maxDeadline = SharedPrefHandler.GetPrefInt(activity, SharedPrefHandler.KEY_DUEDATE);
                 Log.d("Debug", room.getName()+" daypass: "+daypass+", maxDeadline: "+maxDeadline);
                 if((int)daypass >= 0 && (int)daypass <= maxDeadline){
