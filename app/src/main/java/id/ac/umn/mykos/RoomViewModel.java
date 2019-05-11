@@ -67,7 +67,7 @@ public class RoomViewModel extends ViewModel {
 
         for(int i=0; i<idx; i++){
             Room newRoom;
-            if(temp == null || temp.size() <= i || temp.get(i) == null) newRoom = new Room(i+1, "Empty", null, null, "---");
+            if(temp == null || temp.size() <= i || temp.get(i) == null) newRoom = new Room(i+1, "---", null, null, "---");
             else newRoom = temp.get(i);
 
             mDatabase.child(idUser).child("rooms").child(Integer.toString(i+1)).setValue(newRoom);

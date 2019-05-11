@@ -32,8 +32,8 @@ import java.util.Date;
 
 public class RoomDetailFragment extends Fragment implements RoomDetailDialog.OnClickPositiveButton {
     private RoomViewModel roomViewModel;
-    TextView roomID, nameData, contactData, arriveData, deadlineData;
-    ImageButton nameEditBtn, contactEditBtn, arriveEditBtn, deadlineEditBtn;
+    private TextView roomID, nameData, contactData, arriveData, deadlineData;
+    private ImageButton nameEditBtn, contactEditBtn, arriveEditBtn, deadlineEditBtn;
     private boolean hasInitial;
     private int RoomID;
     private Room thisRoom;
@@ -202,13 +202,12 @@ public class RoomDetailFragment extends Fragment implements RoomDetailDialog.OnC
                 return true;
             case R.id.btn_reset:
                 /* RESET ROOM */
-                Room empty = new Room(RoomID, "Empty", null, null, "---");
+                Room empty = new Room(RoomID, getResources().getString(R.string.emptydata), null, null, getResources().getString(R.string.emptydata));
                 roomViewModel.changeRoom(RoomID, empty);
-                nameData.setText("Empty");
-                contactData.setText("---");
-                arriveData.setText("--/--/----");
-                deadlineData.setText("--/--/----");
-
+                nameData.setText(R.string.emptydata);
+                contactData.setText(R.string.emptydata);
+                arriveData.setText(R.string.emptydate);
+                deadlineData.setText(R.string.emptydate);
 
                 return true;
             default:

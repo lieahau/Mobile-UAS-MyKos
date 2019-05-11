@@ -20,6 +20,8 @@
     <!-- Room Details -->
     <string name="room">Room</string>
     <string name="roomid">Room ID</string>
+    <string name="emptydata">---</string>
+    <string name="emptydate">--/--/----</string>
 
     <string name="name0">Name</string>
     <string name="name">Name : </string>
