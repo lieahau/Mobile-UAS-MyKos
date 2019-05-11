@@ -19,6 +19,7 @@ import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.navigation.NavigationView;
@@ -38,11 +39,18 @@ public class SettingsFragment extends Fragment implements SettingsDialog.OnClick
     @Override
     public void sendNumberOfRoom(int input) {
         Log.e("SETTINGS FRAGMENT", "sendNumberOfRoom: found incoming input: " + input);
-        /* CHANGE NUMBER OF ROOM */
-        roomViewModel.setPlaceholder(input);
+        if(input > 300){
+            Toast.makeText(getContext(), "Sorry, can't input more than 300 rooms.", Toast.LENGTH_LONG).show();
+        }
+        else if(input < 0){
+            Toast.makeText(getContext(), "Sorry, please input positive number.", Toast.LENGTH_LONG).show();
+        }
+        else if(input <= 300) {
+            /* CHANGE NUMBER OF ROOM */
+            roomViewModel.setPlaceholder(input);
 
-        SharedPrefHandler.SetPref(getActivity(), SharedPrefHandler.KEY_NUMBEROFROOM, input);
-
+            SharedPrefHandler.SetPref(getActivity(), SharedPrefHandler.KEY_NUMBEROFROOM, input);
+        }
     }
 
     @Override
@@ -51,12 +59,10 @@ public class SettingsFragment extends Fragment implements SettingsDialog.OnClick
         String[] roomIDType = getResources().getStringArray(R.array.roomidvalue_array);
         if(input.equalsIgnoreCase(roomIDType[0])){
             Log.e("SETTINGS FRAGMENT", "sendRoomIDValue: room id numeric");
-            /* TODO: WRITE ACTION FOR ROOM ID VALUE = NUMERIC HERE */
             SharedPrefHandler.SetPref(getActivity(), SharedPrefHandler.KEY_ID, SharedPrefHandler.ID_NUMERIC);
         }
         else if(input.equalsIgnoreCase(roomIDType[1])){
             Log.e("SETTINGS FRAGMENT", "sendRoomIDValue: room id alphabetic");
-            /* TODO: WRITE ACTION FOR ROOM ID VALUE = ALPHABETIC HERE*/
             SharedPrefHandler.SetPref(getActivity(), SharedPrefHandler.KEY_ID, SharedPrefHandler.ID_ALPHABET);
         }
     }
@@ -64,9 +70,13 @@ public class SettingsFragment extends Fragment implements SettingsDialog.OnClick
     @Override
     public void sendMaximalDueDate(int input) {
         Log.e("SETTINGS FRAGMENT", "sendMaximalDueDate: found incoming input: " + input);
-        /* TODO: WRITE ACTION AFTER INPUT MAXIMAL DUE DATE SETTING HERE */
-        SharedPrefHandler.SetPref(getActivity(), SharedPrefHandler.KEY_DUEDATE, input);
 
+        if(input < 0){
+            Toast.makeText(getContext(), "Sorry, please input positive number.", Toast.LENGTH_LONG).show();
+        }
+        else {
+            SharedPrefHandler.SetPref(getActivity(), SharedPrefHandler.KEY_DUEDATE, input);
+        }
     }
     /* END CALL IMPLEMENTS FUNCTION */
 
