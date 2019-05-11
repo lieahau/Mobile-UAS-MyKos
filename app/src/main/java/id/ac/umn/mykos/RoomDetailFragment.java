@@ -74,22 +74,14 @@ public class RoomDetailFragment extends Fragment implements RoomDetailDialog.OnC
         Log.e("ROOM DETAIL FRAGMENT", "sendDeadline: found incoming input: " + day + "/" + month + "/" + year);
         String str = day+"/"+month+"/"+year;
         Date input = Room.stringToDate(str);
-        Date todayDate = Calendar.getInstance().getTime();
-        try {
-            DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
-            todayDate = dateFormat.parse(dateFormat.format(todayDate));
-        }
-        catch (ParseException e){
-            Log.e("Error", "Error parsing date");
-        }
-        long daypass = (input.getTime() - todayDate.getTime()) / (24*60*60*1000);
-        Log.d("Debug", "Debug set deadline date: "+daypass);
-        if(daypass >= 0){
+        Date arriveDate = Room.stringToDate(arriveData.getText().toString());
+
+        if(input.after(arriveDate)){
             thisRoom.setPaymentDeadline(input);
             roomViewModel.changeRoom(RoomID, thisRoom);
             deadlineData.setText(str);
         }else{
-            Toast.makeText(getContext(), "Can't input date before today", Toast.LENGTH_LONG).show();
+            Toast.makeText(getContext(), "Sorry, please input the date more than arrive date", Toast.LENGTH_LONG).show();
         }
     };
 
@@ -185,9 +177,14 @@ public class RoomDetailFragment extends Fragment implements RoomDetailDialog.OnC
         });
 
         deadlineEditBtn.setOnClickListener(v -> {
-            RoomDetailDialog calendarDialog = new RoomDetailDialog().newCalendarInstance();
-            calendarDialog.setCallBack(sendDeadline);
-            calendarDialog.show(getFragmentManager().beginTransaction(), "RoomDetailDialog");
+            if(arriveData.getText().toString().equalsIgnoreCase(getResources().getText(R.string.emptydate).toString())) {
+                Toast.makeText(getContext(), "Sorry, please input arrive date first.", Toast.LENGTH_LONG).show();
+            }
+            else {
+                RoomDetailDialog calendarDialog = new RoomDetailDialog().newCalendarInstance();
+                calendarDialog.setCallBack(sendDeadline);
+                calendarDialog.show(getFragmentManager().beginTransaction(), "RoomDetailDialog");
+            }
         });
 
         /* END SET UP CONTENT */
