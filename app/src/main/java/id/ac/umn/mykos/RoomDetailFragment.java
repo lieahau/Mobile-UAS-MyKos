@@ -63,23 +63,10 @@ public class RoomDetailFragment extends Fragment implements RoomDetailDialog.OnC
         Log.e("ROOM DETAIL FRAGMENT", "sendArrive: found incoming input: " + day + "/" + month + "/" + year);
         String str = day+"/"+month+"/"+year;
         Date input = Room.stringToDate(str);
-        Date todayDate = Calendar.getInstance().getTime();
-        try {
-            DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
-            todayDate = dateFormat.parse(dateFormat.format(todayDate));
-        }
-        catch (ParseException e){
-            Log.e("Error", "Error parsing date");
-        }
-        long daypass = (input.getTime() - todayDate.getTime()) / (24*60*60*1000);
-        Log.d("Debug", "Debug set arrive date: "+daypass);
-        if((int)daypass >= 0){
-            thisRoom.setArrivalDate(input);
-            roomViewModel.changeRoom(RoomID, thisRoom);
-            arriveData.setText(str);
-        }else{
-            Toast.makeText(getContext(), "Can't input date before today", Toast.LENGTH_LONG).show();
-        }
+
+        thisRoom.setArrivalDate(input);
+        roomViewModel.changeRoom(RoomID, thisRoom);
+        arriveData.setText(str);
     };
 
     private DatePickerDialog.OnDateSetListener sendDeadline = (view, year, month, day) -> { // year, month, and day is Integer
