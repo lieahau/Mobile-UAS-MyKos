@@ -76,6 +76,7 @@ public class SettingsFragment extends Fragment implements SettingsDialog.OnClick
         }
         else {
             SharedPrefHandler.SetPref(getActivity(), SharedPrefHandler.KEY_DUEDATE, input);
+            roomViewModel.changeMaxDueDate(input);
         }
     }
     /* END CALL IMPLEMENTS FUNCTION */

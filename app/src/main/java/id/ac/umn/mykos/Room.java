@@ -83,12 +83,24 @@ public class Room {
     public String getContact(){return this.contact;}
     public String getStatus(){
         String str;
-        Date now = new Date();
+        Date today = new Date();
         if (this.arrivalDate == null) str = STATUS_EMPTY;
-        else if (this.arrivalDate.compareTo(new Date()) <= 0) str = STATUS_OCCUPIED;
+        else if (this.arrivalDate.compareTo(today) <= 0) str = STATUS_OCCUPIED;
         else str = STATUS_RESERVED;
         return str;
     }
+
+    public long getDue(){
+        long delta;
+        if (this.paymentDeadline == null) delta = 0;
+        else{
+            Date today = new Date();
+            long oneDay = 1000 * 60 * 60 * 24;
+            delta = (today.getTime() - this.paymentDeadline.getTime()) / oneDay;
+        }
+        return (int) delta;
+    }
+
 
     public void setName(String name){this.name = name;}
     public void setContact(String contact){this.contact = contact;}

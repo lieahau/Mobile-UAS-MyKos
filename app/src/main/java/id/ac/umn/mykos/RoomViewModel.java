@@ -35,21 +35,24 @@ public class RoomViewModel extends ViewModel {
     private MutableLiveData<ArrayList<Room>> dashboardBackup = new MutableLiveData<ArrayList<Room>>();
     private MutableLiveData<Room> roomData = new MutableLiveData<Room>();
     private String sortSave;
+    private Integer maxDueDate;
 
     // Get Firebase
     public void getFirebase(String idUser){
         this.idUser = idUser;
-        Query userDB = mDatabase.child(idUser).child("rooms");
+        Query userDB = mDatabase.child(idUser);
         userDB.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 ArrayList<Room> listRoom = new ArrayList<Room>();
 
-                for (DataSnapshot postSnapshot: dataSnapshot.getChildren()) {
+                for (DataSnapshot postSnapshot: dataSnapshot.child("rooms").getChildren()) {
                     Room room = postSnapshot.getValue(Room.class);
                     listRoom.add(room);
                 }
 
+                setMaxDueDate(dataSnapshot.child("maxDueDate").getValue(Integer.class));
+                Log.i("KOK", ""+maxDueDate);
                 SetData(listRoom);
                 SetDashboardData();
             }
@@ -79,6 +82,11 @@ public class RoomViewModel extends ViewModel {
         mDatabase.child(idUser).child("rooms").child(Integer.toString(id)).setValue(newRoom);
     }
 
+    public void setMaxDueDate(int i){ this.maxDueDate = i; }
+    public Integer getMaxDueDate(){ return this.maxDueDate; }
+    public void changeMaxDueDate(int i){
+        mDatabase.child(idUser).child("maxDueDate").setValue(i);
+    }
     // Set data from Main Thread
     private void SetData(ArrayList<Room> data){
         datas.setValue(data);

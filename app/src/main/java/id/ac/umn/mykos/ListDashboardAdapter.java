@@ -145,17 +145,11 @@ public class ListDashboardAdapter extends RecyclerView.Adapter<ListDashboardAdap
             // Set notice text
             // if pass deadline but still inside deadline + maximal due date then set notice with orange text
             // if pass deadline + maximal due date then set notice with red text
+            DeadlineText.setText(room.getPaymentDeadlineString());
+            noticeText.setText("");
+
             if(room.getPaymentDeadline() != null){
-                DeadlineText.setText(room.getPaymentDeadlineString());
-                Date todayDate = Calendar.getInstance().getTime();
-                try {
-                    DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
-                    todayDate = dateFormat.parse(dateFormat.format(todayDate));
-                }
-                catch (ParseException e){
-                    Log.e("Error", "Error parsing date");
-                }
-                long daypass = (todayDate.getTime() - room.getPaymentDeadline().getTime()) / (24*60*60*1000);
+                long daypass = room.getDue();
                 int maxDeadline = SharedPrefHandler.GetPrefInt(activity, SharedPrefHandler.KEY_DUEDATE);
                 Log.d("Debug", room.getName()+" daypass: "+daypass+", maxDeadline: "+maxDeadline);
                 if((int)daypass >= 0 && (int)daypass <= maxDeadline){
