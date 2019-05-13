@@ -161,7 +161,11 @@ public class DashboardFragment extends Fragment implements DashboardDialog.OnCli
         roomViewModel.GetDashboardData().observe(this, newData -> {
             dashboardAdapter.SetData(newData);
             dashboardAdapter.notifyDataSetChanged();
-            SharedPrefHandler.SetPref(getActivity(), SharedPrefHandler.KEY_DUEDATE, roomViewModel.getMaxDueDate());
+
+            // check for nyll reference error
+            if(roomViewModel.getMaxDueDate() != null)
+                SharedPrefHandler.SetPref(getActivity(), SharedPrefHandler.KEY_DUEDATE, roomViewModel.getMaxDueDate());
+
             Log.d("Debug", "SetData");
         });
 

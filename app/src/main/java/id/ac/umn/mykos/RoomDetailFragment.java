@@ -47,7 +47,6 @@ public class RoomDetailFragment extends Fragment implements RoomDetailDialog.OnC
         Log.e("ROOM DETAIL FRAGMENT", "sendName: found incoming input: " + input);
         thisRoom.setName(input);
         roomViewModel.changeRoom(RoomID, thisRoom);
-        nameData.setText(input);
     }
 
     @Override
@@ -55,7 +54,6 @@ public class RoomDetailFragment extends Fragment implements RoomDetailDialog.OnC
         Log.e("ROOM DETAIL FRAGMENT", "sendContact: found incoming input: " + input);
         thisRoom.setContact(input);
         roomViewModel.changeRoom(RoomID, thisRoom);
-        contactData.setText(input);
     }
 
     private DatePickerDialog.OnDateSetListener sendArrive = (view, year, month, day) -> { // year, month, and day is Integer
@@ -66,7 +64,6 @@ public class RoomDetailFragment extends Fragment implements RoomDetailDialog.OnC
 
         thisRoom.setArrivalDate(input);
         roomViewModel.changeRoom(RoomID, thisRoom);
-        arriveData.setText(str);
     };
 
     private DatePickerDialog.OnDateSetListener sendDeadline = (view, year, month, day) -> { // year, month, and day is Integer
@@ -79,7 +76,6 @@ public class RoomDetailFragment extends Fragment implements RoomDetailDialog.OnC
         if(input.after(arriveDate)){
             thisRoom.setPaymentDeadline(input);
             roomViewModel.changeRoom(RoomID, thisRoom);
-            deadlineData.setText(str);
         }else{
             Toast.makeText(getContext(), "Sorry, please input the date more than arrive date", Toast.LENGTH_LONG).show();
         }
@@ -137,8 +133,18 @@ public class RoomDetailFragment extends Fragment implements RoomDetailDialog.OnC
                     roomID.setText(Integer.toString(newData.getID()));
                     nameData.setText(newData.getName());
                     contactData.setText(newData.getContact());
-                    arriveData.setText(newData.getArrivalDateString());
-                    deadlineData.setText(newData.getPaymentDeadlineString());
+
+                    // check for null
+                    if(newData.getArrivalDate() != null)
+                        arriveData.setText(newData.getArrivalDateString());
+                    else
+                        arriveData.setText(R.string.emptydate);
+
+                    if(newData.getPaymentDeadline() != null)
+                        deadlineData.setText(newData.getPaymentDeadlineString());
+                    else
+                        deadlineData.setText(R.string.emptydate);
+
                     hasInitial = true;
                 });
             }
@@ -201,10 +207,6 @@ public class RoomDetailFragment extends Fragment implements RoomDetailDialog.OnC
                 /* RESET ROOM */
                 Room empty = new Room(RoomID, getResources().getString(R.string.emptydata), null, null, getResources().getString(R.string.emptydata));
                 roomViewModel.changeRoom(RoomID, empty);
-                nameData.setText(R.string.emptydata);
-                contactData.setText(R.string.emptydata);
-                arriveData.setText(R.string.emptydate);
-                deadlineData.setText(R.string.emptydate);
 
                 return true;
             default:

@@ -51,7 +51,10 @@ public class RoomViewModel extends ViewModel {
                     listRoom.add(room);
                 }
 
-                setMaxDueDate(dataSnapshot.child("maxDueDate").getValue(Integer.class));
+                // check for null reference error
+                if(dataSnapshot.child("maxDueDate").getValue(Integer.class) != null)
+                    setMaxDueDate(dataSnapshot.child("maxDueDate").getValue(Integer.class));
+
                 Log.i("KOK", ""+maxDueDate);
                 SetData(listRoom);
                 SetDashboardData();
@@ -79,7 +82,10 @@ public class RoomViewModel extends ViewModel {
     }
 
     public void changeRoom(int id, Room newRoom){
+        // set data in firebase
         mDatabase.child(idUser).child("rooms").child(Integer.toString(id)).setValue(newRoom);
+        // set data in mutablelivedata so you don't need to change UI manually
+        SetRoom(newRoom);
     }
 
     public void setMaxDueDate(int i){ this.maxDueDate = i; }
