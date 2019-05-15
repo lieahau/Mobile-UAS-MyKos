@@ -1,6 +1,6 @@
 <resources>
     <string name="app_name">MyKos</string>
-    <string name="OAuth_ID_Token">365108517044-3eapi8tg4eo6dqjv3h158995mfmkub47.apps.googleusercontent.com</string>
+    <string name="OAuth_ID_Token">365108517044&#8211;3eapi8tg4eo6dqjv3h158995mfmkub47.apps.googleusercontent.com</string>
     <!-- Placeholder text -->
     <string name="placeholderstrip">--------</string>
     <string name="placeholderpoint">&#8230;</string>
@@ -65,7 +65,7 @@
         <item>Alphabetic</item>
     </string-array>
 
-    <string name="maximalduedate">Maximal due date</string>
+    <string name="maximalduedate">Maximum due date</string>
     <string name="howmanyday">How many day?</string>
 
     <!-- Fragment tag-->

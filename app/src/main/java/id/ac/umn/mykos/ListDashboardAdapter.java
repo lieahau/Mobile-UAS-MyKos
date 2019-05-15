@@ -153,11 +153,11 @@ public class ListDashboardAdapter extends RecyclerView.Adapter<ListDashboardAdap
                 int maxDeadline = SharedPrefHandler.GetPrefInt(activity, SharedPrefHandler.KEY_DUEDATE);
                 Log.d("Debug", room.getName()+" daypass: "+daypass+", maxDeadline: "+maxDeadline);
                 if((int)daypass >= 0 && (int)daypass <= maxDeadline){
-                    noticeText.setText(room.getName()+ " pass payment date( "+ daypass +" days have passed )");
+                    noticeText.setText("Payment overdue: " + daypass + " days.");
                     noticeText.setTextColor(activity.getResources().getColor(R.color.colorThemeOrange));
                 }
                 else if((int)daypass > maxDeadline){
-                    noticeText.setText("This person pass maximal payment date");
+                    noticeText.setText("Max. due date has been reached.");
                     noticeText.setTextColor(activity.getResources().getColor(R.color.colorRed));
                 }
             }
