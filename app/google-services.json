@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "365108517044-7a7tj5rbau1kqj9f2mp0g2l1ov5m0mj3.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "id.ac.umn.mykos",
+            "certificate_hash": "163215bcd24161fca299ad07854b8f451b413445"
+          }
+        },
+        {
           "client_id": "365108517044-oqvaqd5mfgn59pl4ttqsogc5bm95dt3h.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
