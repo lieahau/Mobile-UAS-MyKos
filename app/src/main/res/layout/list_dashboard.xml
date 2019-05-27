@@ -41,7 +41,7 @@
 		android:textSize="30sp"
 		android:background="@drawable/drawable_circle"
 		android:gravity="start|center"
-		android:maxLines="3"
+		android:maxLines="1"
 		android:padding="8dp"
 		android:textAlignment="center"
 		android:textColor="@color/colorLine"
