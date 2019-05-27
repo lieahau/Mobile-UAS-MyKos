@@ -39,13 +39,13 @@ public class SettingsFragment extends Fragment implements SettingsDialog.OnClick
     @Override
     public void sendNumberOfRoom(int input) {
         Log.e("SETTINGS FRAGMENT", "sendNumberOfRoom: found incoming input: " + input);
-        if(input > 300){
-            Toast.makeText(getContext(), "Sorry, can't input more than 300 rooms.", Toast.LENGTH_LONG).show();
+        if(input > 100){
+            Toast.makeText(getContext(), "Sorry, can't input more than 100 rooms.", Toast.LENGTH_LONG).show();
         }
         else if(input < 0){
             Toast.makeText(getContext(), "Sorry, please input positive number.", Toast.LENGTH_LONG).show();
         }
-        else if(input <= 300) {
+        else if(input <= 100) {
             /* CHANGE NUMBER OF ROOM */
             roomViewModel.setPlaceholder(input);
 
