@@ -130,7 +130,11 @@ public class RoomDetailFragment extends Fragment implements RoomDetailDialog.OnC
                     // Content will change automatically
                     // if you SetRoom() when changing data
                     // roomViewModel.SetRoom();
-                    roomID.setText(Integer.toString(newData.getID()));
+                    if(SharedPrefHandler.GetPrefInt(getActivity(), SharedPrefHandler.KEY_ID) == SharedPrefHandler.ID_NUMERIC)
+                        roomID.setText(Integer.toString(newData.getID()));
+                    else
+                        roomID.setText(Room.IDNumericIntoAlphabet(newData.getID().intValue()));
+
                     nameData.setText(newData.getName());
                     contactData.setText(newData.getContact());
 
