@@ -20,23 +20,24 @@ public class DailyNotification extends BroadcastReceiver {
     public void onReceive(Context context, Intent intent) {
         String bigtext = roomDue();
 
-//        Intent i = new Intent(this.get, MainActivity.class);
-        Intent i = new Intent(context, MainActivity.class);
-        i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-        PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, i, 0);
+        if(late){
+            Intent i = new Intent(context, MainActivity.class);
+            i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, i, 0);
 
-        NotificationManager nm = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
-        NotificationCompat.Builder builder = new NotificationCompat.Builder(context, "ch1")
-                .setSmallIcon(R.drawable.mykos_icon)
-                .setContentTitle("MyKos")
-                .setContentText(text)
-                .setStyle(new NotificationCompat.BigTextStyle().
-                        bigText(bigtext))
-                .setPriority(NotificationCompat.PRIORITY_DEFAULT)
-                .setContentIntent(pendingIntent)
-                .setAutoCancel(true);
-        Notification n = builder.build();
-        nm.notify(111 , n);
+            NotificationManager nm = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
+            NotificationCompat.Builder builder = new NotificationCompat.Builder(context, "ch1")
+                    .setSmallIcon(R.drawable.mykos_icon)
+                    .setContentTitle("MyKos")
+                    .setContentText(text)
+                    .setStyle(new NotificationCompat.BigTextStyle().
+                            bigText(bigtext))
+                    .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+                    .setContentIntent(pendingIntent)
+                    .setAutoCancel(true);
+            Notification n = builder.build();
+            nm.notify(111 , n);
+        }
     }
 
     public String roomDue(){
