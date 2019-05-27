@@ -9,6 +9,9 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.navigation.fragment.NavHostFragment;
 
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -53,6 +56,10 @@ public class MainActivity extends AppCompatActivity {
         // Set initial shared pref
         SharedPrefHandler.SetPref(MainActivity.this, SharedPrefHandler.KEY_SEARCH, "");
         SharedPrefHandler.SetPref(MainActivity.this, SharedPrefHandler.KEY_SORT, R.id.radio_sort_id);
+
+        /* create notification channel */
+        createNotificationChannel();
+        /* */
     }
 
     public void setActionBar(Toolbar toolbar){
@@ -126,6 +133,23 @@ public class MainActivity extends AppCompatActivity {
             // exit
             Log.d("Debug", "Exit");
             super.onBackPressed();
+        }
+    }
+
+    private void createNotificationChannel() {
+        // Create the NotificationChannel, but only on API 26+ because
+        // the NotificationChannel class is new and not in the support library
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            CharSequence name = "MyKos Notification";
+            String description = "MyKos Notification";
+            int importance = NotificationManager.IMPORTANCE_DEFAULT;
+            NotificationChannel channel = new NotificationChannel("ch1", name, importance);
+            channel.setDescription(description);
+            // Register the channel with the system; you can't change the importance
+            // or other notification behaviors after this
+
+            NotificationManager notificationManager = getSystemService(NotificationManager.class);
+            notificationManager.createNotificationChannel(channel);
         }
     }
 }

@@ -1,6 +1,9 @@
 package id.ac.umn.mykos;
 
+import android.app.AlarmManager;
+import android.app.PendingIntent;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
@@ -28,9 +31,12 @@ import android.view.ViewGroup;
 
 import com.google.android.material.navigation.NavigationView;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.Date;
 
 public class DashboardFragment extends Fragment implements DashboardDialog.OnClickPositiveButton {
     private DrawerLayout drawerLayout;
@@ -125,6 +131,28 @@ public class DashboardFragment extends Fragment implements DashboardDialog.OnCli
         // Use activity context to make it shareable between fragment
         roomViewModel = ViewModelProviders.of(getActivity()).get(RoomViewModel.class);
         /* END INIT ROOM VIEW MODEL */
+
+        //call daily notif
+        createDailyNotif();
+    }
+
+    private void createDailyNotif(){
+
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTimeInMillis(System.currentTimeMillis());
+        calendar.set(Calendar.HOUR_OF_DAY, 6);
+        calendar.set(Calendar.MINUTE, 0);
+        calendar.set(Calendar.SECOND, 0);
+
+        if(calendar.getTimeInMillis() < System.currentTimeMillis()){
+            calendar.add(Calendar.DATE, 1);
+        }
+
+        Intent intent = new Intent(this.getActivity(), DailyNotification.class);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(this.getActivity(), 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+        AlarmManager am = (AlarmManager)this.getActivity().getSystemService(this.getActivity().ALARM_SERVICE);
+        am.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis() ,AlarmManager.INTERVAL_DAY, pendingIntent);
+
     }
 
     @Override
@@ -162,6 +190,10 @@ public class DashboardFragment extends Fragment implements DashboardDialog.OnCli
             dashboardAdapter.SetData(newData);
             dashboardAdapter.notifyDataSetChanged();
 
+            //set sharedpref for all room deadline here
+            SharedPrefDeadline(newData);
+            //boi
+
             // check for nyll reference error
             if(roomViewModel.getMaxDueDate() != null)
                 SharedPrefHandler.SetPref(getActivity(), SharedPrefHandler.KEY_DUEDATE, roomViewModel.getMaxDueDate());
@@ -173,6 +205,14 @@ public class DashboardFragment extends Fragment implements DashboardDialog.OnCli
         dashboardList.setAdapter(dashboardAdapter);
         /* END HANDLING DASHBOARD LIST*/
     }
+
+    public void SharedPrefDeadline(ArrayList<Room> rom){
+        SharedPrefHandler.ResetPrefDummy();
+        for(int i = 0; i < rom.size(); i++){
+            SharedPrefHandler.AddPrefDummy(rom.get(i));
+        }
+    }
+
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {

@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
 
+import java.util.ArrayList;
 import java.util.Collection;
 
 public class SharedPrefHandler {
@@ -22,6 +23,7 @@ public class SharedPrefHandler {
     static final int LANDING_DASHBOARD = 0;
     static final int LANDING_OVERVIEW = 1;
 
+    static final ArrayList<Room> DUMMY_ROOM = new ArrayList<>();
     // Accept String and Int only
     public static void SetPref(Activity activity, String key, int value){
         SharedPreferences pref = activity.getSharedPreferences(PREF_SETTING, Context.MODE_PRIVATE);
@@ -53,6 +55,16 @@ public class SharedPrefHandler {
         }
 
         return "";
+    }
+    public static void ResetPrefDummy(){
+        DUMMY_ROOM.clear();
+    }
+
+    public static void AddPrefDummy(Room r){
+        DUMMY_ROOM.add(r);
+    }
+    public static ArrayList<Room> GetPrefDummy(){
+        return DUMMY_ROOM;
     }
 
 }
